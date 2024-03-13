@@ -134,6 +134,7 @@ GameObject:
   - component: {fileID: 444272005}
   - component: {fileID: 444272006}
   - component: {fileID: 444272007}
+  - component: {fileID: 444272008}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -231,9 +232,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 596c05dab0ed1c64b8bcd1940440e141, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_AreaArray:
-  - {fileID: 1531419648}
-  - {fileID: 1978070178}
+  m_JoystickEffectThreshold: 0.3
+--- !u!114 &444272008
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 444272004}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ea33296ef968be5468695a0477774a64, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_IsObject: 0
   m_DistEpsilon: 0.2
 --- !u!1 &705507993
 GameObject:
@@ -373,7 +385,7 @@ GameObject:
   - component: {fileID: 910568226}
   - component: {fileID: 910568225}
   m_Layer: 0
-  m_Name: DeapthCube
+  m_Name: DepthCube
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -591,7 +603,7 @@ GameObject:
   - component: {fileID: 1531419648}
   m_Layer: 0
   m_Name: KitchenArea
-  m_TagString: Untagged
+  m_TagString: Navigation Area
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -689,6 +701,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_AreaDescription: {fileID: 11400000, guid: 3e03619d136068b4dbd5479c7a354ad9, type: 2}
   m_AreaIdx: 0
+  m_OverrideRow: 0
+  m_RowsCount: 0
+  m_ColumnCount: 0
+  m_LeftRowConnection: -100
+  m_RightRowConnection: -100
 --- !u!1 &1655052332
 GameObject:
   m_ObjectHideFlags: 0
@@ -799,6 +816,7 @@ GameObject:
   - component: {fileID: 1881919760}
   - component: {fileID: 1881919759}
   - component: {fileID: 1881919758}
+  - component: {fileID: 1881919761}
   m_Layer: 0
   m_Name: OutsideArea
   m_TagString: Untagged
@@ -885,6 +903,25 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1881919756}
   m_Mesh: {fileID: 10209, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!114 &1881919761
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1881919756}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a7f9e93e0a271e24f87dc786800b1e22, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_AreaDescription: {fileID: 0}
+  m_AreaIdx: 2
+  m_OverrideRow: 1
+  m_RowsCount: 17
+  m_ColumnCount: 3
+  m_LeftRowConnection: 16
+  m_RightRowConnection: -100
 --- !u!1 &1978070173
 GameObject:
   m_ObjectHideFlags: 0
@@ -900,7 +937,7 @@ GameObject:
   - component: {fileID: 1978070178}
   m_Layer: 0
   m_Name: TableArea
-  m_TagString: Untagged
+  m_TagString: Navigation Area
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -998,3 +1035,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_AreaDescription: {fileID: 11400000, guid: 3e03619d136068b4dbd5479c7a354ad9, type: 2}
   m_AreaIdx: 1
+  m_OverrideRow: 0
+  m_RowsCount: 0
+  m_ColumnCount: 0
+  m_LeftRowConnection: -100
+  m_RightRowConnection: -100

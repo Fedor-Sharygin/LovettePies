@@ -90,8 +90,24 @@ public class Area : MonoBehaviour
         m_Interactables = new ObjectMatrx(Rows, Columns);
     }
 
+    public Vector3 GetCenterOfCell(int p_RowIdx, int p_ColIdx)
+    {
+        Vector3 CellCenterPos = m_AreaStartPos;
+        CellCenterPos.x += m_CellSize.x * p_ColIdx;
+        CellCenterPos.z -= m_CellSize.z * p_RowIdx;
+
+        CellCenterPos.x += m_CellSize.x * .5f;
+        CellCenterPos.z -= m_CellSize.z * .5f;
+        return CellCenterPos;
+    }
+    public Vector3 GetCenterOfCell(Vector2Int p_CellPos)
+    {
+        return GetCenterOfCell(p_CellPos.x, p_CellPos.y);
+    }
 
 
+
+    #region Interactable Matrix methods
     public void AddObjectToMatrix(Interactable p_Object, int p_RowPos, int p_ColPos)
     {
         m_Interactables[p_RowPos, p_ColPos] = p_Object;
@@ -108,43 +124,6 @@ public class Area : MonoBehaviour
     public void RemoveObjectFromMatrix(CellElement p_CellPos)
     {
         m_Interactables[p_CellPos.m_CurCellPos.y, p_CellPos.m_CurCellPos.x] = null;
-    }
-
-
-
-    public Vector3 GetCenterOfCell(int p_RowIdx, int p_ColIdx)
-    {
-        Vector3 CellCenterPos = m_AreaStartPos;
-        CellCenterPos.x += m_CellSize.x * p_ColIdx;
-        CellCenterPos.z -= m_CellSize.z * p_RowIdx;
-
-        CellCenterPos.x += m_CellSize.x * .5f;
-        CellCenterPos.z -= m_CellSize.z * .5f;
-        return CellCenterPos;
-    }
-    public Vector3 GetCenterOfCell(Vector2Int p_CellPos)
-    {
-        return GetCenterOfCell(p_CellPos.x, p_CellPos.y);
-    }
-
-    public bool Blocks(int p_RowIdx, int p_ColIdx, GlobalNamespace.EnumMovementFlag p_MovementFlag)
-    {
-        if (p_RowIdx < 0 || p_RowIdx >= m_Interactables.Rows ||
-            p_ColIdx < 0 || p_ColIdx >= m_Interactables.Columns)
-        {
-            return false;
-        }
-
-        if (m_Interactables[p_RowIdx, p_ColIdx] == null)
-        {
-            return false;
-        }
-
-        return m_Interactables[p_RowIdx, p_ColIdx].Blocks(p_MovementFlag);
-    }
-    public bool Blocks(Vector2Int p_TargetCell, GlobalNamespace.EnumMovementFlag p_MovementFlag)
-    {
-        return Blocks(p_TargetCell.x, p_TargetCell.y, p_MovementFlag);
     }
 
     private static int[,] NeighborIndcs = new int[,] { { -1, 0 }, { 0, 1 }, { 1, 0 }, { 0, -1 } };
@@ -171,8 +150,40 @@ public class Area : MonoBehaviour
     {
         return GetInteractables(p_CellPos.y, p_CellPos.x);
     }
-    
-    
+    #endregion
+
+    #region Block Functionality
+    public bool Blocks(int p_RowIdx, int p_ColIdx, GlobalNamespace.EnumMovementFlag p_MovementFlag)
+    {
+        if (p_RowIdx < 0 || p_RowIdx >= m_Interactables.Rows ||
+            p_ColIdx < 0 || p_ColIdx >= m_Interactables.Columns)
+        {
+            return false;
+        }
+
+        if (m_Interactables[p_RowIdx, p_ColIdx] == null)
+        {
+            return false;
+        }
+
+        return m_Interactables[p_RowIdx, p_ColIdx].Blocks(p_MovementFlag);
+    }
+    public bool Blocks(Vector2Int p_TargetCell, GlobalNamespace.EnumMovementFlag p_MovementFlag)
+    {
+        return Blocks(p_TargetCell.x, p_TargetCell.y, p_MovementFlag);
+    }
+    #endregion
+
+
+    public void AStar(Vector2Int p_StartPos, Vector2Int p_EndPos, out Vector2Int[] OutPath)
+    {
+        OutPath = new Vector2Int[1];
+        OutPath[0] = new Vector2Int();
+
+        //TO-DO:
+        //Implement the astar pathfinding array
+    }
+
     public bool m_OverrideRow = false;
 
     public int m_RowsCount = -1;

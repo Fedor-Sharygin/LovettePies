@@ -15,6 +15,9 @@ public class Interactable : MonoBehaviour
     {
         CONNECTION,
 
+        RESTAURANT_CUSTOMER,
+        BARBERSHOP_CUSTOMER,
+
 
         #region Restaurant Enums
 

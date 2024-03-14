@@ -11,6 +11,7 @@ using UnityEditor;
 [Serializable]
 public class CellElement : MonoBehaviour
 {
+    #region Static Area Methods
     public static Area[] AreaArray;
     private static void GetAreaArray()
     {
@@ -23,6 +24,33 @@ public class CellElement : MonoBehaviour
                     ));
         }
     }
+    private static Area GetAreaAtIdx(int p_AreaIdx)
+    {
+        GetAreaArray();
+
+        if (p_AreaIdx < 0)
+        {
+            p_AreaIdx = 0;
+        }
+        if (p_AreaIdx >= AreaArray.Length)
+        {
+            p_AreaIdx = AreaArray.Length - 1;
+        }
+
+        return AreaArray[p_AreaIdx];
+    }
+
+    public static void AStar(int p_StartAreaIdx, Vector2Int p_StartCell, int p_EndAreaIdx, Vector2Int p_EndElement, out Vector2Int[] OutPath)
+    {
+        GetAreaArray();
+
+        GetAreaAtIdx(p_StartAreaIdx).AStar(p_StartCell, p_EndElement, out OutPath);
+
+        //TO-DO:
+        //Write an appropriate AStar pathfinding algorithm
+    }
+    #endregion
+
 
     private int m_CurAreaIdx = 1;
     private Area m_CurArea;
@@ -115,22 +143,7 @@ public class CellElement : MonoBehaviour
 
     private void GetCurArea()
     {
-        if (AreaArray == null || AreaArray.Length == 0)
-        {
-            Debug.LogError($"{name}: Could not load and position the player. Quitting the game!");
-            return;
-        }
-
-        if (m_CurAreaIdx < 0)
-        {
-            m_CurAreaIdx = 0;
-        }
-        if (m_CurAreaIdx >= AreaArray.Length)
-        {
-            m_CurAreaIdx = AreaArray.Length - 1;
-        }
-
-        m_CurArea = AreaArray[m_CurAreaIdx];
+        m_CurArea = GetAreaAtIdx(m_CurAreaIdx);
     }
 
     [SerializeField]
@@ -162,7 +175,7 @@ public class CellElement : MonoBehaviour
     }
 }
 
-
+#region Custom Cell Element Editor
 #if UNITY_EDITOR
 
 [CustomEditor(typeof(CellElement))]
@@ -193,4 +206,4 @@ class CellElementEditor : Editor
 }
 
 #endif
-
+#endregion

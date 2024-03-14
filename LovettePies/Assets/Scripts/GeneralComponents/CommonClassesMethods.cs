@@ -130,4 +130,37 @@ namespace GlobalNamespace
         BLOCKS_CUSTOMERS    = 1 << 2,
         BLOCKS_FALL_THROUGH = 1 << 3,
     }
+
+    #region TO-DO: Custom Component names (Could buy a Unity extension and study it)
+    public static class CustomComponentNames
+    {
+        public static List<string> m_ComponentCustomName = new List<string>();
+        public static Dictionary<Component, int> m_ComponentIndcs = new Dictionary<Component, int>();
+        private static int m_CurComponentSize = 0;
+
+        public static void AddComponent(Component p_Component)
+        {
+            if (m_ComponentIndcs.ContainsKey(p_Component))
+            {
+                return;
+            }
+
+            m_ComponentIndcs[p_Component] = m_CurComponentSize;
+            m_CurComponentSize++;
+            m_ComponentCustomName.Add(p_Component.GetType().Name);
+        }
+
+        public static string GetComponentName(Component p_Component)
+        {
+            int CurIdx;
+            if (!m_ComponentIndcs.TryGetValue(p_Component, out CurIdx))
+            {
+                AddComponent(p_Component);
+                CurIdx = m_ComponentIndcs[p_Component];
+            }
+
+            return m_ComponentCustomName[CurIdx];
+        }
+    }
+    #endregion
 }

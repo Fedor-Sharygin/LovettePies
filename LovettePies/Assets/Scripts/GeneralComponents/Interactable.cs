@@ -11,9 +11,13 @@ using UnityEditor;
 public class Interactable : MonoBehaviour
 {
     [Serializable]
-    protected enum EnumInteractableType
+    public enum EnumInteractableType
     {
-        CONNECTION,
+        KITCHEN_CONNECTION,
+        STORE_CONNECTION,
+
+        RESTAURANT_CUSTOMER,
+        BARBERSHOP_CUSTOMER,
 
 
         #region Restaurant Enums
@@ -39,6 +43,13 @@ public class Interactable : MonoBehaviour
     [Tooltip("Object Type describes what type of interaction it has")]
     [SerializeField]
     protected EnumInteractableType m_ObjectType;
+    public EnumInteractableType InteractableType
+    {
+        get
+        {
+            return m_ObjectType;
+        }
+    }
 
 
     [HideInInspector]
@@ -57,56 +68,75 @@ public class Interactable : MonoBehaviour
     private Vector2Int m_StartPos;
     private Vector2Int m_PrevCellPos;
     private Vector2Int m_CellPos;
+    [SerializeField]
     private CellElement m_CellElem;
     private void Start()
     {
-        m_CellElem = GetComponent<CellElement>();
-        m_CellPos = m_StartPos;
-        //m_PrevCellPos = GlobalNamespace.ObjectExtension.Clone(m_CellPos);
-        m_PrevCellPos.x = m_CellPos.x;
-        m_PrevCellPos.y = m_CellPos.y;
-
-        m_CellElem.MoveBy(m_CellPos);
-        MoveObjectToCell();
+        StartCoroutine("MoveObjectToCell");
     }
 
     private void MoveObjectToCell()
     {
+        while (CellElement.AreaArray.Length == 0) ;
+
+        //m_CellElem = GetComponent<CellElement>();
+        m_CellPos = m_StartPos;
+        m_CellElem.AreaIdx = m_AreaType;
+        //m_PrevCellPos = GlobalNamespace.ObjectExtension.Clone(m_CellPos);
+        m_PrevCellPos.x = m_CellPos.x;
+        m_PrevCellPos.y = m_CellPos.y;
+
+        m_CellElem.MoveBy(new Vector2Int(m_CellPos.y, m_CellPos.x));
         CellElement.AreaArray[m_AreaType].RemoveObjectFromMatrix(m_PrevCellPos.y, m_PrevCellPos.x);
         CellElement.AreaArray[m_AreaType].AddObjectToMatrix(this, m_CellPos.y, m_CellPos.x);
 
-        //m_PrevCellPos = GlobalNamespace.ObjectExtension.Clone(m_CellPos);
         m_PrevCellPos.x = m_CellPos.x;
         m_PrevCellPos.y = m_CellPos.y;
     }
 
+    [Space(15)]
     [SerializeField]
-    private bool m_IsInteractable = false;
-    public bool IsInteractable
+    protected UnityEvent[] m_InteractionActions;
+    [SerializeField]
+    public bool[] m_IsInteractable;
+    [SerializeField]
+    protected string[] m_InteracteeTags;
+    public virtual void Interact(MonoBehaviour m_Interactee)
     {
-        get
+        for (int i = 0; i < m_InteracteeTags.Length; ++i)
         {
-            return m_IsInteractable;
+            if (m_Interactee.tag != m_InteracteeTags[i] || !m_IsInteractable[i])
+            {
+                continue;
+            }
+
+            m_InteractionActions[i]?.Invoke();
         }
     }
 
-    [Space(15)]
-    [SerializeField]
-    protected UnityEvent m_InteractionActions;
-    public virtual void Interact()
+    public bool IsInteractable(string p_ObjectTag)
     {
-        if (!m_IsInteractable)
+        for (int i = 0; i < m_InteracteeTags.Length; ++i)
         {
-            return;
+            if (p_ObjectTag != m_InteracteeTags[i])
+            {
+                continue;
+            }
+
+            return m_IsInteractable[i];
         }
 
-        m_InteractionActions?.Invoke();
+        return false;
     }
 
 
     public void TestInteractReaction()
     {
         Debug.Log($"Interacting with object {name}-{m_ObjectType}");
+    }
+    public void TestInteractReaction2()
+    {
+        Debug.Log($"Customer Interacting with object {name}-{m_ObjectType}");
     }
 }
 

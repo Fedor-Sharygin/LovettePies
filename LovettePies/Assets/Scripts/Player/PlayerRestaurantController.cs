@@ -75,4 +75,27 @@ public class PlayerRestaurantController : MonoBehaviour
             m_ControlsHeld = false;
         }
     }
+
+
+    public void Interact(InputAction.CallbackContext p_CallbackContext)
+    {
+        if (!p_CallbackContext.started)
+        {
+            return;
+        }
+
+        foreach (var InteractObject in m_CellElement.GetNeighbors())
+        {
+            if (InteractObject == null)
+            {
+                continue;
+            }
+
+            if (InteractObject.IsInteractable)
+            {
+                InteractObject.Interact();
+                break;
+            }
+        }
+    }
 }

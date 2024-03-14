@@ -1,13 +1,18 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+
 #if UNITY_EDITOR
 using UnityEditor;
 #endif
 
+
+using ObjectMatrx = GlobalNamespace.MyMatrix<Interactable>;
+
 public class Area : MonoBehaviour
 {
     #region Complete Area Description
+
     public AreaDescriptor m_AreaDescription;
     public int m_AreaIdx;
     public int Columns
@@ -58,9 +63,11 @@ public class Area : MonoBehaviour
             return m_AreaDescription.ConnectionRows[m_AreaIdx];
         }
     }
+
     #endregion
 
 
+    private ObjectMatrx m_Interactables;
     private Vector3 m_AreaStartPos = Vector3.zero;
     private Vector3 m_CellSize = Vector3.zero;
     private void Awake()
@@ -79,7 +86,31 @@ public class Area : MonoBehaviour
 
         m_CellSize.x = 2f * Size.x / Columns;
         m_CellSize.z = 2f * Size.z / Rows;
+
+        m_Interactables = new ObjectMatrx(Rows, Columns);
     }
+
+
+
+    public void AddObjectToMatrix(Interactable p_Object, int p_RowPos, int p_ColPos)
+    {
+        m_Interactables[p_RowPos, p_ColPos] = p_Object;
+    }
+    public void AddObjectToMatrix(Interactable p_Object, CellElement p_CellPos)
+    {
+        m_Interactables[p_CellPos.m_CurCellPos.y, p_CellPos.m_CurCellPos.x] = p_Object;
+    }
+
+    public void RemoveObjectFromMatrix(int p_RowPos, int p_ColPos)
+    {
+        m_Interactables[p_RowPos, p_ColPos] = null;
+    }
+    public void RemoveObjectFromMatrix(CellElement p_CellPos)
+    {
+        m_Interactables[p_CellPos.m_CurCellPos.y, p_CellPos.m_CurCellPos.x] = null;
+    }
+
+
 
     public Vector3 GetCenterOfCell(int p_RowIdx, int p_ColIdx)
     {
@@ -96,6 +127,50 @@ public class Area : MonoBehaviour
         return GetCenterOfCell(p_CellPos.x, p_CellPos.y);
     }
 
+    public bool Blocks(int p_RowIdx, int p_ColIdx, GlobalNamespace.EnumMovementFlag p_MovementFlag)
+    {
+        if (p_RowIdx < 0 || p_RowIdx >= m_Interactables.Rows ||
+            p_ColIdx < 0 || p_ColIdx >= m_Interactables.Columns)
+        {
+            return false;
+        }
+
+        if (m_Interactables[p_RowIdx, p_ColIdx] == null)
+        {
+            return false;
+        }
+
+        return m_Interactables[p_RowIdx, p_ColIdx].Blocks(p_MovementFlag);
+    }
+    public bool Blocks(Vector2Int p_TargetCell, GlobalNamespace.EnumMovementFlag p_MovementFlag)
+    {
+        return Blocks(p_TargetCell.x, p_TargetCell.y, p_MovementFlag);
+    }
+
+    private static int[,] NeighborIndcs = new int[,] { { -1, 0 }, { 0, 1 }, { 1, 0 }, { 0, -1 } };
+    public Interactable[] GetInteractables(int p_RowIdx, int p_ColIdx)
+    {
+        Interactable[] NeighborArray = new Interactable[4];
+
+        for (int i = 0; i < 4; ++i)
+        {
+            int NRow = p_RowIdx + NeighborIndcs[i, 0];
+            int NCol = p_ColIdx + NeighborIndcs[i, 1];
+
+            if (NRow < 0 || NRow >= m_Interactables.Rows ||
+                NCol < 0 || NCol >= m_Interactables.Columns)
+            {
+                continue;
+            }
+
+            NeighborArray[i] = m_Interactables[NRow, NCol];
+        }
+        return NeighborArray;
+    }
+    public Interactable[] GetInteractables(Vector2Int p_CellPos)
+    {
+        return GetInteractables(p_CellPos.y, p_CellPos.x);
+    }
     
     
     public bool m_OverrideRow = false;

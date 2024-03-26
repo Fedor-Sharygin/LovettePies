@@ -11,7 +11,7 @@ using UnityEditor;
 public class Interactable : MonoBehaviour
 {
     [Serializable]
-    protected enum EnumInteractableType
+    public enum EnumInteractableType
     {
         CONNECTION,
 
@@ -42,6 +42,13 @@ public class Interactable : MonoBehaviour
     [Tooltip("Object Type describes what type of interaction it has")]
     [SerializeField]
     protected EnumInteractableType m_ObjectType;
+    public EnumInteractableType InteractableType
+    {
+        get
+        {
+            return m_ObjectType;
+        }
+    }
 
 
     [HideInInspector]
@@ -65,11 +72,12 @@ public class Interactable : MonoBehaviour
     {
         m_CellElem = GetComponent<CellElement>();
         m_CellPos = m_StartPos;
+        m_CellElem.AreaIdx = m_AreaType;
         //m_PrevCellPos = GlobalNamespace.ObjectExtension.Clone(m_CellPos);
         m_PrevCellPos.x = m_CellPos.x;
         m_PrevCellPos.y = m_CellPos.y;
 
-        m_CellElem.MoveBy(m_CellPos);
+        m_CellElem.MoveTo(new Vector2Int(m_CellPos.y, m_CellPos.x));
         MoveObjectToCell();
     }
 
@@ -78,7 +86,6 @@ public class Interactable : MonoBehaviour
         CellElement.AreaArray[m_AreaType].RemoveObjectFromMatrix(m_PrevCellPos.y, m_PrevCellPos.x);
         CellElement.AreaArray[m_AreaType].AddObjectToMatrix(this, m_CellPos.y, m_CellPos.x);
 
-        //m_PrevCellPos = GlobalNamespace.ObjectExtension.Clone(m_CellPos);
         m_PrevCellPos.x = m_CellPos.x;
         m_PrevCellPos.y = m_CellPos.y;
     }

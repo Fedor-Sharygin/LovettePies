@@ -112,6 +112,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_MovementTimer: {fileID: 1179349400}
   m_EatingTimer: {fileID: 1179349401}
+  m_InteractableTargetType: 0
 --- !u!114 &7605453843455599487
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -124,7 +125,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 12e1af86a6846cd47bc85814841f3722, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_ObjectType: 0
+  m_ObjectType: 1
   m_MovementFlag: 0
   m_AreaType: 0
   m_StartPos: {x: 0, y: 0}

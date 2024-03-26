@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
 #if UNITY_EDITOR
 using UnityEditor;
@@ -150,6 +151,32 @@ public class Area : MonoBehaviour
     {
         return GetInteractables(p_CellPos.y, p_CellPos.x);
     }
+    public Interactable GetInteractable(int p_RowIdx, int p_ColIdx)
+    {
+        return m_Interactables[p_RowIdx, p_ColIdx];
+    }
+    public Interactable GetInteractable(Vector2Int p_CellPos)
+    {
+        return m_Interactables[p_CellPos.y, p_CellPos.x];
+    }
+
+    public Vector2Int FindInteractableByType(Interactable.EnumInteractableType p_Type)
+    {
+        for (int i = 0; i < Rows; ++i)
+        {
+            for (int j = 0; j < Columns; ++j)
+            {
+                if (m_Interactables[i, j] == null || !m_Interactables[i, j].IsInteractable)
+                {
+                    continue;
+                }
+
+                return new Vector2Int(j, i);
+            }
+        }
+
+        return -Vector2Int.one;
+    }
     #endregion
 
     #region Block Functionality
@@ -175,13 +202,63 @@ public class Area : MonoBehaviour
     #endregion
 
 
-    public void AStar(Vector2Int p_StartPos, Vector2Int p_EndPos, out Vector2Int[] OutPath)
+    public void AStar(Vector2Int p_StartPos, Vector2Int p_EndPos, GlobalNamespace.EnumMovementFlag p_MovementFlag, out List<(Vector2Int, int)> OutPath)
     {
-        OutPath = new Vector2Int[1];
-        OutPath[0] = new Vector2Int();
+        OutPath = new List<(Vector2Int, int)>();
 
-        //TO-DO:
-        //Implement the astar pathfinding array
+        var CellQueue = new GlobalNamespace.PriorityQ<float, (Vector2Int, float)>();
+        CellQueue.Add( ( 0, (p_StartPos, 0) ) );
+        var MatrixVisits = new GlobalNamespace.MyMatrix<(float, byte)>(Rows, Columns, (float.MaxValue, byte.MaxValue));
+
+        bool PathFound = false;
+        while (!CellQueue.Empty)
+        {
+            var Cur = CellQueue.Pop();
+            Vector2Int CurCell = Cur.Item1;
+            float GWeight = Cur.Item2;
+
+            GWeight += 1f;
+            for (byte i = 0; i < 4; ++i)
+            {
+                Vector2Int NextCell = new Vector2Int(CurCell.x + (i % 2 == 0 ? i - 1 : 0), CurCell.y + (i % 2 == 1 ? i - 2 : 0));
+                float FWeight = (float)Math.Round(GWeight + Vector2Int.Distance(NextCell, p_EndPos), 2);
+                if (NextCell.y < 0 || NextCell.y >= Rows || NextCell.x < 0 || NextCell.x >= Columns ||
+                    MatrixVisits[NextCell.y, NextCell.x].Item1 <= FWeight || Blocks(NextCell, p_MovementFlag))
+                {
+                    continue;
+                }
+                if (NextCell == p_EndPos)
+                {
+                    PathFound = true;
+                    MatrixVisits[NextCell.y, NextCell.x] = (0f, i);
+                    break;
+                }
+                MatrixVisits[NextCell.y, NextCell.x] = (GWeight + Vector2Int.Distance(CurCell, p_EndPos), i);
+                CellQueue.Add( ( FWeight, (NextCell, GWeight) ) );
+            }
+
+            if (PathFound)
+            {
+                break;
+            }
+        }
+
+        if (!PathFound)
+        {
+            return;
+        }
+
+        OutPath.Add( ( p_EndPos, m_AreaIdx ) );
+        Vector2Int OutCell = p_EndPos;
+        do
+        {
+            byte Dir = MatrixVisits[OutCell.y, OutCell.x].Item2;
+            OutCell = new Vector2Int(OutCell.x + (Dir % 2 == 0 ? -Dir + 1 : 0), OutCell.y + (Dir % 2 == 1 ? -Dir + 2 : 0));
+            OutPath.Add( ( OutCell, m_AreaIdx ) );
+        }
+        while (OutCell != p_StartPos);
+
+        OutPath.Reverse();
     }
 
     public bool m_OverrideRow = false;

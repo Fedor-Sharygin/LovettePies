@@ -40,19 +40,68 @@ public class CellElement : MonoBehaviour
         return AreaArray[p_AreaIdx];
     }
 
-    public static void AStar(int p_StartAreaIdx, Vector2Int p_StartCell, int p_EndAreaIdx, Vector2Int p_EndElement, out Vector2Int[] OutPath)
+    public static void AStar(int p_StartAreaIdx, Vector2Int p_StartCell, int p_EndAreaIdx, Vector2Int p_EndCell, GlobalNamespace.EnumMovementFlag p_MovementFlag, out List<(Vector2Int, int)> OutPath)
     {
         GetAreaArray();
 
-        GetAreaAtIdx(p_StartAreaIdx).AStar(p_StartCell, p_EndElement, out OutPath);
+        OutPath = new List<(Vector2Int, int)>();
+        p_StartCell = new Vector2Int(p_StartCell.y, p_StartCell.x);
+        p_EndCell = new Vector2Int(p_EndCell.y, p_EndCell.x);
 
-        //TO-DO:
-        //Write an appropriate AStar pathfinding algorithm
+        int AreaDir = (int)Mathf.Sign(p_EndAreaIdx - p_StartAreaIdx);
+        var CurArea = GetAreaAtIdx(p_StartAreaIdx);
+        List<(Vector2Int, int)> PartialPath;
+        for (int AreaIdx = p_StartAreaIdx; AreaIdx != p_EndAreaIdx; AreaIdx += AreaDir)
+        {
+            var CurTargetCell = AreaDir == 1 ? new Vector2Int(CurArea.Columns - 1, CurArea.RightConnection) : new Vector2Int(0, CurArea.LeftConnection);
+            CurArea.AStar(p_StartCell, CurTargetCell, p_MovementFlag, out PartialPath);
+            OutPath.AddRange(PartialPath);
+            var NextArea = GetAreaAtIdx(AreaIdx + AreaDir);
+            p_StartCell = AreaDir == 1 ? new Vector2Int(0, NextArea.LeftConnection) : new Vector2Int(NextArea.Columns - 1, NextArea.RightConnection);
+            PartialPath.Clear();
+            CurArea = NextArea;
+        }
+        CurArea.AStar(p_StartCell, p_EndCell, p_MovementFlag, out PartialPath);
+        OutPath.AddRange(PartialPath);
+    }
+
+    public static (int, Vector2Int) FindInteractableByType(Interactable.EnumInteractableType p_Type)
+    {
+        GetAreaArray();
+
+        int RetIdx = -1;
+        Vector2Int RetCell = -Vector2Int.one;
+
+        for (int i = 0; i < AreaArray.Length; ++i)
+        {
+            Vector2Int CurCheck = AreaArray[i].FindInteractableByType(p_Type);
+            if (CurCheck == RetCell)
+            {
+                continue;
+            }
+
+            RetCell = CurCheck;
+            RetIdx = i;
+            break;
+        }
+
+        return (RetIdx, RetCell);
     }
     #endregion
 
 
     private int m_CurAreaIdx = 1;
+    public int AreaIdx
+    {
+        get
+        {
+            return m_CurAreaIdx;
+        }
+        set
+        {
+            m_CurAreaIdx = value;
+        }
+    }
     private Area m_CurArea;
     public Vector2Int m_CurCellPos { get; private set; } = Vector2Int.zero;
 
@@ -140,6 +189,10 @@ public class CellElement : MonoBehaviour
         m_CurCellPos = TargetCellPos;
         m_TargetPos = m_CurArea.GetCenterOfCell(m_CurCellPos);
     }
+    public void MoveTo(Vector2Int p_TargetCell)
+    {
+        MoveBy(p_TargetCell - m_CurCellPos);
+    }
 
     private void GetCurArea()
     {
@@ -148,6 +201,8 @@ public class CellElement : MonoBehaviour
 
     [SerializeField]
     private float m_DistEpsilon = .2f;
+    [SerializeField]
+    private float m_MovementSpeed = .024f;
     private void GetToTargetPos()
     {
         if (AtTargetPos())
@@ -156,10 +211,10 @@ public class CellElement : MonoBehaviour
         }
 
         float DistToTarget = Vector3.Distance(m_TargetPos, transform.position);
-        float t = DistToTarget > m_DistEpsilon ? .024f : 1;
+        float t = DistToTarget > m_DistEpsilon ? m_MovementSpeed : 1;
         transform.position = Vector3.Lerp(transform.position, m_TargetPos, t);
     }
-    private bool AtTargetPos()
+    public bool AtTargetPos()
     {
         return Vector3.Distance(m_TargetPos, transform.position) < m_DistEpsilon;
     }

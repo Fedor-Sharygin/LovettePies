@@ -5,6 +5,11 @@ using UnityEngine.InputSystem;
 
 public class PlayerRestaurantController : MonoBehaviour
 {
+    [SerializeField]
+    private int m_OriginalArea;
+    [SerializeField]
+    private Vector2Int m_OriginalPosition;
+
     private CellElement m_CellElement;
     private PlayerInput m_PlayerInput;
     private void Start()
@@ -24,11 +29,29 @@ public class PlayerRestaurantController : MonoBehaviour
             Application.Quit();
             return;
         }
+        m_CellElement.AreaIdx = m_OriginalArea;
+        m_CellElement.MoveTo(m_OriginalPosition);
     }
 
     private void Update()
     {
         MoveWhileHeld();
+    }
+
+    private Vector2Int GetMoveDirection()
+    {
+        Vector2 MoveDirection = m_NavigationContext.ReadValue<Vector2>();
+        if (Mathf.Abs(MoveDirection.x) >= Mathf.Abs(MoveDirection.y))
+        {
+            MoveDirection.x = Mathf.Abs(MoveDirection.x) > m_JoystickEffectThreshold ? Mathf.Sign(MoveDirection.x) : 0;
+            MoveDirection.y = 0f;
+        }
+        else
+        {
+            MoveDirection.y = Mathf.Abs(MoveDirection.y) > m_JoystickEffectThreshold ? -Mathf.Sign(MoveDirection.y) : 0;
+            MoveDirection.x = 0f;
+        }
+        return new Vector2Int((int)MoveDirection.y, (int)MoveDirection.x);
     }
 
     [SerializeField]
@@ -42,19 +65,7 @@ public class PlayerRestaurantController : MonoBehaviour
             return;
         }
 
-        Vector2 MoveDirection = m_NavigationContext.ReadValue<Vector2>();
-        if (Mathf.Abs(MoveDirection.x) >= Mathf.Abs(MoveDirection.y))
-        {
-            MoveDirection.x = Mathf.Abs(MoveDirection.x) > m_JoystickEffectThreshold ? Mathf.Sign(MoveDirection.x) : 0;
-            MoveDirection.y = 0f;
-        }
-        else
-        {
-            MoveDirection.y = Mathf.Abs(MoveDirection.y) > m_JoystickEffectThreshold ? -Mathf.Sign(MoveDirection.y) : 0;
-            MoveDirection.x = 0f;
-        }
-        Vector2Int MoveDirInt = new Vector2Int((int)MoveDirection.y, (int)MoveDirection.x);
-
+        Vector2Int MoveDirInt = GetMoveDirection();
         m_CellElement.MoveBy(MoveDirInt);
     }
     public void NavigateArea(InputAction.CallbackContext p_CallbackContext)
@@ -84,18 +95,31 @@ public class PlayerRestaurantController : MonoBehaviour
             return;
         }
 
-        foreach (var InteractObject in m_CellElement.GetNeighbors())
-        {
-            if (InteractObject == null)
-            {
-                continue;
-            }
+        //foreach (var InteractObject in m_CellElement.GetNeighbors())
+        //{
+        //    if (InteractObject == null)
+        //    {
+        //        continue;
+        //    }
 
-            if (InteractObject.IsInteractable)
-            {
-                InteractObject.Interact();
-                break;
-            }
+        //    if (InteractObject.IsInteractable(this.tag))
+        //    {
+        //        InteractObject.Interact(this);
+        //        break;
+        //    }
+        //}
+
+        Vector2Int MoveDirInt = GetMoveDirection();
+        var InteractObject = m_CellElement.GetNeighbor(MoveDirInt);
+
+        if (InteractObject == null)
+        {
+            return;
         }
+        if (!InteractObject.IsInteractable(this.tag))
+        {
+            return;
+        }
+        InteractObject.Interact(this);
     }
 }

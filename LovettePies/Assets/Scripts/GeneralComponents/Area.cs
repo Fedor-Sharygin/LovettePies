@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
 #if UNITY_EDITOR
 using UnityEditor;
@@ -90,8 +91,24 @@ public class Area : MonoBehaviour
         m_Interactables = new ObjectMatrx(Rows, Columns);
     }
 
+    public Vector3 GetCenterOfCell(int p_RowIdx, int p_ColIdx)
+    {
+        Vector3 CellCenterPos = m_AreaStartPos;
+        CellCenterPos.x += m_CellSize.x * p_ColIdx;
+        CellCenterPos.z -= m_CellSize.z * p_RowIdx;
+
+        CellCenterPos.x += m_CellSize.x * .5f;
+        CellCenterPos.z -= m_CellSize.z * .5f;
+        return CellCenterPos;
+    }
+    public Vector3 GetCenterOfCell(Vector2Int p_CellPos)
+    {
+        return GetCenterOfCell(p_CellPos.x, p_CellPos.y);
+    }
 
 
+
+    #region Interactable Matrix methods
     public void AddObjectToMatrix(Interactable p_Object, int p_RowPos, int p_ColPos)
     {
         m_Interactables[p_RowPos, p_ColPos] = p_Object;
@@ -108,43 +125,6 @@ public class Area : MonoBehaviour
     public void RemoveObjectFromMatrix(CellElement p_CellPos)
     {
         m_Interactables[p_CellPos.m_CurCellPos.y, p_CellPos.m_CurCellPos.x] = null;
-    }
-
-
-
-    public Vector3 GetCenterOfCell(int p_RowIdx, int p_ColIdx)
-    {
-        Vector3 CellCenterPos = m_AreaStartPos;
-        CellCenterPos.x += m_CellSize.x * p_ColIdx;
-        CellCenterPos.z -= m_CellSize.z * p_RowIdx;
-
-        CellCenterPos.x += m_CellSize.x * .5f;
-        CellCenterPos.z -= m_CellSize.z * .5f;
-        return CellCenterPos;
-    }
-    public Vector3 GetCenterOfCell(Vector2Int p_CellPos)
-    {
-        return GetCenterOfCell(p_CellPos.x, p_CellPos.y);
-    }
-
-    public bool Blocks(int p_RowIdx, int p_ColIdx, GlobalNamespace.EnumMovementFlag p_MovementFlag)
-    {
-        if (p_RowIdx < 0 || p_RowIdx >= m_Interactables.Rows ||
-            p_ColIdx < 0 || p_ColIdx >= m_Interactables.Columns)
-        {
-            return false;
-        }
-
-        if (m_Interactables[p_RowIdx, p_ColIdx] == null)
-        {
-            return false;
-        }
-
-        return m_Interactables[p_RowIdx, p_ColIdx].Blocks(p_MovementFlag);
-    }
-    public bool Blocks(Vector2Int p_TargetCell, GlobalNamespace.EnumMovementFlag p_MovementFlag)
-    {
-        return Blocks(p_TargetCell.x, p_TargetCell.y, p_MovementFlag);
     }
 
     private static int[,] NeighborIndcs = new int[,] { { -1, 0 }, { 0, 1 }, { 1, 0 }, { 0, -1 } };
@@ -169,10 +149,126 @@ public class Area : MonoBehaviour
     }
     public Interactable[] GetInteractables(Vector2Int p_CellPos)
     {
-        return GetInteractables(p_CellPos.y, p_CellPos.x);
+        return GetInteractables(p_CellPos.x, p_CellPos.y);
     }
-    
-    
+    public Interactable GetInteractable(int p_RowIdx, int p_ColIdx)
+    {
+        return m_Interactables[p_RowIdx, p_ColIdx];
+    }
+    public Interactable GetInteractable(Vector2Int p_CellPos)
+    {
+        return m_Interactables[p_CellPos.y, p_CellPos.x];
+    }
+
+    public Vector2Int FindInteractableByType(Interactable.EnumInteractableType p_Type, string p_ObjectTag)
+    {
+        for (int i = 0; i < Rows; ++i)
+        {
+            for (int j = 0; j < Columns; ++j)
+            {
+                if (m_Interactables[i, j] == null || !m_Interactables[i, j].IsInteractable(p_ObjectTag))
+                {
+                    continue;
+                }
+
+                return new Vector2Int(j, i);
+            }
+        }
+
+        return -Vector2Int.one;
+    }
+    #endregion
+
+    #region Block Functionality
+    public bool Blocks(int p_RowIdx, int p_ColIdx, GlobalNamespace.EnumMovementFlag p_MovementFlag)
+    {
+        if (p_RowIdx < 0 || p_RowIdx >= m_Interactables.Rows ||
+            p_ColIdx < 0 || p_ColIdx >= m_Interactables.Columns)
+        {
+            return false;
+        }
+
+        if (m_Interactables[p_RowIdx, p_ColIdx] == null)
+        {
+            return false;
+        }
+
+        return m_Interactables[p_RowIdx, p_ColIdx].Blocks(p_MovementFlag);
+    }
+    public bool Blocks(Vector2Int p_TargetCell, GlobalNamespace.EnumMovementFlag p_MovementFlag)
+    {
+        return Blocks(p_TargetCell.x, p_TargetCell.y, p_MovementFlag);
+    }
+    #endregion
+
+
+    public void AStar(Vector2Int p_StartPos, Vector2Int p_EndPos, GlobalNamespace.EnumMovementFlag p_MovementFlag, out List<(Vector2Int, int)> OutPath)
+    {
+        OutPath = new List<(Vector2Int, int)>();
+
+        var CellQueue = new GlobalNamespace.PriorityQ<float, (Vector2Int, float)>();
+        CellQueue.Add( ( 0, (p_StartPos, 0) ) );
+        var MatrixVisits = new GlobalNamespace.MyMatrix<(float, (int, int))>(Rows, Columns, (float.MaxValue, (0, int.MaxValue)) );
+
+        bool PathFound = false;
+        while (!CellQueue.Empty)
+        {
+            var Cur = CellQueue.Pop();
+            Vector2Int CurCell = Cur.Item1;
+            float GWeight = Cur.Item2;
+
+            GWeight += 1f;
+            for (int i = 1; i < 1 << 4; i <<= 1)
+            {
+                Vector2Int NextCell = new Vector2Int(
+                    CurCell.x + (i % 3 == 1 ? (i / 3 == 0 ? -1 : 1) : 0),
+                    CurCell.y + (i % 3 == 2 ? (i / 3 == 0 ? -1 : 1) : 0)
+                    );
+                float FWeight = (float)Math.Round(GWeight + Vector2Int.Distance(NextCell, p_EndPos), 2);
+                if (NextCell.y < 0 || NextCell.y >= Rows || NextCell.x < 0 || NextCell.x >= Columns ||
+                    MatrixVisits[NextCell.y, NextCell.x].Item1 <= FWeight || (MatrixVisits[NextCell.y, NextCell.x].Item2.Item1 & i) != 0 ||
+                    Blocks(NextCell.y, NextCell.x, p_MovementFlag))
+                {
+                    continue;
+                }
+                if (NextCell == p_EndPos)
+                {
+                    PathFound = true;
+                    MatrixVisits[NextCell.y, NextCell.x] = (0f, (0, i));
+                    break;
+                }
+                MatrixVisits[NextCell.y, NextCell.x] = (GWeight + Vector2Int.Distance(CurCell, p_EndPos),
+                    (MatrixVisits[NextCell.y, NextCell.x].Item2.Item1 | i, i) );
+                CellQueue.Add( ( FWeight, (NextCell, GWeight) ) );
+            }
+
+            if (PathFound)
+            {
+                break;
+            }
+        }
+
+        if (!PathFound)
+        {
+            return;
+        }
+
+        OutPath.Add( ( p_EndPos, m_AreaIdx ) );
+        Vector2Int OutCell = p_EndPos;
+        do
+        {
+            int Dir = MatrixVisits[OutCell.y, OutCell.x].Item2.Item2;
+            OutCell = new Vector2Int(
+                OutCell.x + (Dir % 3 == 1 ? (Dir / 3 == 0 ? 1 : -1) : 0),
+                OutCell.y + (Dir % 3 == 2 ? (Dir / 3 == 0 ? 1 : -1) : 0)
+                );
+            OutPath.Add( ( OutCell, m_AreaIdx ) );
+        }
+        while (OutCell != p_StartPos);
+
+        OutPath.Reverse();
+    }
+
     public bool m_OverrideRow = false;
 
     public int m_RowsCount = -1;

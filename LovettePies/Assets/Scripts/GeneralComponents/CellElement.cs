@@ -11,9 +11,17 @@ using UnityEditor;
 [Serializable]
 public class CellElement : MonoBehaviour
 {
+    #region Static Area Methods
     public static Area[] AreaArray;
     private static void GetAreaArray()
     {
+        AreaManager AM = FindObjectOfType<AreaManager>();
+        if (AM != null)
+        {
+            AreaArray = AM.m_Areas;
+            return;
+        }
+
         if (AreaArray == null || AreaArray.Length == 0)
         {
             AreaArray = FindObjectsOfType<Area>();
@@ -23,13 +31,89 @@ public class CellElement : MonoBehaviour
                     ));
         }
     }
+    private static Area GetAreaAtIdx(int p_AreaIdx)
+    {
+        GetAreaArray();
+
+        if (p_AreaIdx < 0)
+        {
+            p_AreaIdx = 0;
+        }
+        if (p_AreaIdx >= AreaArray.Length)
+        {
+            p_AreaIdx = AreaArray.Length - 1;
+        }
+
+        return AreaArray[p_AreaIdx];
+    }
+
+    public static void AStar(int p_StartAreaIdx, Vector2Int p_StartCell, int p_EndAreaIdx, Vector2Int p_EndCell, GlobalNamespace.EnumMovementFlag p_MovementFlag, out List<(Vector2Int, int)> OutPath)
+    {
+        GetAreaArray();
+
+        OutPath = new List<(Vector2Int, int)>();
+        p_StartCell = new Vector2Int(p_StartCell.y, p_StartCell.x);
+        p_EndCell = new Vector2Int(p_EndCell.y, p_EndCell.x);
+
+        int AreaDir = (int)Mathf.Sign(p_EndAreaIdx - p_StartAreaIdx);
+        var CurArea = GetAreaAtIdx(p_StartAreaIdx);
+        List<(Vector2Int, int)> PartialPath;
+        for (int AreaIdx = p_StartAreaIdx; AreaIdx != p_EndAreaIdx; AreaIdx += AreaDir)
+        {
+            var CurTargetCell = AreaDir == 1 ? new Vector2Int(CurArea.Columns - 1, CurArea.RightConnection) : new Vector2Int(0, CurArea.LeftConnection);
+            CurArea.AStar(p_StartCell, CurTargetCell, p_MovementFlag, out PartialPath);
+            OutPath.AddRange(PartialPath);
+            var NextArea = GetAreaAtIdx(AreaIdx + AreaDir);
+            p_StartCell = AreaDir == 1 ? new Vector2Int(0, NextArea.LeftConnection) : new Vector2Int(NextArea.Columns - 1, NextArea.RightConnection);
+            PartialPath.Clear();
+            CurArea = NextArea;
+        }
+        CurArea.AStar(p_StartCell, p_EndCell, p_MovementFlag, out PartialPath);
+        OutPath.AddRange(PartialPath);
+    }
+
+    public static (int, Vector2Int) FindInteractableByType(Interactable.EnumInteractableType p_Type, string p_ObjectTag)
+    {
+        GetAreaArray();
+
+        int RetIdx = -1;
+        Vector2Int RetCell = -Vector2Int.one;
+
+        for (int i = 0; i < AreaArray.Length; ++i)
+        {
+            Vector2Int CurCheck = AreaArray[i].FindInteractableByType(p_Type, p_ObjectTag);
+            if (CurCheck == RetCell)
+            {
+                continue;
+            }
+
+            RetCell = CurCheck;
+            RetIdx = i;
+            break;
+        }
+
+        return (RetIdx, RetCell);
+    }
+    #endregion
+
 
     private int m_CurAreaIdx = 1;
+    public int AreaIdx
+    {
+        get
+        {
+            return m_CurAreaIdx;
+        }
+        set
+        {
+            m_CurAreaIdx = value;
+        }
+    }
     private Area m_CurArea;
     public Vector2Int m_CurCellPos { get; private set; } = Vector2Int.zero;
 
     private Vector3 m_TargetPos;
-    private void Start()
+    private void Awake()
     {
         GetAreaArray();
         GetCurArea();
@@ -112,29 +196,20 @@ public class CellElement : MonoBehaviour
         m_CurCellPos = TargetCellPos;
         m_TargetPos = m_CurArea.GetCenterOfCell(m_CurCellPos);
     }
+    public void MoveTo(Vector2Int p_TargetCell)
+    {
+        MoveBy(p_TargetCell - m_CurCellPos);
+    }
 
     private void GetCurArea()
     {
-        if (AreaArray == null || AreaArray.Length == 0)
-        {
-            Debug.LogError($"{name}: Could not load and position the player. Quitting the game!");
-            return;
-        }
-
-        if (m_CurAreaIdx < 0)
-        {
-            m_CurAreaIdx = 0;
-        }
-        if (m_CurAreaIdx >= AreaArray.Length)
-        {
-            m_CurAreaIdx = AreaArray.Length - 1;
-        }
-
-        m_CurArea = AreaArray[m_CurAreaIdx];
+        m_CurArea = GetAreaAtIdx(m_CurAreaIdx);
     }
 
     [SerializeField]
     private float m_DistEpsilon = .2f;
+    [SerializeField]
+    private float m_MovementSpeed = .024f;
     private void GetToTargetPos()
     {
         if (AtTargetPos())
@@ -143,12 +218,12 @@ public class CellElement : MonoBehaviour
         }
 
         float DistToTarget = Vector3.Distance(m_TargetPos, transform.position);
-        float t = DistToTarget > m_DistEpsilon ? .024f : 1;
+        float t = DistToTarget > m_DistEpsilon ? m_MovementSpeed : 1;
         transform.position = Vector3.Lerp(transform.position, m_TargetPos, t);
     }
-    private bool AtTargetPos()
+    public bool AtTargetPos()
     {
-        return Vector3.Distance(m_TargetPos, transform.position) < m_DistEpsilon;
+        return Vector3.Distance(m_TargetPos, transform.position) <= m_DistEpsilon;
     }
     #endregion
 
@@ -160,9 +235,19 @@ public class CellElement : MonoBehaviour
 
         return m_CurArea.GetInteractables(m_CurCellPos);
     }
+
+    public Interactable GetNeighbor(Vector2Int p_Direction)
+    {
+        GetAreaArray();
+        GetCurArea();
+
+        var NeighborPos = m_CurCellPos + p_Direction;
+        NeighborPos = new Vector2Int(NeighborPos.y, NeighborPos.x);
+        return m_CurArea.GetInteractable(NeighborPos);
+    }
 }
 
-
+#region Custom Cell Element Editor
 #if UNITY_EDITOR
 
 [CustomEditor(typeof(CellElement))]
@@ -193,4 +278,4 @@ class CellElementEditor : Editor
 }
 
 #endif
-
+#endregion

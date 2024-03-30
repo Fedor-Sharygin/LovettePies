@@ -145,7 +145,7 @@ GameObject:
   - component: {fileID: 6947024884555364056}
   - component: {fileID: 6947024884555364059}
   - component: {fileID: 6947024884555364058}
-  - component: {fileID: 6947024884555364057}
+  - component: {fileID: 5689479016124286974}
   m_Layer: 0
   m_Name: DepthCube
   m_TagString: Untagged
@@ -218,7 +218,7 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!65 &6947024884555364057
+--- !u!65 &5689479016124286974
 BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -229,5 +229,5 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
+  m_Size: {x: 1, y: 1, z: 0.99999994}
   m_Center: {x: 0, y: 0, z: 0}

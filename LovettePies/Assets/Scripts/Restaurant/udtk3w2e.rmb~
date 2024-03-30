@@ -25,11 +25,11 @@ public class PlateHolder : Interactable
     {
         base.PlaceOnArea();
 
-        m_PlatesStacked = new Stack<Plate>(m_MaxPlateCount);
         if (!m_StartFull)
         {
             return;
         }
+        m_PlatesStacked = new Stack<Plate>(m_MaxPlateCount);
         for (int i = 0; i < m_MaxPlateCount; ++i)
         {
             StackPlate(Instantiate(m_PlatePrefab).GetComponent<Plate>());
@@ -79,9 +79,9 @@ public class PlateHolder : Interactable
 
         var RetPlate = m_PlatesStacked.Pop();
         var SocketToFree = m_PlatesStacked.TryPeek(out var TopPlate) ? TopPlate.m_DishPos : m_DishPos;
-        SocketToFree.RemoveObj();
+        m_DishPos.
 
-        return RetPlate;
+        return m_PlatesStacked.Pop();
     }
 }
 

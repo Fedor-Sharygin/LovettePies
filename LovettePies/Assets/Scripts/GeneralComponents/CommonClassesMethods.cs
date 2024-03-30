@@ -116,11 +116,34 @@ namespace GlobalNamespace
         }
     }
 
-    public static class ObjectExtension
+    public static class GeneralFunctions
     {
         public static T Clone<T>(T p_Object)
         {
             return JsonUtility.FromJson<T>(JsonUtility.ToJson(p_Object));
+        }
+
+        public static int GetDirection(Vector2 p_From, Vector2 p_To)
+        {
+            if (p_To.x == p_From.x)
+            {
+                return p_To.y - p_From.y > 0 ? 2 : 3;
+            }
+            else
+            {
+                return p_To.x - p_From.x > 0 ? 1 : 0;
+            }
+        }
+        public static int GetDirection(Vector2 p_Direction)
+        {
+            if (p_Direction.x == 0)
+            {
+                return p_Direction.y > 0 ? 2 : 3;
+            }
+            else
+            {
+                return p_Direction.x > 0 ? 1 : 0;
+            }
         }
     }
 

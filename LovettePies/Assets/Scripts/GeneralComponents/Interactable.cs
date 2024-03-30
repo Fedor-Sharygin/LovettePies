@@ -70,9 +70,14 @@ public class Interactable : MonoBehaviour
     private Vector2Int m_CellPos;
     [SerializeField]
     private CellElement m_CellElem;
-    private void Start()
+    protected virtual void PlaceOnArea()
     {
         StartCoroutine("MoveObjectToCell");
+    }
+
+    private void Start()
+    {
+        PlaceOnArea();
     }
 
     private void MoveObjectToCell()
@@ -101,7 +106,7 @@ public class Interactable : MonoBehaviour
     public bool[] m_IsInteractable;
     [SerializeField]
     protected string[] m_InteracteeTags;
-    public virtual void Interact(MonoBehaviour m_Interactee)
+    public virtual void Interact(MonoBehaviour m_Interactee, int Direction = -1)
     {
         for (int i = 0; i < m_InteracteeTags.Length; ++i)
         {
@@ -114,7 +119,7 @@ public class Interactable : MonoBehaviour
         }
     }
 
-    public bool IsInteractable(string p_ObjectTag)
+    public virtual bool IsInteractable(string p_ObjectTag, int Direction = -1)
     {
         for (int i = 0; i < m_InteracteeTags.Length; ++i)
         {
@@ -127,6 +132,22 @@ public class Interactable : MonoBehaviour
         }
 
         return false;
+    }
+
+
+    private bool[] m_DirectionsTaken = new bool[4];
+    public bool RequestDirection(int p_Direction)
+    {
+        if (m_DirectionsTaken[p_Direction])
+        {
+            return false;
+        }
+        m_DirectionsTaken[p_Direction] = true;
+        return true;
+    }
+    public void FreeDirection(int p_Direction)
+    {
+        m_DirectionsTaken[p_Direction] = false;
     }
 
 
@@ -143,15 +164,19 @@ public class Interactable : MonoBehaviour
 #region Custom Interactable Editor
 #if UNITY_EDITOR
 
-[CustomEditor(typeof(Interactable))]
+[CustomEditor(typeof(Interactable), true)]
+[CanEditMultipleObjects]
 class InteractableEditor : Editor
 {
     private Interactable TargetObject;
-    private SerializedProperty m_MovementFlagProperty;
-    private void OnEnable()
+    protected virtual void CustomOnEnable()
     {
         TargetObject = (Interactable)target;
-        m_MovementFlagProperty = serializedObject.FindProperty("m_MovementFlag");
+    }
+
+    private void OnEnable()
+    {
+        CustomOnEnable();
     }
 
     public override void OnInspectorGUI()

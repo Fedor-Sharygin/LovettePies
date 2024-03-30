@@ -68,7 +68,7 @@ public class GeneralCustomerScript : MonoBehaviour
             return;
         }
 
-        var TargetPlacement = CellElement.FindInteractableByType(m_InteractableTargetType, this.tag);
+        var TargetPlacement = CellElement.FindInteractableByType(m_InteractableTargetType, this.tag, m_CellPos.m_MovementFlag);
 
         if (TargetPlacement.Item1 == -1)
         {
@@ -83,6 +83,7 @@ public class GeneralCustomerScript : MonoBehaviour
                 m_CellPos.m_MovementFlag,
                 out m_CurPath);
         } while (m_CurPath == null || m_CurPath.Count == 0);
+        m_CurPath.Add( (TargetPlacement.Item3, TargetPlacement.Item1) );
 
         m_MovementTimer.ResetTimer();
         m_MovementTimer.Play();
@@ -102,8 +103,6 @@ public class GeneralCustomerScript : MonoBehaviour
         {
             if (!m_GoBack)
             {
-                var PosAIdx = m_CurPath[m_PathIdx];
-                CellElement.AreaArray[m_CellPos.AreaIdx].GetInteractable(PosAIdx.Item1).Interact(this);
                 SitInArea();
             }
             else
@@ -133,10 +132,23 @@ public class GeneralCustomerScript : MonoBehaviour
 
         m_CellPos.MoveTo(new Vector2Int(m_CurPath[m_PathIdx].Item1.y, m_CurPath[m_PathIdx].Item1.x));
     }
+
+    private int m_InteractionDirection;
+    private Interactable m_CurrentInteractableSeat = null;
+    public void LeaveArea()
+    {
+        m_CurrentInteractableSeat.Interact(this, m_InteractionDirection);
+        m_CurrentInteractableSeat.FreeDirection(m_InteractionDirection);
+    }
+
     public void SitInArea()
     {
+        var PosAIdx = m_CurPath[m_PathIdx];
+        m_InteractionDirection = GlobalNamespace.GeneralFunctions.GetDirection(m_CellPos.m_CurCellPos, new Vector2Int(PosAIdx.Item1.y, PosAIdx.Item1.x));
+        m_CurrentInteractableSeat = CellElement.AreaArray[m_CellPos.AreaIdx].GetInteractable(PosAIdx.Item1);
+        m_CurrentInteractableSeat.Interact(this, m_InteractionDirection);
         m_ActionTimer.Play();
-        m_CellPos.MoveTo(new Vector2Int(m_CurPath[m_PathIdx].Item1.y, m_CurPath[m_PathIdx].Item1.x));
+        //m_CellPos.MoveTo(new Vector2Int(m_CurPath[m_PathIdx].Item1.y, m_CurPath[m_PathIdx].Item1.x));
         m_GoBack = true;
     }
 }

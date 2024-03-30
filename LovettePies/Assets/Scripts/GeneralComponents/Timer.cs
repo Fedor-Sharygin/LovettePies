@@ -103,6 +103,7 @@ public class Timer : MonoBehaviour
 #if UNITY_EDITOR
 
 //[CustomEditor(typeof(Timer))]
+//[CanEditMultipleObjects]
 //class TimerEditor : Editor
 //{
 

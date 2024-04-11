@@ -98,7 +98,7 @@ public class CellElement : MonoBehaviour
     #endregion
 
 
-    private int m_CurAreaIdx = 1;
+    private int m_CurAreaIdx = 0;
     public int AreaIdx
     {
         get

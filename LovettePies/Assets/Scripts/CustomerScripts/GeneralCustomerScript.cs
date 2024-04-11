@@ -1,13 +1,16 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class GeneralCustomerScript : MonoBehaviour
 {
     private CellElement m_CellPos;
+    private Interactable m_CustomerInteractable;
     private void Start()
     {
         m_CellPos = GetComponent<CellElement>();
+        m_CustomerInteractable = GetComponent<Interactable>();
         m_StartingSquare = (m_CellPos.m_CurCellPos, m_CellPos.AreaIdx);
         StartCoroutine("FindPath");
     }
@@ -15,7 +18,7 @@ public class GeneralCustomerScript : MonoBehaviour
     [SerializeField]
     private Timer m_MovementTimer;
     [SerializeField]
-    private Timer m_ActionTimer;
+    private Timer m_PatienceTimer;
 
     private bool m_SearchingForPath = true;
     public void SearchForPath()
@@ -108,6 +111,7 @@ public class GeneralCustomerScript : MonoBehaviour
             else
             {
                 m_CellPos.MoveTo(new Vector2Int(m_CurPath[m_PathIdx].Item1.y, m_CurPath[m_PathIdx].Item1.x));
+                m_CustomerInteractable?.MoveToPosition();
             }
             m_CurPath.Clear();
             m_MovementTimer.Stop();
@@ -120,17 +124,21 @@ public class GeneralCustomerScript : MonoBehaviour
                 m_CurPath[m_PathIdx - 1].Item1.y == CellElement.AreaArray[m_CellPos.AreaIdx].LeftConnection)
             {
                 m_CellPos.MoveBy(new Vector2Int(0, -1));
+                m_CustomerInteractable?.MoveToPosition();
                 return;
             }
             if (m_CurPath[m_PathIdx - 1].Item1.x == CellElement.AreaArray[m_CellPos.AreaIdx].Columns - 1 &&
                 m_CurPath[m_PathIdx - 1].Item1.y == CellElement.AreaArray[m_CellPos.AreaIdx].RightConnection)
             {
                 m_CellPos.MoveBy(new Vector2Int(0, 1));
+                m_CustomerInteractable?.MoveToPosition();
                 return;
             }
         }
 
         m_CellPos.MoveTo(new Vector2Int(m_CurPath[m_PathIdx].Item1.y, m_CurPath[m_PathIdx].Item1.x));
+
+        m_CustomerInteractable?.MoveToPosition();
     }
 
     private int m_InteractionDirection;
@@ -141,14 +149,16 @@ public class GeneralCustomerScript : MonoBehaviour
         m_CurrentInteractableSeat.FreeDirection(m_InteractionDirection);
     }
 
+    public UnityEvent m_PatienceActions;
     public void SitInArea()
     {
         var PosAIdx = m_CurPath[m_PathIdx];
         m_InteractionDirection = GlobalNamespace.GeneralFunctions.GetDirection(m_CellPos.m_CurCellPos, new Vector2Int(PosAIdx.Item1.y, PosAIdx.Item1.x));
         m_CurrentInteractableSeat = CellElement.AreaArray[m_CellPos.AreaIdx].GetInteractable(PosAIdx.Item1);
         m_CurrentInteractableSeat.Interact(this, m_InteractionDirection);
-        m_ActionTimer.Play();
-        //m_CellPos.MoveTo(new Vector2Int(m_CurPath[m_PathIdx].Item1.y, m_CurPath[m_PathIdx].Item1.x));
+        m_PatienceTimer.Play();
         m_GoBack = true;
+
+        m_PatienceActions?.Invoke();
     }
 }

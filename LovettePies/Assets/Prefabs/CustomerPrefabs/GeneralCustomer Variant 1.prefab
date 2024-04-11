@@ -17,11 +17,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4135413993347071466, guid: e6be1d8dc7040d3438023e7e2dec0f84, type: 3}
       propertyPath: m_Name
-      value: GeneralCustomer Variant
-      objectReference: {fileID: 0}
-    - target: {fileID: 4135413993347071466, guid: e6be1d8dc7040d3438023e7e2dec0f84, type: 3}
-      propertyPath: m_TagString
-      value: RestaurantCustomer
+      value: GeneralCustomer Variant 1
       objectReference: {fileID: 0}
     - target: {fileID: 4135413993347071467, guid: e6be1d8dc7040d3438023e7e2dec0f84, type: 3}
       propertyPath: m_RootOrder
@@ -162,8 +158,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_MovementTimer: {fileID: 1179349400}
-  m_ActionTimer: {fileID: 1179349401}
+  m_PatienceTimer: {fileID: 1179349401}
   m_InteractableTargetType: 4
+  m_PatienceActions:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!114 &7605453843455599487
 MonoBehaviour:
   m_ObjectHideFlags: 0

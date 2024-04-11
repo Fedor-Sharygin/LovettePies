@@ -12,10 +12,13 @@ public class IngridientHolder : Interactable
     [SerializeField]
     private int m_MaxIngridientCount = 100;
     private int m_CurIngridientCount;
+    [SerializeField]
+    private SpriteRenderer m_IngredientSprite;
     private void Start()
     {
         PlaceOnArea();
         m_CurIngridientCount = m_MaxIngridientCount;
+        m_IngredientSprite.sprite = m_IngredientDescription?.m_IngredientSprite;
     }
 
 

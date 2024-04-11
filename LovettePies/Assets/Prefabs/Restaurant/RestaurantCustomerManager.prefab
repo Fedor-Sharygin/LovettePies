@@ -1,0 +1,80 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &405182391881414035
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 405182391881414029}
+  - component: {fileID: 405182391881414028}
+  - component: {fileID: 3035665615590277630}
+  m_Layer: 0
+  m_Name: RestaurantCustomerManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &405182391881414029
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 405182391881414035}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &405182391881414028
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 405182391881414035}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6453f319debe3e5459b5a866f46320a7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_CustomerPrefab: {fileID: 5596173355560442355, guid: cbadba07e47a4d44c9618caf0cc174c3, type: 3}
+  m_SpawnCellPos: {x: 0, y: 0}
+  m_DesiredIngredients: []
+--- !u!114 &3035665615590277630
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 405182391881414035}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4c725f8b961a24e49b87a0ce4d7dab36, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_TimerSeconds: 30
+  m_ResetOnEnd: 1
+  m_StartOnAwake: 1
+  m_EndActions:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 405182391881414028}
+        m_TargetAssemblyTypeName: GeneralCustomerManager, Assembly-CSharp
+        m_MethodName: SpawnCustomer
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2

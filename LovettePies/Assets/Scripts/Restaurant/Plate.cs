@@ -16,7 +16,7 @@ public class Plate : MonoBehaviour
 
     public EnumPlateState m_PlateState { get; private set; } = EnumPlateState.PLATE_EMPTY;
 
-    private List<IngredientDescriptor> m_DishIngredients;
+    public List<IngredientDescriptor> m_DishIngredients;
     public ObjectSocket[] m_IngredientSockets;
     public bool AvailableForIngredients
     {
@@ -49,5 +49,22 @@ public class Plate : MonoBehaviour
         }
 
         m_PlateState = EnumPlateState.PLATE_FULL_COOKED;
+    }
+
+    public void Dump(ObjectSocket p_DumpSocket = null)
+    {
+        m_DishIngredients.Clear();
+        foreach (var IngSock in m_IngredientSockets)
+        {
+            var CurObj = IngSock.RemoveObj();
+            if (p_DumpSocket == null)
+            {
+                Destroy(CurObj.gameObject);
+            }
+            else
+            {
+                p_DumpSocket.ForceStack(CurObj);
+            }
+        }
     }
 }

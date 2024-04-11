@@ -88,6 +88,7 @@ public class PlayerRestaurantController : MonoBehaviour
     }
 
 
+    public ObjectSocket m_DishPos;
     public void Interact(InputAction.CallbackContext p_CallbackContext)
     {
         if (!p_CallbackContext.started)
@@ -116,10 +117,32 @@ public class PlayerRestaurantController : MonoBehaviour
         {
             return;
         }
-        if (!InteractObject.IsInteractable(this.tag))
+        if (!InteractObject.IsInteractable(this.tag, GlobalNamespace.GeneralFunctions.GetDirection(MoveDirInt)))
         {
             return;
         }
-        InteractObject.Interact(this);
+        InteractObject.Interact(this, GlobalNamespace.GeneralFunctions.GetDirection(MoveDirInt));
+
+        if (InteractObject is PlateHolder &&
+           (InteractObject.InteractableType == Interactable.EnumInteractableType.RESTAURANT_PLATE_HOLDER))
+        {
+            PlateHolder CurHolder = InteractObject as PlateHolder;
+            if (m_DishPos.AvailableForStack)
+            {
+                var TopPlate = CurHolder.GrabPlate();
+                if (TopPlate != null)
+                {
+                    TopPlate.transform.SetParent(m_DishPos.Socket);
+                }
+            }
+            else
+            {
+                Plate MyPlate = m_DishPos.Socket.GetChild(0).gameObject.GetComponent<Plate>();
+                if (MyPlate != null)
+                {
+                    CurHolder.StackPlate(MyPlate);
+                }
+            }
+        }
     }
 }

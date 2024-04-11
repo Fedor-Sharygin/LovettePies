@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: BasicMeat
   m_EditorClassIdentifier: 
   m_IngredientName: Meat
-  m_IngredientSprite: {fileID: 0}
+  m_IngredientSprite: {fileID: 21300000, guid: 61db94e1d3b397a44a72758fa30a0572, type: 3}

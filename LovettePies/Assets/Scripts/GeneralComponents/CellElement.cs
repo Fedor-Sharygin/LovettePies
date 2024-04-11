@@ -72,27 +72,28 @@ public class CellElement : MonoBehaviour
         OutPath.AddRange(PartialPath);
     }
 
-    public static (int, Vector2Int) FindInteractableByType(Interactable.EnumInteractableType p_Type, string p_ObjectTag)
+    public static (int, Vector2Int, Vector2Int) FindInteractableByType(Interactable.EnumInteractableType p_Type, string p_ObjectTag, GlobalNamespace.EnumMovementFlag p_MovementFlag)
     {
         GetAreaArray();
 
         int RetIdx = -1;
         Vector2Int RetCell = -Vector2Int.one;
-
+        Vector2Int EntryCell = -Vector2Int.one;
         for (int i = 0; i < AreaArray.Length; ++i)
         {
-            Vector2Int CurCheck = AreaArray[i].FindInteractableByType(p_Type, p_ObjectTag);
-            if (CurCheck == RetCell)
+            var CurCheck = AreaArray[i].FindInteractableByType(p_Type, p_ObjectTag, p_MovementFlag);
+            if (CurCheck.Item2 == RetCell)
             {
                 continue;
             }
 
-            RetCell = CurCheck;
+            EntryCell = CurCheck.Item1;
+            RetCell = CurCheck.Item2;
             RetIdx = i;
             break;
         }
 
-        return (RetIdx, RetCell);
+        return (RetIdx, EntryCell, RetCell);
     }
     #endregion
 
@@ -251,6 +252,7 @@ public class CellElement : MonoBehaviour
 #if UNITY_EDITOR
 
 [CustomEditor(typeof(CellElement))]
+[CanEditMultipleObjects]
 class CellElementEditor : Editor
 {
     private CellElement TargetCell;

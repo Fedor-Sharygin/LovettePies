@@ -160,7 +160,8 @@ public class Area : MonoBehaviour
         return m_Interactables[p_CellPos.y, p_CellPos.x];
     }
 
-    public Vector2Int FindInteractableByType(Interactable.EnumInteractableType p_Type, string p_ObjectTag)
+    //       entry pos, target pos
+    public (Vector2Int, Vector2Int) FindInteractableByType(Interactable.EnumInteractableType p_Type, string p_ObjectTag, GlobalNamespace.EnumMovementFlag p_MovementFlag)
     {
         for (int i = 0; i < Rows; ++i)
         {
@@ -170,12 +171,33 @@ public class Area : MonoBehaviour
                 {
                     continue;
                 }
+                for (int Dir = 0; Dir < 4; ++Dir)
+                {
+                    int NRow = i;
+                    int NCol = j;
+                    if (Dir < 2)
+                    {
+                        NRow += (Dir == 0 ? 1 : -1);
+                    }
+                    else
+                    {
+                        NCol += (Dir == 2 ? -1 : 1);
+                    }
 
-                return new Vector2Int(j, i);
+                    if (Blocks(NRow, NCol, p_MovementFlag))
+                    {
+                        continue;
+                    }
+
+                    if (m_Interactables[i, j].IsInteractable(p_ObjectTag, Dir) && m_Interactables[i, j].RequestDirection(Dir))
+                    {
+                        return (new Vector2Int(NCol, NRow), new Vector2Int(j, i));
+                    }
+                }
             }
         }
 
-        return -Vector2Int.one;
+        return (-Vector2Int.one, -Vector2Int.one);
     }
     #endregion
 
@@ -227,7 +249,7 @@ public class Area : MonoBehaviour
                 float FWeight = (float)Math.Round(GWeight + Vector2Int.Distance(NextCell, p_EndPos), 2);
                 if (NextCell.y < 0 || NextCell.y >= Rows || NextCell.x < 0 || NextCell.x >= Columns ||
                     MatrixVisits[NextCell.y, NextCell.x].Item1 <= FWeight || (MatrixVisits[NextCell.y, NextCell.x].Item2.Item1 & i) != 0 ||
-                    Blocks(NextCell.y, NextCell.x, p_MovementFlag))
+                    (NextCell != p_EndPos && Blocks(NextCell.y, NextCell.x, p_MovementFlag)))
                 {
                     continue;
                 }
@@ -282,6 +304,7 @@ public class Area : MonoBehaviour
 #if UNITY_EDITOR
 
 [CustomEditor(typeof(Area))]
+[CanEditMultipleObjects]
 class AreaEditor : Editor
 {
     private Area TargetArea;

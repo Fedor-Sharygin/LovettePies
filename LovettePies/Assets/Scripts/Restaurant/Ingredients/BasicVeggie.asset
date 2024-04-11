@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: BasicVeggie
   m_EditorClassIdentifier: 
   m_IngredientName: Veggie
-  m_IngredientSprite: {fileID: 0}
+  m_IngredientSprite: {fileID: 21300000, guid: c252c7ce6f7a94745a75631f6c633c70, type: 3}

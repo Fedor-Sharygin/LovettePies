@@ -26,8 +26,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 455976367834207771}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.5, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 2.5}
+  m_LocalPosition: {x: 0, y: 0.75, z: 0}
+  m_LocalScale: {x: 1.5, y: 1.5, z: 1.5}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 2360850228279666193}
@@ -61,7 +61,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 9d5e9a3e0363a884b86f42831a1ba955, type: 2}
+  - {fileID: 2100000, guid: f757c3d3310729741a81d8d7e7aa0be0, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -94,7 +94,7 @@ GameObject:
   - component: {fileID: 891683268214034016}
   - component: {fileID: 2082985062292021399}
   m_Layer: 0
-  m_Name: DishPosition
+  m_Name: SpawnPos
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -108,7 +108,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4699583524494845621}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 1.01, z: 0}
+  m_LocalPosition: {x: 0.526, y: 0.593, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -138,9 +138,9 @@ GameObject:
   m_Component:
   - component: {fileID: 2360850228279666193}
   - component: {fileID: 5118310228534479468}
-  - component: {fileID: 1576901215591666283}
+  - component: {fileID: 1062213824135701047}
   m_Layer: 0
-  m_Name: KitchenCounter
+  m_Name: IngredientHolder
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -178,7 +178,7 @@ MonoBehaviour:
   m_MovementFlag: 0
   m_DistEpsilon: 0.2
   m_MovementSpeed: 0.024
---- !u!114 &1576901215591666283
+--- !u!114 &1062213824135701047
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -187,7 +187,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 6126390789921155991}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6b9ac3cefaab85943aa841b20933d0da, type: 3}
+  m_Script: {fileID: 11500000, guid: 4a91a27a655076c478617717471b5713, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   m_ObjectType: 7
@@ -197,12 +197,23 @@ MonoBehaviour:
   m_CellElem: {fileID: 5118310228534479468}
   m_InteractionActions:
   - m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1062213824135701047}
+        m_TargetAssemblyTypeName: IngridientHolder, Assembly-CSharp
+        m_MethodName: SpawnIngridient
+        m_Mode: 2
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: PlayerRestaurantController, Assembly-CSharp
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   m_IsInteractable: 01
   m_InteracteeTags:
   - Player
-  m_PlatePrefab: {fileID: 7174750909977183772, guid: 575b24fb8aedaef4a9b6d301036ced00, type: 3}
-  m_StartFull: 1
-  m_MaxPlateCount: 7
-  m_RequiredPlateState: 00000000
-  m_DishPos: {fileID: 2082985062292021399}
+  m_MaxIngridientCount: 100
+  m_IngredientDescription: {fileID: 0}
+  m_IngredientPrefab: {fileID: 4272850019046184667, guid: 1649c903d4a94774a8b4521bb11cc939, type: 3}
+  m_IngredientSpawnPos: {fileID: 2082985062292021399}

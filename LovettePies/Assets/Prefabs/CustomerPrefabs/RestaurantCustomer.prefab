@@ -512,7 +512,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_ObjectType: 2
-  m_MovementFlag: 0
+  m_MovementFlag: 16
   m_AreaType: 0
   m_StartPos: {x: 0, y: 0}
   m_CellElem: {fileID: 8315085174918771319}

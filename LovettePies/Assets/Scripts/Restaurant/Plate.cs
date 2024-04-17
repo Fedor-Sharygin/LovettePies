@@ -65,6 +65,7 @@ public class Plate : MonoBehaviour
             {
                 p_DumpSocket.ForceStack(CurObj);
             }
+            m_PlateState = EnumPlateState.PLATE_EMPTY;
         }
     }
 }

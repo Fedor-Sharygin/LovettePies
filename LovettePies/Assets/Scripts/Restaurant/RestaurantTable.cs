@@ -46,6 +46,11 @@ public class RestaurantTable : Interactable
         {
             case "Player":
                 {
+                    if (m_PlatePositions[Direction].IsLocked)
+                    {
+                        break;
+                    }
+
                     var PlayerObject = m_Interactee as PlayerRestaurantController;
                     if (!m_PlatePositions[Direction].AvailableForStack)
                     {
@@ -77,11 +82,21 @@ public class RestaurantTable : Interactable
                             break;
                         }
                         m_PlatePositions[Direction].Stack(PlayerObject.m_DishPos.RemoveObj());
+
+                        if (!m_SeatPositions[Direction].AvailableForStack)
+                        {
+                            m_SeatPositions[Direction].PeekObj().GetComponent<RestaurantBehavior>()?.ReceiveFood(m_PlatePositions[Direction]);
+                        }
                     }
                 }
                 break;
             case "RestaurantCustomer":
                 {
+                    if (m_SeatPositions[Direction].IsLocked)
+                    {
+                        break;
+                    }
+
                     if (!m_SeatPositions[Direction].AvailableForStack)
                     {
                         m_SeatPositions[Direction].RemoveObj();
@@ -89,6 +104,10 @@ public class RestaurantTable : Interactable
                     else
                     {
                         m_SeatPositions[Direction].Stack(m_Interactee.transform);
+                        if (!m_PlatePositions[Direction].AvailableForStack)
+                        {
+                            m_SeatPositions[Direction].PeekObj().GetComponent<RestaurantBehavior>()?.ReceiveFood(m_PlatePositions[Direction]);
+                        }
                     }
                 }
                 break;

@@ -19,8 +19,17 @@ public class ObjectSocket : MonoBehaviour
         }
     }
 
+    private bool m_Locked = false;
+    public bool IsLocked
+    {
+        get
+        {
+            return m_Locked;
+        }
+    }
+
     [SerializeField]
-    private float m_PlateSpeed = 0.02f;
+    private float m_ObjectSpeed = 0.02f;
     private void Update()
     {
         if (AvailableForStack)
@@ -32,7 +41,7 @@ public class ObjectSocket : MonoBehaviour
         {
             return;
         }
-        transform.GetChild(0).localPosition = Vector3.Lerp(transform.GetChild(0).localPosition, Vector3.zero, m_PlateSpeed);
+        transform.GetChild(0).localPosition = Vector3.Lerp(transform.GetChild(0).localPosition, Vector3.zero, m_ObjectSpeed);
     }
 
     public void Stack(Transform p_StackObj)
@@ -44,6 +53,10 @@ public class ObjectSocket : MonoBehaviour
 
         p_StackObj.SetParent(Socket);
         //p_StackObj.localPosition = Vector3.zero;
+    }
+    public void ForceStack(Transform p_StackObj)
+    {
+        p_StackObj.SetParent(Socket);
     }
 
     public Transform RemoveObj()
@@ -66,5 +79,14 @@ public class ObjectSocket : MonoBehaviour
         }
 
         return transform.GetChild(0);
+    }
+
+    public void Lock(bool p_Locked = true)
+    {
+        m_Locked = p_Locked;
+    }
+    public void Unlock()
+    {
+        Lock(false);
     }
 }

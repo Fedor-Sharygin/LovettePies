@@ -71,6 +71,8 @@ public class Area : MonoBehaviour
     private ObjectMatrx m_Interactables;
     private Vector3 m_AreaStartPos = Vector3.zero;
     private Vector3 m_CellSize = Vector3.zero;
+    private Vector3 m_RightDir;
+    private Vector3 m_ForwardDir;
     private void Awake()
     {
         var SizeHolder = GetComponent<Renderer>();
@@ -82,23 +84,23 @@ public class Area : MonoBehaviour
         Vector3 Size = SizeHolder.bounds.extents;
         Size.y = 0;
         m_AreaStartPos = transform.position;
-        m_AreaStartPos.x -= Size.x;
-        m_AreaStartPos.z += Size.z;
+        m_AreaStartPos += transform.forward * Size.z;
+        m_AreaStartPos -= transform.right * Size.x;
 
         m_CellSize.x = 2f * Size.x / Columns;
         m_CellSize.z = 2f * Size.z / Rows;
 
         m_Interactables = new ObjectMatrx(Rows, Columns);
+
+        m_RightDir = transform.right;
+        m_ForwardDir = -transform.forward;
     }
 
     public Vector3 GetCenterOfCell(int p_RowIdx, int p_ColIdx)
     {
         Vector3 CellCenterPos = m_AreaStartPos;
-        CellCenterPos.x += m_CellSize.x * p_ColIdx;
-        CellCenterPos.z -= m_CellSize.z * p_RowIdx;
-
-        CellCenterPos.x += m_CellSize.x * .5f;
-        CellCenterPos.z -= m_CellSize.z * .5f;
+        CellCenterPos += m_CellSize.x * ((float)p_ColIdx + .5f) * m_RightDir;
+        CellCenterPos += m_CellSize.z * ((float)p_RowIdx + .5f) * m_ForwardDir;
         return CellCenterPos;
     }
     public Vector3 GetCenterOfCell(Vector2Int p_CellPos)

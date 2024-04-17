@@ -64,8 +64,7 @@ public class Interactable : MonoBehaviour
     [SerializeField]
     protected int m_AreaType;
 
-    [SerializeField]
-    private Vector2Int m_StartPos;
+    public Vector2Int m_StartPos;
     private Vector2Int m_PrevCellPos;
     private Vector2Int m_CellPos;
     [SerializeField]
@@ -91,7 +90,12 @@ public class Interactable : MonoBehaviour
         m_PrevCellPos.x = m_CellPos.x;
         m_PrevCellPos.y = m_CellPos.y;
 
-        m_CellElem.MoveBy(new Vector2Int(m_CellPos.y, m_CellPos.x));
+        MoveToPosition();
+    }
+
+    public void MoveToPosition()
+    {
+        m_CellElem.MoveTo(new Vector2Int(m_CellPos.y, m_CellPos.x));
         CellElement.AreaArray[m_AreaType].RemoveObjectFromMatrix(m_PrevCellPos.y, m_PrevCellPos.x);
         CellElement.AreaArray[m_AreaType].AddObjectToMatrix(this, m_CellPos.y, m_CellPos.x);
 
@@ -121,6 +125,7 @@ public class Interactable : MonoBehaviour
 
     public virtual bool IsInteractable(string p_ObjectTag, int Direction = -1)
     {
+        bool ActionIsInteractable = false;
         for (int i = 0; i < m_InteracteeTags.Length; ++i)
         {
             if (p_ObjectTag != m_InteracteeTags[i])
@@ -128,10 +133,10 @@ public class Interactable : MonoBehaviour
                 continue;
             }
 
-            return m_IsInteractable[i];
+            ActionIsInteractable |= m_IsInteractable[i];
         }
 
-        return false;
+        return ActionIsInteractable;
     }
 
 
@@ -158,6 +163,19 @@ public class Interactable : MonoBehaviour
     public void TestInteractReaction2()
     {
         Debug.Log($"Customer Interacting with object {name}-{m_ObjectType}");
+    }
+
+    public void FlipTagInteractableState(string p_InteracteeTag)
+    {
+        for (int i = 0; i < m_InteracteeTags.Length; ++i)
+        {
+            if (p_InteracteeTag != m_InteracteeTags[i])
+            {
+                continue;
+            }
+
+            m_IsInteractable[i] = !m_IsInteractable[i];
+        }
     }
 }
 

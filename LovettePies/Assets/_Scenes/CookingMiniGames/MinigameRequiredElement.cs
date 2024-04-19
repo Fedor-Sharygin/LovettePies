@@ -62,13 +62,15 @@ public class MinigameRequiredElement : MonoBehaviour
         }
 
         //m_PlayerInput.SwitchCurrentActionMap("Restaurant Controls");
-        m_PlayerControls.BasicMinigameControls.Disable();
-        m_PlayerControls.RestaurantControls.Enable();
+        //m_PlayerControls.BasicMinigameControls.Disable();
+        //m_PlayerControls.RestaurantControls.Enable();
         SceneManager.UnloadSceneAsync(gameObject.scene);
     }
 
     public void PlayEndgameAnimation()
     {
+        m_PlayerControls.BasicMinigameControls.Disable();
+        m_PlayerControls.RestaurantControls.Enable();
         GetComponent<Animator>()?.SetTrigger("EndGame");
     }
 }

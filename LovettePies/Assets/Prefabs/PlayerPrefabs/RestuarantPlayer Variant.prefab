@@ -44,7 +44,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d17d75986bec2f6498146b123eb807b2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_PlateSpeed: 0.02
+  m_ObjectSpeed: 0.02
 --- !u!1001 &1555658896358851134
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -71,6 +71,10 @@ PrefabInstance:
     - target: {fileID: 4135413993347071462, guid: e6be1d8dc7040d3438023e7e2dec0f84, type: 3}
       propertyPath: m_MovementFlag
       value: 17
+      objectReference: {fileID: 0}
+    - target: {fileID: 4135413993347071462, guid: e6be1d8dc7040d3438023e7e2dec0f84, type: 3}
+      propertyPath: m_MovementSpeed
+      value: 0.05
       objectReference: {fileID: 0}
     - target: {fileID: 4135413993347071466, guid: e6be1d8dc7040d3438023e7e2dec0f84, type: 3}
       propertyPath: m_Name
@@ -157,35 +161,11 @@ MonoBehaviour:
       m_Calls: []
   m_ActionEvents:
   - m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 8630831232548124751}
-        m_TargetAssemblyTypeName: PlayerRestaurantController, Assembly-CSharp
-        m_MethodName: NavigateArea
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
     m_ActionId: 29ededec-b4c7-4d88-8af7-cd9722b637a7
     m_ActionName: Restaurant Controls/AreaNavigation[/Keyboard/w,/Keyboard/s,/Keyboard/a,/Keyboard/d,/Keyboard/upArrow,/Keyboard/downArrow,/Keyboard/leftArrow,/Keyboard/rightArrow,/XInputControllerWindows/leftStick,/XInputControllerWindows/dpad/up,/XInputControllerWindows/dpad/down,/XInputControllerWindows/dpad/left,/XInputControllerWindows/dpad/right]
   - m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 8630831232548124751}
-        m_TargetAssemblyTypeName: PlayerRestaurantController, Assembly-CSharp
-        m_MethodName: Interact
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
     m_ActionId: 26fe1650-8105-46e0-ba0b-aadc461f8eae
     m_ActionName: Restaurant Controls/MainAction[/Keyboard/space,/Keyboard/e,/Keyboard/enter,/XInputControllerWindows/buttonSouth]
   - m_PersistentCalls:

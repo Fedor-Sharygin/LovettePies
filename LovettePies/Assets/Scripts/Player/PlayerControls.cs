@@ -377,6 +377,116 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
                     ""isPartOfComposite"": false
                 }
             ]
+        },
+        {
+            ""name"": ""Basic Minigame Controls"",
+            ""id"": ""124e5c38-d908-459d-9423-fe52e12ce1ee"",
+            ""actions"": [
+                {
+                    ""name"": ""Basic Press"",
+                    ""type"": ""Button"",
+                    ""id"": ""ce7a56f2-d876-4963-966b-032465e49996"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Controller Movement Left"",
+                    ""type"": ""Value"",
+                    ""id"": ""9d57f9ca-0374-43cd-8e75-c6ed7d72493f"",
+                    ""expectedControlType"": ""Vector2"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": true
+                },
+                {
+                    ""name"": ""Controller Movement Right"",
+                    ""type"": ""Value"",
+                    ""id"": ""6020b188-d222-47f2-8bca-1459e3bde38a"",
+                    ""expectedControlType"": ""Vector2"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": true
+                },
+                {
+                    ""name"": ""Quit Minigame"",
+                    ""type"": ""Button"",
+                    ""id"": ""330f69da-3ec4-497b-912e-5a5fe6c60d9e"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                }
+            ],
+            ""bindings"": [
+                {
+                    ""name"": """",
+                    ""id"": ""e01a37d5-c248-433d-9baf-c9050ec2a890"",
+                    ""path"": ""<Keyboard>/space"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Basic Press"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""213c70d2-bc45-494c-bd9a-9f01e12161f2"",
+                    ""path"": ""<Keyboard>/e"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Basic Press"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""59c81f76-75d0-4ac4-8f4f-f943860fff16"",
+                    ""path"": ""<Gamepad>/leftStick"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Controller Movement Left"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""9fae0db2-7dca-453b-bf20-d9fb3290a208"",
+                    ""path"": ""<Gamepad>/rightStick"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Controller Movement Right"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""3c26ca59-138e-4643-807b-4a6e6d291829"",
+                    ""path"": ""<Keyboard>/escape"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Quit Minigame"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""8cc91dae-0cc3-4017-a4e5-1df353af91e3"",
+                    ""path"": ""<Gamepad>/start"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Quit Minigame"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                }
+            ]
         }
     ],
     ""controlSchemes"": []
@@ -392,6 +502,12 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
         // Conversation Controls
         m_ConversationControls = asset.FindActionMap("Conversation Controls", throwIfNotFound: true);
         m_ConversationControls_Newaction = m_ConversationControls.FindAction("New action", throwIfNotFound: true);
+        // Basic Minigame Controls
+        m_BasicMinigameControls = asset.FindActionMap("Basic Minigame Controls", throwIfNotFound: true);
+        m_BasicMinigameControls_BasicPress = m_BasicMinigameControls.FindAction("Basic Press", throwIfNotFound: true);
+        m_BasicMinigameControls_ControllerMovementLeft = m_BasicMinigameControls.FindAction("Controller Movement Left", throwIfNotFound: true);
+        m_BasicMinigameControls_ControllerMovementRight = m_BasicMinigameControls.FindAction("Controller Movement Right", throwIfNotFound: true);
+        m_BasicMinigameControls_QuitMinigame = m_BasicMinigameControls.FindAction("Quit Minigame", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -603,6 +719,76 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
         }
     }
     public ConversationControlsActions @ConversationControls => new ConversationControlsActions(this);
+
+    // Basic Minigame Controls
+    private readonly InputActionMap m_BasicMinigameControls;
+    private List<IBasicMinigameControlsActions> m_BasicMinigameControlsActionsCallbackInterfaces = new List<IBasicMinigameControlsActions>();
+    private readonly InputAction m_BasicMinigameControls_BasicPress;
+    private readonly InputAction m_BasicMinigameControls_ControllerMovementLeft;
+    private readonly InputAction m_BasicMinigameControls_ControllerMovementRight;
+    private readonly InputAction m_BasicMinigameControls_QuitMinigame;
+    public struct BasicMinigameControlsActions
+    {
+        private @PlayerControls m_Wrapper;
+        public BasicMinigameControlsActions(@PlayerControls wrapper) { m_Wrapper = wrapper; }
+        public InputAction @BasicPress => m_Wrapper.m_BasicMinigameControls_BasicPress;
+        public InputAction @ControllerMovementLeft => m_Wrapper.m_BasicMinigameControls_ControllerMovementLeft;
+        public InputAction @ControllerMovementRight => m_Wrapper.m_BasicMinigameControls_ControllerMovementRight;
+        public InputAction @QuitMinigame => m_Wrapper.m_BasicMinigameControls_QuitMinigame;
+        public InputActionMap Get() { return m_Wrapper.m_BasicMinigameControls; }
+        public void Enable() { Get().Enable(); }
+        public void Disable() { Get().Disable(); }
+        public bool enabled => Get().enabled;
+        public static implicit operator InputActionMap(BasicMinigameControlsActions set) { return set.Get(); }
+        public void AddCallbacks(IBasicMinigameControlsActions instance)
+        {
+            if (instance == null || m_Wrapper.m_BasicMinigameControlsActionsCallbackInterfaces.Contains(instance)) return;
+            m_Wrapper.m_BasicMinigameControlsActionsCallbackInterfaces.Add(instance);
+            @BasicPress.started += instance.OnBasicPress;
+            @BasicPress.performed += instance.OnBasicPress;
+            @BasicPress.canceled += instance.OnBasicPress;
+            @ControllerMovementLeft.started += instance.OnControllerMovementLeft;
+            @ControllerMovementLeft.performed += instance.OnControllerMovementLeft;
+            @ControllerMovementLeft.canceled += instance.OnControllerMovementLeft;
+            @ControllerMovementRight.started += instance.OnControllerMovementRight;
+            @ControllerMovementRight.performed += instance.OnControllerMovementRight;
+            @ControllerMovementRight.canceled += instance.OnControllerMovementRight;
+            @QuitMinigame.started += instance.OnQuitMinigame;
+            @QuitMinigame.performed += instance.OnQuitMinigame;
+            @QuitMinigame.canceled += instance.OnQuitMinigame;
+        }
+
+        private void UnregisterCallbacks(IBasicMinigameControlsActions instance)
+        {
+            @BasicPress.started -= instance.OnBasicPress;
+            @BasicPress.performed -= instance.OnBasicPress;
+            @BasicPress.canceled -= instance.OnBasicPress;
+            @ControllerMovementLeft.started -= instance.OnControllerMovementLeft;
+            @ControllerMovementLeft.performed -= instance.OnControllerMovementLeft;
+            @ControllerMovementLeft.canceled -= instance.OnControllerMovementLeft;
+            @ControllerMovementRight.started -= instance.OnControllerMovementRight;
+            @ControllerMovementRight.performed -= instance.OnControllerMovementRight;
+            @ControllerMovementRight.canceled -= instance.OnControllerMovementRight;
+            @QuitMinigame.started -= instance.OnQuitMinigame;
+            @QuitMinigame.performed -= instance.OnQuitMinigame;
+            @QuitMinigame.canceled -= instance.OnQuitMinigame;
+        }
+
+        public void RemoveCallbacks(IBasicMinigameControlsActions instance)
+        {
+            if (m_Wrapper.m_BasicMinigameControlsActionsCallbackInterfaces.Remove(instance))
+                UnregisterCallbacks(instance);
+        }
+
+        public void SetCallbacks(IBasicMinigameControlsActions instance)
+        {
+            foreach (var item in m_Wrapper.m_BasicMinigameControlsActionsCallbackInterfaces)
+                UnregisterCallbacks(item);
+            m_Wrapper.m_BasicMinigameControlsActionsCallbackInterfaces.Clear();
+            AddCallbacks(instance);
+        }
+    }
+    public BasicMinigameControlsActions @BasicMinigameControls => new BasicMinigameControlsActions(this);
     public interface IRestaurantControlsActions
     {
         void OnAreaNavigation(InputAction.CallbackContext context);
@@ -616,5 +802,12 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
     public interface IConversationControlsActions
     {
         void OnNewaction(InputAction.CallbackContext context);
+    }
+    public interface IBasicMinigameControlsActions
+    {
+        void OnBasicPress(InputAction.CallbackContext context);
+        void OnControllerMovementLeft(InputAction.CallbackContext context);
+        void OnControllerMovementRight(InputAction.CallbackContext context);
+        void OnQuitMinigame(InputAction.CallbackContext context);
     }
 }

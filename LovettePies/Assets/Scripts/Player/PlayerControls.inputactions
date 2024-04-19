@@ -355,6 +355,116 @@
                     "isPartOfComposite": false
                 }
             ]
+        },
+        {
+            "name": "Basic Minigame Controls",
+            "id": "124e5c38-d908-459d-9423-fe52e12ce1ee",
+            "actions": [
+                {
+                    "name": "Basic Press",
+                    "type": "Button",
+                    "id": "ce7a56f2-d876-4963-966b-032465e49996",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Controller Movement Left",
+                    "type": "Value",
+                    "id": "9d57f9ca-0374-43cd-8e75-c6ed7d72493f",
+                    "expectedControlType": "Vector2",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": true
+                },
+                {
+                    "name": "Controller Movement Right",
+                    "type": "Value",
+                    "id": "6020b188-d222-47f2-8bca-1459e3bde38a",
+                    "expectedControlType": "Vector2",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": true
+                },
+                {
+                    "name": "Quit Minigame",
+                    "type": "Button",
+                    "id": "330f69da-3ec4-497b-912e-5a5fe6c60d9e",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "e01a37d5-c248-433d-9baf-c9050ec2a890",
+                    "path": "<Keyboard>/space",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Basic Press",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "213c70d2-bc45-494c-bd9a-9f01e12161f2",
+                    "path": "<Keyboard>/e",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Basic Press",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "59c81f76-75d0-4ac4-8f4f-f943860fff16",
+                    "path": "<Gamepad>/leftStick",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Controller Movement Left",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "9fae0db2-7dca-453b-bf20-d9fb3290a208",
+                    "path": "<Gamepad>/rightStick",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Controller Movement Right",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "3c26ca59-138e-4643-807b-4a6e6d291829",
+                    "path": "<Keyboard>/escape",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Quit Minigame",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "8cc91dae-0cc3-4017-a4e5-1df353af91e3",
+                    "path": "<Gamepad>/start",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Quit Minigame",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
         }
     ],
     "controlSchemes": []

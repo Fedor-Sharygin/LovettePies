@@ -11,16 +11,40 @@ public class PlayerRestaurantController : MonoBehaviour
     private Vector2Int m_OriginalPosition;
 
     private CellElement m_CellElement;
-    private PlayerInput m_PlayerInput;
-    private void Start()
+    public PlayerInput m_PlayerInput;
+    public PlayerControls m_PlayerRestaurantControls;
+    private void Awake()
     {
-        m_PlayerInput = GetComponent<PlayerInput>();
-        if (m_PlayerInput == null)
+        m_PlayerRestaurantControls = new PlayerControls();
+        if (m_PlayerRestaurantControls == null)
         {
-            Debug.LogError($"{name}: Could not load Player Input Controls. Quitting the game!");
+            Debug.LogError($"{name}: Could not load Player Restaurant Controls. Quitting the game!");
             Application.Quit();
             return;
         }
+        m_PlayerRestaurantControls.Enable();
+        m_PlayerRestaurantControls.BasicMinigameControls.Disable();
+        m_PlayerRestaurantControls.RestaurantControls.Enable();
+
+        m_PlayerInput = GetComponent<PlayerInput>();
+        if (m_PlayerInput == null)
+        {
+            Debug.LogError($"{name}: Could not load Player Input. Quitting the game!");
+            Application.Quit();
+            return;
+        }
+    }
+    private void Start()
+    {
+    //    m_PlayerRestaurantControls = new PlayerControls();
+    //    if (m_PlayerRestaurantControls == null)
+    //    {
+    //        Debug.LogError($"{name}: Could not load Player Input Controls. Quitting the game!");
+    //        Application.Quit();
+    //        return;
+    //    }
+    //    m_PlayerRestaurantControls.Enable();
+        //m_PlayerRestaurantControls.SwitchCurrentActionMap("Basic Minigame Controls");
 
         m_CellElement = GetComponent<CellElement>();
         if (m_CellElement == null)
@@ -33,6 +57,31 @@ public class PlayerRestaurantController : MonoBehaviour
         m_CellElement.MoveTo(m_OriginalPosition);
     }
 
+    private InputAction m_AreaNavigation;
+    private InputAction m_Interact;
+    private void OnEnable()
+    {
+        //m_PlayerRestaurantControls.Enable();
+        
+        m_AreaNavigation = m_PlayerRestaurantControls.RestaurantControls.AreaNavigation;
+        m_AreaNavigation.Enable();
+        m_AreaNavigation.started  += NavigateArea;
+        m_AreaNavigation.canceled += NavigateArea;
+
+        m_Interact = m_PlayerRestaurantControls.RestaurantControls.MainAction;
+        m_Interact.Enable();
+        m_Interact.started += Interact;
+    }
+    private void OnDisable()
+    {
+        m_AreaNavigation.started  -= NavigateArea;
+        m_AreaNavigation.canceled -= NavigateArea;
+        m_AreaNavigation.Disable();
+
+        m_Interact.started -= Interact;
+        m_Interact.Disable();
+    }
+
     private void Update()
     {
         MoveWhileHeld();
@@ -40,7 +89,7 @@ public class PlayerRestaurantController : MonoBehaviour
 
     private Vector2Int GetMoveDirection()
     {
-        Vector2 MoveDirection = m_NavigationContext.ReadValue<Vector2>();
+        Vector2 MoveDirection = m_AreaNavigation.ReadValue<Vector2>();
         if (Mathf.Abs(MoveDirection.x) >= Mathf.Abs(MoveDirection.y))
         {
             MoveDirection.x = Mathf.Abs(MoveDirection.x) > m_JoystickEffectThreshold ? Mathf.Sign(MoveDirection.x) : 0;
@@ -77,7 +126,7 @@ public class PlayerRestaurantController : MonoBehaviour
 
         if (p_CallbackContext.started)
         {
-            m_NavigationContext = p_CallbackContext;
+            //m_NavigationContext = p_CallbackContext;
             m_ControlsHeld = true;
         }
 

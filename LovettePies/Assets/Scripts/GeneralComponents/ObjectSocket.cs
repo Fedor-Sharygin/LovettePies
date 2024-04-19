@@ -37,11 +37,14 @@ public class ObjectSocket : MonoBehaviour
             return;
         }
 
-        if (Vector3.SqrMagnitude(transform.GetChild(0).localPosition) <= .0001f)
+        for (int i = 0; i < transform.childCount; ++i)
         {
-            return;
+            if (Vector3.SqrMagnitude(transform.GetChild(i).localPosition) <= .0001f)
+            {
+                continue;
+            }
+            transform.GetChild(i).localPosition = Vector3.Lerp(transform.GetChild(i).localPosition, Vector3.zero, m_ObjectSpeed);
         }
-        transform.GetChild(0).localPosition = Vector3.Lerp(transform.GetChild(0).localPosition, Vector3.zero, m_ObjectSpeed);
     }
 
     public void Stack(Transform p_StackObj)

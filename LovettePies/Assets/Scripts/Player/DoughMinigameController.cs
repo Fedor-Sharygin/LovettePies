@@ -25,6 +25,7 @@ public class DoughMinigameController : MonoBehaviour
     private InputAction m_Hand_Button;
     private InputAction m_Hand_LeftStick;
     private InputAction m_Hand_RightStick;
+    private InputAction m_CloseMinigame;
     private void OnEnable()
     {
         m_Hand_Button = m_PlayerControls.BasicMinigameControls.BasicPress;
@@ -40,7 +41,13 @@ public class DoughMinigameController : MonoBehaviour
         m_Hand_RightStick.Enable();
         m_Hand_RightStick.started   += ControlHands_Controller_RightStick;
         m_Hand_RightStick.canceled  += ControlHands_Controller_RightStick;
+
+
+        m_CloseMinigame = m_PlayerControls.BasicMinigameControls.QuitMinigame;
+        m_CloseMinigame.Enable();
+        m_CloseMinigame.performed += CloseMinigame;
     }
+
     private void OnDisable()
     {
         m_Hand_Button.performed     -= ControlHands_Button;
@@ -48,6 +55,7 @@ public class DoughMinigameController : MonoBehaviour
         m_Hand_LeftStick.canceled   -= ControlHands_Controller_LeftStick;
         m_Hand_RightStick.started   -= ControlHands_Controller_RightStick;
         m_Hand_RightStick.canceled  -= ControlHands_Controller_RightStick;
+        m_CloseMinigame.performed   -= CloseMinigame;
     }
 
     [SerializeField]
@@ -113,7 +121,13 @@ public class DoughMinigameController : MonoBehaviour
 
         if (m_Dough.localScale.x >= m_TargetDoughScale)
         {
-            GetComponent<MinigameRequiredElement>()?.PlayEndgameAnimation();
+            GetComponent<MinigameRequiredElement>()?.PlayEndgameAnimation(true);
         }
+    }
+
+
+    private void CloseMinigame(InputAction.CallbackContext obj)
+    {
+        GetComponent<MinigameRequiredElement>()?.PlayEndgameAnimation(m_Dough.localScale.x >= m_TargetDoughScale);
     }
 }

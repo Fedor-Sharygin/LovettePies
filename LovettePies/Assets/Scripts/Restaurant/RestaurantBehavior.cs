@@ -42,7 +42,7 @@ public class RestaurantBehavior : MonoBehaviour
         {
             return;
         }
-        if (PlateContents.m_DishIngredients.Count != m_FoodIngredients.Length)
+        if (PlateContents.IngredientCount != m_FoodIngredients.Length)
         {
             return;
         }
@@ -52,14 +52,16 @@ public class RestaurantBehavior : MonoBehaviour
         {
             //BAD APPROACH, BUT DUE TO SMALL SIZE SHOULD WORK FAST
             FullMask |= (1 << i);
-            for (int j = 0; j < PlateContents.m_DishIngredients.Count; ++j)
+            for (int j = 0; j < PlateContents.IngredientCount; ++j)
             {
                 if ((CheckedMask & (1 << j)) != 0x0)
                 {
                     continue;
                 }
 
-                if (m_FoodIngredients[i].m_IngredientName != PlateContents.m_DishIngredients[j].m_IngredientName)
+                if (m_FoodIngredients[i].m_IngredientName !=
+                    PlateContents.m_IngredientSockets[j].PeekObj()
+                    .GetComponent<IngredientContainer>().m_IngredientDescription.m_IngredientName)
                 {
                     continue;
                 }

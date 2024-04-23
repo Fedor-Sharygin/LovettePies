@@ -6,6 +6,9 @@ using UnityEngine.SceneManagement;
 
 public class MinigameRequiredElement : MonoBehaviour
 {
+    public delegate void MinigameClosedDelegate(bool p_Success);
+    public event MinigameClosedDelegate m_MinigameClosed;
+
     public PlayerInput m_PlayerInput;
     public PlayerControls m_PlayerControls;
     private void Awake()
@@ -67,10 +70,11 @@ public class MinigameRequiredElement : MonoBehaviour
         SceneManager.UnloadSceneAsync(gameObject.scene);
     }
 
-    public void PlayEndgameAnimation()
+    public void PlayEndgameAnimation(bool p_Success)
     {
         m_PlayerControls.BasicMinigameControls.Disable();
         m_PlayerControls.RestaurantControls.Enable();
         GetComponent<Animator>()?.SetTrigger("EndGame");
+        m_MinigameClosed?.Invoke(p_Success);
     }
 }

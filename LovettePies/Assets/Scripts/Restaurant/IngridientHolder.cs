@@ -44,10 +44,11 @@ public class IngridientHolder : Interactable
         var IngredientInstance = GameObject.Instantiate(m_IngredientPrefab, m_IngredientSpawnPos.Socket);
         IngredientInstance.transform.localPosition = Vector3.zero;
         IngredientInstance.transform.localRotation = Quaternion.identity;
+        IngredientInstance.GetComponent<IngredientContainer>().m_IngredientDescription = m_IngredientDescription;
         IngredientInstance.GetComponentInChildren<SpriteRenderer>().sprite = m_IngredientDescription.m_IngredientSprite;
 
-        int IngredientIdx = PlayerPlate.AddIngredient(m_IngredientDescription);
-        PlayerPlate.m_IngredientSockets[IngredientIdx].Stack(m_IngredientSpawnPos.RemoveObj());
+        PlayerPlate.AddIngredient(IngredientInstance);
+        //PlayerPlate.m_IngredientSockets[IngredientIdx].Stack(m_IngredientSpawnPos.RemoveObj());
     }
 }
 

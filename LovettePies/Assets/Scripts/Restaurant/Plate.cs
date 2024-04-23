@@ -16,29 +16,66 @@ public class Plate : MonoBehaviour
 
     public EnumPlateState m_PlateState { get; private set; } = EnumPlateState.PLATE_EMPTY;
 
-    public List<IngredientDescriptor> m_DishIngredients;
+    //public List<IngredientDescriptor> m_DishIngredients;
     public ObjectSocket[] m_IngredientSockets;
     public bool AvailableForIngredients
     {
         get
         {
-            return m_DishIngredients.Count < m_IngredientSockets.Length;
+            foreach (var IngSock in m_IngredientSockets)
+            {
+                if (IngSock.AvailableForStack)
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+    }
+
+    public int IngredientCount
+    {
+        get
+        {
+            int IngCount = 0;
+            foreach (var IngSock in m_IngredientSockets)
+            {
+                if (IngSock.AvailableForStack)
+                {
+                    continue;
+                }
+                IngCount++;
+            }
+            return IngCount;
         }
     }
 
     public ObjectSocket m_DishPos;
 
-    private void Start()
-    {
-        m_DishIngredients = new List<IngredientDescriptor>(m_IngredientSockets.Length);
-    }
+    //private void Start()
+    //{
+    //    //m_DishIngredients = new List<IngredientDescriptor>(m_IngredientSockets.Length);
+    //}
 
-    public int AddIngredient(IngredientDescriptor p_NewIngredient)
+    //public int AddIngredient(IngredientDescriptor p_NewIngredient)
+    //{
+    //    //int RetIdx = m_DishIngredients.Count;
+    //    //m_DishIngredients.Add(p_NewIngredient);
+    //    m_PlateState = EnumPlateState.PLATE_FULL_UNCOOKED;
+    //    return RetIdx;
+    //}
+
+    public void AddIngredient(GameObject p_IngredientObject)
     {
-        int RetIdx = m_DishIngredients.Count;
-        m_DishIngredients.Add(p_NewIngredient);
-        m_PlateState = EnumPlateState.PLATE_FULL_UNCOOKED;
-        return RetIdx;
+        foreach (var IngSock in m_IngredientSockets)
+        {
+            if (!IngSock.AvailableForStack)
+            {
+                continue;
+            }
+            IngSock.Stack(p_IngredientObject.transform);
+            break;
+        }
     }
 
     public void Cook()
@@ -53,7 +90,7 @@ public class Plate : MonoBehaviour
 
     public void Dump(ObjectSocket p_DumpSocket = null)
     {
-        m_DishIngredients.Clear();
+        //m_DishIngredients.Clear();
         foreach (var IngSock in m_IngredientSockets)
         {
             var CurObj = IngSock.RemoveObj();

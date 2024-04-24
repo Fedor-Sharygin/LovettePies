@@ -10,6 +10,11 @@ using UnityEditor;
 
 public class MinigameHolder : Interactable
 {
+    private void Awake()
+    {
+        SceneManager.sceneLoaded += MinigameLoaded;
+    }
+
     public ObjectSocket m_IngredientSocket;
 
     private ObjectSocket m_OriginalSocket = null;
@@ -35,6 +40,7 @@ public class MinigameHolder : Interactable
             return;
         }
 
+        Debug.LogWarning("WARNING: MINIGAME INTERACTION IS SUCCESSFUL!");
         m_IngredIdx = 0;
         foreach (var IngSock in PlayerPlate.m_IngredientSockets)
         {
@@ -51,7 +57,8 @@ public class MinigameHolder : Interactable
             m_OriginalSocket = PlayerPlate.m_IngredientSockets[m_IngredIdx];
             m_IngredientSocket.Stack(m_OriginalSocket.RemoveObj());
             SceneManager.LoadSceneAsync(m_CookingName, LoadSceneMode.Additive);
-            SceneManager.sceneLoaded += MinigameLoaded;
+            Debug.LogWarning("WARNING: LOCKING MINIGAME HOLDER!");
+            m_IsInteractable[0] = false;
             break;
         }
     }
@@ -59,8 +66,11 @@ public class MinigameHolder : Interactable
     private void MinigameLoaded(Scene p_MinigameScene, LoadSceneMode _p_LoadSceneMode)
     {
         //p_MinigameScene.GetRootGameObjects();
-
-        GameObject.FindGameObjectWithTag("MinigameHolder").GetComponent<MinigameRequiredElement>().m_MinigameClosed += MinigameClosed;
+        Debug.LogWarning($"WARNING: {p_MinigameScene.name} LOADED AND TRIGGERED FUNCTION!");
+        foreach (var MGHolder in GameObject.FindGameObjectsWithTag("MinigameHolder"))
+        {
+            MGHolder.GetComponent<MinigameRequiredElement>().m_MinigameClosed += MinigameClosed;
+        }
     }
 
     [Serializable]
@@ -94,6 +104,8 @@ public class MinigameHolder : Interactable
         }
 
         m_OriginalSocket.Stack(m_IngredientSocket.RemoveObj());
+        m_IsInteractable[0] = true;
+        Debug.LogWarning("WARNING: UNLOCKING MINIGAME HOLDER!");
     }
 }
 

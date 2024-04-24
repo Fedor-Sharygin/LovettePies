@@ -13,6 +13,7 @@ public class MinigameRequiredElement : MonoBehaviour
     public PlayerControls m_PlayerControls;
     private void Awake()
     {
+        Debug.LogWarning($"WARNING: {gameObject.GetInstanceID()} OBJ IS LOADING MINIGAME!!!!");
         var PlayerController = FindObjectOfType<PlayerRestaurantController>();
         m_PlayerControls = PlayerController?.m_PlayerRestaurantControls;
         if (m_PlayerControls == null)
@@ -60,6 +61,7 @@ public class MinigameRequiredElement : MonoBehaviour
     {
         if (!m_SceneLoaded)
         {
+            Debug.LogWarning("WARNING: LOADING MINIGAME IS DONE!");
             m_SceneLoaded = true;
             return;
         }
@@ -67,14 +69,18 @@ public class MinigameRequiredElement : MonoBehaviour
         //m_PlayerInput.SwitchCurrentActionMap("Restaurant Controls");
         //m_PlayerControls.BasicMinigameControls.Disable();
         //m_PlayerControls.RestaurantControls.Enable();
+        Debug.LogWarning("WARNING: UNLOADING MINIGAME!");
+        this.enabled = false;
         SceneManager.UnloadSceneAsync(gameObject.scene);
     }
 
     public void PlayEndgameAnimation(bool p_Success)
     {
+        Debug.LogWarning($"WARNING: {gameObject.GetInstanceID()} OBJ IS PLAYING MINIGAME END ANIMATION!");
         m_PlayerControls.BasicMinigameControls.Disable();
         m_PlayerControls.RestaurantControls.Enable();
         GetComponent<Animator>()?.SetTrigger("EndGame");
+        Debug.LogWarning($"WARNING: m_MinigameClosed event has no functions - {m_MinigameClosed == null}");
         m_MinigameClosed?.Invoke(p_Success);
     }
 }

@@ -19,7 +19,7 @@ public class DoughMinigameController : MonoBehaviour
         //ReqElem.m_PlayerInput.SwitchCurrentActionMap("Basic Minigame Controls");
         m_PlayerControls = ReqElem.m_PlayerControls;
 
-        m_DoughEnterDelegate.OnTriggerEntered += DoughTouched;
+        //m_DoughEnterDelegate.OnTriggerEntered += DoughTouched;
     }
 
     private InputAction m_Hand_Button;
@@ -103,17 +103,17 @@ public class DoughMinigameController : MonoBehaviour
 
     }
 
-    private void DoughTouched(Collider2D p_DoughCollider, Collider2D p_Other)
-    {
-        if (GetLeftHandInput() == Vector2.zero && GetRightHandInput() == Vector2.zero)
-        {
-            //IncreaseDoughSize(m_DoughScaleSpeed_Button);
-        }
-        else
-        {
-            IncreaseDoughSize(m_DoughScaleSpeed_Controller);
-        }
-    }
+    //private void DoughTouched(Collider2D p_DoughCollider, Collider2D p_Other)
+    //{
+    //    if (GetLeftHandInput() == Vector2.zero && GetRightHandInput() == Vector2.zero)
+    //    {
+    //        //IncreaseDoughSize(m_DoughScaleSpeed_Button);
+    //    }
+    //    else
+    //    {
+    //        IncreaseDoughSize(m_DoughScaleSpeed_Controller);
+    //    }
+    //}
 
     private void IncreaseDoughSize(float p_DoughScaleSpeed)
     {
@@ -122,6 +122,7 @@ public class DoughMinigameController : MonoBehaviour
         if (m_Dough.localScale.x >= m_TargetDoughScale)
         {
             GetComponent<MinigameRequiredElement>()?.PlayEndgameAnimation(true);
+            this.enabled = false;
         }
     }
 
@@ -129,5 +130,6 @@ public class DoughMinigameController : MonoBehaviour
     private void CloseMinigame(InputAction.CallbackContext obj)
     {
         GetComponent<MinigameRequiredElement>()?.PlayEndgameAnimation(m_Dough.localScale.x >= m_TargetDoughScale);
+        this.enabled = false;
     }
 }

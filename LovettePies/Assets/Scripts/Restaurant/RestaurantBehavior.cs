@@ -28,6 +28,7 @@ public class RestaurantBehavior : MonoBehaviour
             IngredientInstance.GetComponentInChildren<SpriteRenderer>().sprite = m_FoodIngredients[i].m_IngredientSprite;
             m_FoodBubbleSockets[i].Stack(m_FoodBubbleSpawnPoint.RemoveObj());
         }
+        m_FoodBubbleSpawnPoint.m_DestroyObjects = true;
     }
 
     [SerializeField]
@@ -88,5 +89,10 @@ public class RestaurantBehavior : MonoBehaviour
     {
         m_FoodSocket?.Unlock();
         m_CustomerAnimator?.SetBool("Eating", false);
+
+        for (int i = 0; i < m_FoodBubbleSockets.Length; ++i)
+        {
+            m_FoodBubbleSpawnPoint.ForceStack(m_FoodBubbleSockets[i].RemoveObj());
+        }
     }
 }

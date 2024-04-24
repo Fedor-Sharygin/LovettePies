@@ -28,6 +28,8 @@ public class ObjectSocket : MonoBehaviour
         }
     }
 
+    public bool m_DestroyObjects;
+
     [SerializeField]
     private float m_ObjectSpeed = 0.02f;
     private void Update()
@@ -41,6 +43,10 @@ public class ObjectSocket : MonoBehaviour
         {
             if (Vector3.SqrMagnitude(transform.GetChild(i).localPosition) <= .0001f)
             {
+                if (m_DestroyObjects)
+                {
+                    Destroy(transform.GetChild(i).gameObject);
+                }
                 continue;
             }
             transform.GetChild(i).localPosition = Vector3.Lerp(transform.GetChild(i).localPosition, Vector3.zero, m_ObjectSpeed);

@@ -112,6 +112,7 @@ public class GeneralCustomerScript : MonoBehaviour
             {
                 m_CellPos.MoveTo(new Vector2Int(m_CurPath[m_PathIdx].Item1.y, m_CurPath[m_PathIdx].Item1.x));
                 m_CustomerInteractable?.MoveToPosition();
+                Destroy(gameObject);
             }
             m_CurPath.Clear();
             m_MovementTimer.Stop();

@@ -50,6 +50,10 @@ public class ObjectSocket : MonoBehaviour
                 continue;
             }
             transform.GetChild(i).localPosition = Vector3.Lerp(transform.GetChild(i).localPosition, Vector3.zero, m_ObjectSpeed);
+            if (m_DestroyObjects)
+            {
+                transform.GetChild(i).localScale = Vector3.Lerp(transform.GetChild(i).localScale, Vector3.zero, m_ObjectSpeed);
+            }
         }
     }
 

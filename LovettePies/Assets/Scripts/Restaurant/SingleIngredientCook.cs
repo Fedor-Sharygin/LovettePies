@@ -8,15 +8,8 @@ using System;
 using UnityEditor;
 #endif
 
-public class MinigameHolder : Interactable
+public class SingleIngredientCook : MinigameHolderBase
 {
-    private void Awake()
-    {
-        SceneManager.sceneLoaded += MinigameLoaded;
-    }
-
-    public ObjectSocket m_IngredientSocket;
-
     private ObjectSocket m_OriginalSocket = null;
     private int m_IngredIdx = 0;
     private string m_CookingName = string.Empty;
@@ -55,21 +48,11 @@ public class MinigameHolder : Interactable
 
             m_CookingName = Ingred.m_IngredientDescription.m_MinigameName;
             m_OriginalSocket = PlayerPlate.m_IngredientSockets[m_IngredIdx];
-            m_IngredientSocket.Stack(m_OriginalSocket.RemoveObj());
+            m_LocalSocket.Stack(m_OriginalSocket.RemoveObj());
             SceneManager.LoadSceneAsync(m_CookingName, LoadSceneMode.Additive);
             Debug.LogWarning("WARNING: LOCKING MINIGAME HOLDER!");
             m_IsInteractable[0] = false;
             break;
-        }
-    }
-
-    private void MinigameLoaded(Scene p_MinigameScene, LoadSceneMode _p_LoadSceneMode)
-    {
-        //p_MinigameScene.GetRootGameObjects();
-        Debug.LogWarning($"WARNING: {p_MinigameScene.name} LOADED AND TRIGGERED FUNCTION!");
-        foreach (var MGHolder in GameObject.FindGameObjectsWithTag("MinigameHolder"))
-        {
-            MGHolder.GetComponent<MinigameRequiredElement>().m_MinigameClosed += MinigameClosed;
         }
     }
 
@@ -80,9 +63,9 @@ public class MinigameHolder : Interactable
         public IngredientDescriptor m_IngredientDescription;
     }
     public IngredientCookResult[] m_CookingResults;
-    private void MinigameClosed(bool p_Success)
+    public override void MinigameClosed(bool p_Success)
     {
-        if (m_OriginalSocket == null || m_IngredientSocket.AvailableForStack)
+        if (m_OriginalSocket == null || m_LocalSocket.AvailableForStack)
         {
             return;
         }
@@ -97,31 +80,32 @@ public class MinigameHolder : Interactable
                 }
 
                 //m_OriginalSocket.m_DishIngredients[m_IngredIdx] = CookingResult.m_IngredientDescription;
-                m_IngredientSocket.PeekObj().GetComponent<IngredientContainer>().m_IngredientDescription = CookingResult.m_IngredientDescription;
-                m_IngredientSocket.PeekObj().GetComponentInChildren<SpriteRenderer>().sprite = CookingResult.m_IngredientDescription.m_IngredientSprite;
+                m_LocalSocket.PeekObj().GetComponent<IngredientContainer>().m_IngredientDescription = CookingResult.m_IngredientDescription;
+                m_LocalSocket.PeekObj().GetComponentInChildren<SpriteRenderer>().sprite = CookingResult.m_IngredientDescription.m_IngredientSprite;
                 break;
             }
         }
 
-        m_OriginalSocket.Stack(m_IngredientSocket.RemoveObj());
+        m_OriginalSocket.Stack(m_LocalSocket.RemoveObj());
         m_IsInteractable[0] = true;
         Debug.LogWarning("WARNING: UNLOCKING MINIGAME HOLDER!");
     }
 }
 
 
-#region Custom MinigameHolder Editor
+
+#region Custom SingleIngredientCook Editor
 #if UNITY_EDITOR
 
-[CustomEditor(typeof(MinigameHolder))]
+[CustomEditor(typeof(SingleIngredientCook))]
 [CanEditMultipleObjects]
-class MinigameHolderEditor : InteractableEditor
+class SingleIngredientCookEditor : MinigameHolderEditor
 {
-    private MinigameHolder TargetObject_MinigameHolder;
+    private SingleIngredientCook TargetObject_SingleIngredientCook;
     protected override void CustomOnEnable()
     {
         base.CustomOnEnable();
-        TargetObject_MinigameHolder = (MinigameHolder)target;
+        TargetObject_SingleIngredientCook = (SingleIngredientCook)target;
     }
 
     private void OnEnable()
@@ -131,7 +115,7 @@ class MinigameHolderEditor : InteractableEditor
 
     public override void OnInspectorGUI()
     {
-        if (TargetObject_MinigameHolder == null)
+        if (TargetObject_SingleIngredientCook == null)
         {
             return;
         }
@@ -142,3 +126,4 @@ class MinigameHolderEditor : InteractableEditor
 
 #endif
 #endregion
+

@@ -90,6 +90,8 @@ public class RestaurantBehavior : MonoBehaviour
         m_FoodSocket?.Unlock();
         m_CustomerAnimator?.SetBool("Eating", false);
 
+        m_FoodSocket.PeekObj()?.gameObject?.GetComponent<Plate>()?.FoodDone();
+
         for (int i = 0; i < m_FoodBubbleSockets.Length; ++i)
         {
             m_FoodBubbleSpawnPoint.ForceStack(m_FoodBubbleSockets[i].RemoveObj());

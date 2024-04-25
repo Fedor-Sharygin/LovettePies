@@ -1,9 +1,11 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class Plate : MonoBehaviour
 {
+    [Serializable]
     public enum EnumPlateState
     {
         PLATE_EMPTY,
@@ -102,7 +104,56 @@ public class Plate : MonoBehaviour
             {
                 p_DumpSocket.ForceStack(CurObj);
             }
-            m_PlateState = EnumPlateState.PLATE_EMPTY;
+        }
+        m_PlateState = EnumPlateState.PLATE_EMPTY;
+    }
+
+    public ObjectSocket m_FoodDoneSocket;
+    public void FoodDone()
+    {
+        foreach (var IngSock in m_IngredientSockets)
+        {
+            var CurObj = IngSock.RemoveObj();
+            if (m_FoodDoneSocket == null)
+            {
+                Destroy(CurObj.gameObject);
+            }
+            else
+            {
+                m_FoodDoneSocket.ForceStack(CurObj);
+            }
+        }
+        SetPlateState(EnumPlateState.PLATE_DIRTY);
+    }
+    public void Clean() => SetPlateState(EnumPlateState.PLATE_EMPTY);
+
+    [Serializable]
+    public struct StateMaterial
+    {
+        public EnumPlateState m_PlateState;
+        public Material m_StateMaterial;
+    }
+    [Space(10)]
+    public StateMaterial[] m_StateMaterials;
+    [SerializeField]
+    private MeshRenderer m_PlateMeshRenderer;
+    public void SetPlateState(EnumPlateState p_PlateState)
+    {
+        m_PlateState = p_PlateState;
+
+        if (m_PlateMeshRenderer == null)
+        {
+            return;
+        }
+
+        foreach (var StMat in m_StateMaterials)
+        {
+            if (StMat.m_PlateState != m_PlateState)
+            {
+                continue;
+            }
+
+            m_PlateMeshRenderer.material = StMat.m_StateMaterial;
         }
     }
 }

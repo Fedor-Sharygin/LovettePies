@@ -968,6 +968,7 @@ Transform:
   - {fileID: 578917566}
   - {fileID: 8064791610948238474}
   - {fileID: 100433417}
+  - {fileID: 5721935734065569021}
   m_Father: {fileID: 0}
   m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -3120,6 +3121,72 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 208245226926472618, guid: 466411803342cc0418f38b96f5dff531, type: 3}
   m_PrefabInstance: {fileID: 2898350805138456801}
   m_PrefabAsset: {fileID: 0}
+--- !u!1001 &5721935734065569020
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 682651035}
+    m_Modifications:
+    - target: {fileID: 1965873847910575469, guid: acc935f052c81e94b8121c17a4a47606, type: 3}
+      propertyPath: m_StartPos.y
+      value: 24
+      objectReference: {fileID: 0}
+    - target: {fileID: 4524622781982483336, guid: acc935f052c81e94b8121c17a4a47606, type: 3}
+      propertyPath: m_Name
+      value: DishWasher
+      objectReference: {fileID: 0}
+    - target: {fileID: 5673919351638263607, guid: acc935f052c81e94b8121c17a4a47606, type: 3}
+      propertyPath: m_RootOrder
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 5673919351638263607, guid: acc935f052c81e94b8121c17a4a47606, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5673919351638263607, guid: acc935f052c81e94b8121c17a4a47606, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5673919351638263607, guid: acc935f052c81e94b8121c17a4a47606, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5673919351638263607, guid: acc935f052c81e94b8121c17a4a47606, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5673919351638263607, guid: acc935f052c81e94b8121c17a4a47606, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5673919351638263607, guid: acc935f052c81e94b8121c17a4a47606, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5673919351638263607, guid: acc935f052c81e94b8121c17a4a47606, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5673919351638263607, guid: acc935f052c81e94b8121c17a4a47606, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5673919351638263607, guid: acc935f052c81e94b8121c17a4a47606, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5673919351638263607, guid: acc935f052c81e94b8121c17a4a47606, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: acc935f052c81e94b8121c17a4a47606, type: 3}
+--- !u!4 &5721935734065569021 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 5673919351638263607, guid: acc935f052c81e94b8121c17a4a47606, type: 3}
+  m_PrefabInstance: {fileID: 5721935734065569020}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &6648168884656976297
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3127,6 +3194,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 682651035}
     m_Modifications:
+    - target: {fileID: -125477893289604180, guid: 139595ce27bf2644dab5a026eb131e56, type: 3}
+      propertyPath: m_StartPos.y
+      value: 25
+      objectReference: {fileID: 0}
     - target: {fileID: 6648168884731170720, guid: 139595ce27bf2644dab5a026eb131e56, type: 3}
       propertyPath: m_RootOrder
       value: 4
@@ -3173,7 +3244,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6648168884731170721, guid: 139595ce27bf2644dab5a026eb131e56, type: 3}
       propertyPath: m_Name
-      value: MinigameHolder
+      value: SingleIngredientCooker
       objectReference: {fileID: 0}
     - target: {fileID: 6648168884731170723, guid: 139595ce27bf2644dab5a026eb131e56, type: 3}
       propertyPath: m_CookingResults.Array.size

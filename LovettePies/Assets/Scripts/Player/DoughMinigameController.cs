@@ -28,6 +28,7 @@ public class DoughMinigameController : MonoBehaviour
     private InputAction m_CloseMinigame;
     private void OnEnable()
     {
+        Debug.LogWarning($"WARING: {GetInstanceID()} IS ENABLING INPUT!!!!");
         m_Hand_Button = m_PlayerControls.BasicMinigameControls.BasicPress;
         m_Hand_Button.Enable();
         m_Hand_Button.performed     += ControlHands_Button;
@@ -50,6 +51,11 @@ public class DoughMinigameController : MonoBehaviour
 
     private void OnDisable()
     {
+        DisableInput();
+    }
+    private void DisableInput()
+    {
+        Debug.LogWarning($"WARING: {GetInstanceID()} IS DISABLING INPUT!!!!");
         m_Hand_Button.performed     -= ControlHands_Button;
         m_Hand_LeftStick.started    -= ControlHands_Controller_LeftStick;
         m_Hand_LeftStick.canceled   -= ControlHands_Controller_LeftStick;
@@ -121,15 +127,17 @@ public class DoughMinigameController : MonoBehaviour
 
         if (m_Dough.localScale.x >= m_TargetDoughScale)
         {
+            this.DisableInput();
+            Debug.LogWarning($"WARNING: {GetInstanceID()} HAS FINISHED COOKING DOUGH!!!");
             GetComponent<MinigameRequiredElement>()?.PlayEndgameAnimation(true);
-            this.enabled = false;
         }
     }
 
 
     private void CloseMinigame(InputAction.CallbackContext obj)
     {
+        this.DisableInput();
+        Debug.LogWarning($"WARNING: {GetInstanceID()} HAS FINISHED COOKING DOUGH!!!");
         GetComponent<MinigameRequiredElement>()?.PlayEndgameAnimation(m_Dough.localScale.x >= m_TargetDoughScale);
-        this.enabled = false;
     }
 }

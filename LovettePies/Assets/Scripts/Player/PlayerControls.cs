@@ -383,9 +383,27 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
             ""id"": ""124e5c38-d908-459d-9423-fe52e12ce1ee"",
             ""actions"": [
                 {
+                    ""name"": ""Mouse Press"",
+                    ""type"": ""Button"",
+                    ""id"": ""86df978d-3995-4c41-9699-207b6c2c9073"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
                     ""name"": ""Basic Press"",
                     ""type"": ""Button"",
                     ""id"": ""ce7a56f2-d876-4963-966b-032465e49996"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Alternate Press"",
+                    ""type"": ""Button"",
+                    ""id"": ""f0433bc3-aa37-463d-99f4-1aab0064e6f6"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """",
@@ -485,6 +503,39 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
                     ""action"": ""Quit Minigame"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""1b2da8e4-7d3d-4d52-9527-d260b3f16c07"",
+                    ""path"": ""<Mouse>/leftButton"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Mouse Press"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""ae77a3fd-3079-4eeb-b989-ae0660b69268"",
+                    ""path"": ""<Keyboard>/f"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Alternate Press"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""1c1f48de-a928-4729-a172-81d972dcc721"",
+                    ""path"": ""<Gamepad>/rightShoulder"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Alternate Press"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -504,7 +555,9 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
         m_ConversationControls_Newaction = m_ConversationControls.FindAction("New action", throwIfNotFound: true);
         // Basic Minigame Controls
         m_BasicMinigameControls = asset.FindActionMap("Basic Minigame Controls", throwIfNotFound: true);
+        m_BasicMinigameControls_MousePress = m_BasicMinigameControls.FindAction("Mouse Press", throwIfNotFound: true);
         m_BasicMinigameControls_BasicPress = m_BasicMinigameControls.FindAction("Basic Press", throwIfNotFound: true);
+        m_BasicMinigameControls_AlternatePress = m_BasicMinigameControls.FindAction("Alternate Press", throwIfNotFound: true);
         m_BasicMinigameControls_ControllerMovementLeft = m_BasicMinigameControls.FindAction("Controller Movement Left", throwIfNotFound: true);
         m_BasicMinigameControls_ControllerMovementRight = m_BasicMinigameControls.FindAction("Controller Movement Right", throwIfNotFound: true);
         m_BasicMinigameControls_QuitMinigame = m_BasicMinigameControls.FindAction("Quit Minigame", throwIfNotFound: true);
@@ -723,7 +776,9 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
     // Basic Minigame Controls
     private readonly InputActionMap m_BasicMinigameControls;
     private List<IBasicMinigameControlsActions> m_BasicMinigameControlsActionsCallbackInterfaces = new List<IBasicMinigameControlsActions>();
+    private readonly InputAction m_BasicMinigameControls_MousePress;
     private readonly InputAction m_BasicMinigameControls_BasicPress;
+    private readonly InputAction m_BasicMinigameControls_AlternatePress;
     private readonly InputAction m_BasicMinigameControls_ControllerMovementLeft;
     private readonly InputAction m_BasicMinigameControls_ControllerMovementRight;
     private readonly InputAction m_BasicMinigameControls_QuitMinigame;
@@ -731,7 +786,9 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
     {
         private @PlayerControls m_Wrapper;
         public BasicMinigameControlsActions(@PlayerControls wrapper) { m_Wrapper = wrapper; }
+        public InputAction @MousePress => m_Wrapper.m_BasicMinigameControls_MousePress;
         public InputAction @BasicPress => m_Wrapper.m_BasicMinigameControls_BasicPress;
+        public InputAction @AlternatePress => m_Wrapper.m_BasicMinigameControls_AlternatePress;
         public InputAction @ControllerMovementLeft => m_Wrapper.m_BasicMinigameControls_ControllerMovementLeft;
         public InputAction @ControllerMovementRight => m_Wrapper.m_BasicMinigameControls_ControllerMovementRight;
         public InputAction @QuitMinigame => m_Wrapper.m_BasicMinigameControls_QuitMinigame;
@@ -744,9 +801,15 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
         {
             if (instance == null || m_Wrapper.m_BasicMinigameControlsActionsCallbackInterfaces.Contains(instance)) return;
             m_Wrapper.m_BasicMinigameControlsActionsCallbackInterfaces.Add(instance);
+            @MousePress.started += instance.OnMousePress;
+            @MousePress.performed += instance.OnMousePress;
+            @MousePress.canceled += instance.OnMousePress;
             @BasicPress.started += instance.OnBasicPress;
             @BasicPress.performed += instance.OnBasicPress;
             @BasicPress.canceled += instance.OnBasicPress;
+            @AlternatePress.started += instance.OnAlternatePress;
+            @AlternatePress.performed += instance.OnAlternatePress;
+            @AlternatePress.canceled += instance.OnAlternatePress;
             @ControllerMovementLeft.started += instance.OnControllerMovementLeft;
             @ControllerMovementLeft.performed += instance.OnControllerMovementLeft;
             @ControllerMovementLeft.canceled += instance.OnControllerMovementLeft;
@@ -760,9 +823,15 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
 
         private void UnregisterCallbacks(IBasicMinigameControlsActions instance)
         {
+            @MousePress.started -= instance.OnMousePress;
+            @MousePress.performed -= instance.OnMousePress;
+            @MousePress.canceled -= instance.OnMousePress;
             @BasicPress.started -= instance.OnBasicPress;
             @BasicPress.performed -= instance.OnBasicPress;
             @BasicPress.canceled -= instance.OnBasicPress;
+            @AlternatePress.started -= instance.OnAlternatePress;
+            @AlternatePress.performed -= instance.OnAlternatePress;
+            @AlternatePress.canceled -= instance.OnAlternatePress;
             @ControllerMovementLeft.started -= instance.OnControllerMovementLeft;
             @ControllerMovementLeft.performed -= instance.OnControllerMovementLeft;
             @ControllerMovementLeft.canceled -= instance.OnControllerMovementLeft;
@@ -805,7 +874,9 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
     }
     public interface IBasicMinigameControlsActions
     {
+        void OnMousePress(InputAction.CallbackContext context);
         void OnBasicPress(InputAction.CallbackContext context);
+        void OnAlternatePress(InputAction.CallbackContext context);
         void OnControllerMovementLeft(InputAction.CallbackContext context);
         void OnControllerMovementRight(InputAction.CallbackContext context);
         void OnQuitMinigame(InputAction.CallbackContext context);

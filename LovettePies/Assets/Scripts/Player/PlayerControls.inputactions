@@ -361,9 +361,27 @@
             "id": "124e5c38-d908-459d-9423-fe52e12ce1ee",
             "actions": [
                 {
+                    "name": "Mouse Press",
+                    "type": "Button",
+                    "id": "86df978d-3995-4c41-9699-207b6c2c9073",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
                     "name": "Basic Press",
                     "type": "Button",
                     "id": "ce7a56f2-d876-4963-966b-032465e49996",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Alternate Press",
+                    "type": "Button",
+                    "id": "f0433bc3-aa37-463d-99f4-1aab0064e6f6",
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "",
@@ -461,6 +479,39 @@
                     "processors": "",
                     "groups": "",
                     "action": "Quit Minigame",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "1b2da8e4-7d3d-4d52-9527-d260b3f16c07",
+                    "path": "<Mouse>/leftButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Mouse Press",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "ae77a3fd-3079-4eeb-b989-ae0660b69268",
+                    "path": "<Keyboard>/f",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Alternate Press",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "1c1f48de-a928-4729-a172-81d972dcc721",
+                    "path": "<Gamepad>/rightShoulder",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Alternate Press",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

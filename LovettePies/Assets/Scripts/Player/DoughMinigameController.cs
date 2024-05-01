@@ -66,7 +66,7 @@ public class DoughMinigameController : MonoBehaviour
 
     [SerializeField]
     private Transform[] m_Hands;
-    private int m_HandIdx = 0;
+    //private int m_HandIdx = 0;
     [SerializeField]
     private float m_DoughScaleSpeed_Button;
     public void ControlHands_Button(InputAction.CallbackContext p_CallbackContext)
@@ -129,7 +129,7 @@ public class DoughMinigameController : MonoBehaviour
         {
             this.DisableInput();
             Debug.LogWarning($"WARNING: {GetInstanceID()} HAS FINISHED COOKING DOUGH!!!");
-            GetComponent<MinigameRequiredElement>()?.PlayEndgameAnimation(true);
+            GetComponent<MinigameRequiredElement>()?.PlayEndgameAnimation(MinigameRequiredElement.MinigameStatus.MINIGAME_SUCCESS_0);
         }
     }
 
@@ -138,6 +138,9 @@ public class DoughMinigameController : MonoBehaviour
     {
         this.DisableInput();
         Debug.LogWarning($"WARNING: {GetInstanceID()} HAS FINISHED COOKING DOUGH!!!");
-        GetComponent<MinigameRequiredElement>()?.PlayEndgameAnimation(m_Dough.localScale.x >= m_TargetDoughScale);
+        GetComponent<MinigameRequiredElement>()?.PlayEndgameAnimation(
+            m_Dough.localScale.x >= m_TargetDoughScale
+            ? MinigameRequiredElement.MinigameStatus.MINIGAME_SUCCESS_0
+            : MinigameRequiredElement.MinigameStatus.MINIGAME_FAIL);
     }
 }

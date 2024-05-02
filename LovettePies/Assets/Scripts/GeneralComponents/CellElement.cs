@@ -112,6 +112,10 @@ public class CellElement : MonoBehaviour
     }
     private Area m_CurArea;
     public Vector2Int m_CurCellPos { get; private set; } = Vector2Int.zero;
+    public void OverrideCurCellPos(Vector2Int p_OverridePos)
+    {
+        m_CurCellPos = p_OverridePos;
+    }
 
     private Vector3 m_TargetPos;
     private void Awake()
@@ -122,8 +126,14 @@ public class CellElement : MonoBehaviour
         m_TargetPos = transform.position;
     }
 
+    public bool m_PositionOverhaul = false;
     private void Update()
     {
+        if (m_PositionOverhaul)
+        {
+            return;
+        }
+
         GetToTargetPos();
     }
 

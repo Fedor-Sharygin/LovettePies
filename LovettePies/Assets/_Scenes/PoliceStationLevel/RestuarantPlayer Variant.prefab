@@ -1,0 +1,214 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &9146422454902853261
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 537607508658504464}
+  - component: {fileID: 8989799527712642573}
+  m_Layer: 0
+  m_Name: PlateSocket
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &537607508658504464
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9146422454902853261}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.993, y: 1.264, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 3239564346657144789}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &8989799527712642573
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9146422454902853261}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d17d75986bec2f6498146b123eb807b2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_DestroyObjects: 0
+  m_ObjectSpeed: 0.02
+--- !u!1001 &1555658896358851134
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 2797421583524617330, guid: a289f149160bdc44fb1d34d06cdfb3b4, type: 3}
+      propertyPath: m_RootOrder
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 3658552555913609901, guid: a289f149160bdc44fb1d34d06cdfb3b4, type: 3}
+      propertyPath: m_Size.x
+      value: 1.28
+      objectReference: {fileID: 0}
+    - target: {fileID: 3658552555913609901, guid: a289f149160bdc44fb1d34d06cdfb3b4, type: 3}
+      propertyPath: m_Size.y
+      value: 2.32
+      objectReference: {fileID: 0}
+    - target: {fileID: 3658552555913609901, guid: a289f149160bdc44fb1d34d06cdfb3b4, type: 3}
+      propertyPath: m_WasSpriteAssigned
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4135413993347071462, guid: a289f149160bdc44fb1d34d06cdfb3b4, type: 3}
+      propertyPath: m_MovementFlag
+      value: 17
+      objectReference: {fileID: 0}
+    - target: {fileID: 4135413993347071462, guid: a289f149160bdc44fb1d34d06cdfb3b4, type: 3}
+      propertyPath: m_MovementSpeed
+      value: 0.05
+      objectReference: {fileID: 0}
+    - target: {fileID: 4135413993347071466, guid: a289f149160bdc44fb1d34d06cdfb3b4, type: 3}
+      propertyPath: m_Name
+      value: RestuarantPlayer Variant
+      objectReference: {fileID: 0}
+    - target: {fileID: 4135413993347071466, guid: a289f149160bdc44fb1d34d06cdfb3b4, type: 3}
+      propertyPath: m_TagString
+      value: Player
+      objectReference: {fileID: 0}
+    - target: {fileID: 4135413993347071467, guid: a289f149160bdc44fb1d34d06cdfb3b4, type: 3}
+      propertyPath: m_RootOrder
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4135413993347071467, guid: a289f149160bdc44fb1d34d06cdfb3b4, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4135413993347071467, guid: a289f149160bdc44fb1d34d06cdfb3b4, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4135413993347071467, guid: a289f149160bdc44fb1d34d06cdfb3b4, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4135413993347071467, guid: a289f149160bdc44fb1d34d06cdfb3b4, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4135413993347071467, guid: a289f149160bdc44fb1d34d06cdfb3b4, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4135413993347071467, guid: a289f149160bdc44fb1d34d06cdfb3b4, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4135413993347071467, guid: a289f149160bdc44fb1d34d06cdfb3b4, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4135413993347071467, guid: a289f149160bdc44fb1d34d06cdfb3b4, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4135413993347071467, guid: a289f149160bdc44fb1d34d06cdfb3b4, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4135413993347071467, guid: a289f149160bdc44fb1d34d06cdfb3b4, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8221325519785305987, guid: a289f149160bdc44fb1d34d06cdfb3b4, type: 3}
+      propertyPath: m_Controller
+      value: 
+      objectReference: {fileID: 9100000, guid: 97aec9c068cdb2842b031463559970d5, type: 2}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: a289f149160bdc44fb1d34d06cdfb3b4, type: 3}
+--- !u!1 &3239564346657144788 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4135413993347071466, guid: a289f149160bdc44fb1d34d06cdfb3b4, type: 3}
+  m_PrefabInstance: {fileID: 1555658896358851134}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &4202272998073113823
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3239564346657144788}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 62899f850307741f2a39c98a8b639597, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Actions: {fileID: -944628639613478452, guid: 8a7ea7c5118b5084f9dfcc3cdf93457f, type: 3}
+  m_NotificationBehavior: 2
+  m_UIInputModule: {fileID: 0}
+  m_DeviceLostEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_DeviceRegainedEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_ControlsChangedEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_ActionEvents:
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 29ededec-b4c7-4d88-8af7-cd9722b637a7
+    m_ActionName: Restaurant Controls/AreaNavigation[/Keyboard/w,/Keyboard/s,/Keyboard/a,/Keyboard/d,/Keyboard/upArrow,/Keyboard/downArrow,/Keyboard/leftArrow,/Keyboard/rightArrow,/XInputControllerWindows/leftStick,/XInputControllerWindows/dpad/up,/XInputControllerWindows/dpad/down,/XInputControllerWindows/dpad/left,/XInputControllerWindows/dpad/right]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 26fe1650-8105-46e0-ba0b-aadc461f8eae
+    m_ActionName: Restaurant Controls/MainAction[/Keyboard/space,/Keyboard/e,/Keyboard/enter,/XInputControllerWindows/buttonSouth]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: f2cdbfa0-646b-4ed6-a36c-fdbc2c360a72
+    m_ActionName: Restaurant Controls/Pause[/Keyboard/escape,/Keyboard/p,/XInputControllerWindows/start]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 31e8575e-0b42-4915-9008-0e6b7e60bc10
+    m_ActionName: Barbershop Controls/New action
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: c0be6aef-17b3-4fb2-b8c8-1c8d8ef12a57
+    m_ActionName: Conversation Controls/New action
+  m_NeverAutoSwitchControlSchemes: 0
+  m_DefaultControlScheme: 
+  m_DefaultActionMap: Restaurant Controls
+  m_SplitScreenIndex: -1
+  m_Camera: {fileID: 0}
+--- !u!114 &8630831232548124751
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3239564346657144788}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 596c05dab0ed1c64b8bcd1940440e141, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_OriginalArea: 0
+  m_OriginalPosition: {x: 0, y: 0}
+  m_PlayerInput: {fileID: 0}
+  m_JoystickEffectThreshold: 0.3
+  m_DishPos: {fileID: 8989799527712642573}
+--- !u!4 &3239564346657144789 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 4135413993347071467, guid: a289f149160bdc44fb1d34d06cdfb3b4, type: 3}
+  m_PrefabInstance: {fileID: 1555658896358851134}
+  m_PrefabAsset: {fileID: 0}

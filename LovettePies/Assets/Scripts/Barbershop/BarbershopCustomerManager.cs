@@ -16,5 +16,7 @@ public class BarbershopCustomerManager : MonoBehaviour
             return;
         }
         NewCustomer.GetComponent<Interactable>().m_StartPos = m_SpawnCellPos;
+
+        NewCustomer.GetComponent<GeneralCustomerScript>()?.SearchForPath();
     }
 }

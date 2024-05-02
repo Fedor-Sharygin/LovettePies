@@ -1,0 +1,155 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &4423727193833297981
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6775993938020912356}
+  - component: {fileID: 7454829970534639167}
+  m_Layer: 0
+  m_Name: PoliceGroupSocket
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6775993938020912356
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4423727193833297981}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -0.757, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 8707958463699263940}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &7454829970534639167
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4423727193833297981}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d17d75986bec2f6498146b123eb807b2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_DestroyObjects: 0
+  m_ObjectSpeed: 0.02
+--- !u!1001 &3220592814476092050
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 6082456611910271830, guid: d62dac419eb891146aa60c2de25dbb6d, type: 3}
+      propertyPath: m_RootOrder
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6082456611910271830, guid: d62dac419eb891146aa60c2de25dbb6d, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6082456611910271830, guid: d62dac419eb891146aa60c2de25dbb6d, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6082456611910271830, guid: d62dac419eb891146aa60c2de25dbb6d, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6082456611910271830, guid: d62dac419eb891146aa60c2de25dbb6d, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6082456611910271830, guid: d62dac419eb891146aa60c2de25dbb6d, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6082456611910271830, guid: d62dac419eb891146aa60c2de25dbb6d, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6082456611910271830, guid: d62dac419eb891146aa60c2de25dbb6d, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6082456611910271830, guid: d62dac419eb891146aa60c2de25dbb6d, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6082456611910271830, guid: d62dac419eb891146aa60c2de25dbb6d, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6082456611910271830, guid: d62dac419eb891146aa60c2de25dbb6d, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8109110713893400257, guid: d62dac419eb891146aa60c2de25dbb6d, type: 3}
+      propertyPath: m_Name
+      value: PoliceStationTable Variant
+      objectReference: {fileID: 0}
+    m_RemovedComponents:
+    - {fileID: 6768277029515989249, guid: d62dac419eb891146aa60c2de25dbb6d, type: 3}
+  m_SourcePrefab: {fileID: 100100000, guid: d62dac419eb891146aa60c2de25dbb6d, type: 3}
+--- !u!1 &6645203237658676307 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8109110713893400257, guid: d62dac419eb891146aa60c2de25dbb6d, type: 3}
+  m_PrefabInstance: {fileID: 3220592814476092050}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &654870416673164942
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6645203237658676307}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eb937c5d47794a242a7f05006c41dbcf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_ObjectType: 12
+  m_MovementFlag: 0
+  m_AreaType: 0
+  m_StartPos: {x: 0, y: 0}
+  m_CellElem: {fileID: 7235117088791908831}
+  m_InteractionActions:
+  - m_PersistentCalls:
+      m_Calls: []
+  - m_PersistentCalls:
+      m_Calls: []
+  m_IsInteractable: 0101
+  m_InteracteeTags:
+  - Player
+  - PoliceGroup
+  m_LocalSocket: {fileID: 7454829970534639167}
+  m_PoliceTableMinigame: DocumentMiniGame
+--- !u!114 &7235117088791908831 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5249390329694073677, guid: d62dac419eb891146aa60c2de25dbb6d, type: 3}
+  m_PrefabInstance: {fileID: 3220592814476092050}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6645203237658676307}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ea33296ef968be5468695a0477774a64, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!4 &8707958463699263940 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 6082456611910271830, guid: d62dac419eb891146aa60c2de25dbb6d, type: 3}
+  m_PrefabInstance: {fileID: 3220592814476092050}
+  m_PrefabAsset: {fileID: 0}

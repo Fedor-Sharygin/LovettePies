@@ -176,6 +176,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d17d75986bec2f6498146b123eb807b2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_DestroyObjects: 0
   m_ObjectSpeed: 0.02
 --- !u!1 &4275267735324827752
 GameObject:
@@ -327,6 +328,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d17d75986bec2f6498146b123eb807b2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_DestroyObjects: 0
   m_ObjectSpeed: 0.02
 --- !u!1 &5596173355560442355
 GameObject:
@@ -382,6 +384,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ea33296ef968be5468695a0477774a64, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_PositionOverhaul: 0
   m_MovementFlag: 4
   m_DistEpsilon: 0.08
   m_MovementSpeed: 0.08
@@ -483,7 +486,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_MovementTimer: {fileID: 3502323755049007889}
   m_PatienceTimer: {fileID: 8631818486342750314}
-  m_InteractableTargetType: 4
+  m_InteractableTargetTypesOrder: 04000000
   m_PatienceActions:
     m_PersistentCalls:
       m_Calls:
@@ -707,6 +710,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d17d75986bec2f6498146b123eb807b2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_DestroyObjects: 0
   m_ObjectSpeed: 0.02
 --- !u!1 &8993343150444627364
 GameObject:
@@ -752,4 +756,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d17d75986bec2f6498146b123eb807b2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_DestroyObjects: 0
   m_ObjectSpeed: 0.02

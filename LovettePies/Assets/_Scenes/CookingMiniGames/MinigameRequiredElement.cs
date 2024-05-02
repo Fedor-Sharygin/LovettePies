@@ -89,12 +89,23 @@ public class MinigameRequiredElement : MonoBehaviour
         SceneManager.UnloadSceneAsync(gameObject.scene);
     }
 
+    [Serializable]
+    public struct StatusAnimation
+    {
+        public MinigameStatus m_Status;
+        public string m_Animation;
+    }
+    [SerializeField]
+    private StatusAnimation[] m_EndingAnimations;
     public void PlayEndgameAnimation(MinigameStatus p_Status)
     {
         Debug.LogWarning($"WARNING: {gameObject.GetInstanceID()} OBJ IS PLAYING MINIGAME END ANIMATION!");
         m_PlayerControls.BasicMinigameControls.Disable();
         m_PlayerControls.RestaurantControls.Enable();
-        GetComponent<Animator>()?.SetTrigger("EndGame");
+        if (m_EndingAnimations == null || m_EndingAnimations.Length <= 0)
+        {
+            GetComponent<Animator>()?.SetTrigger("EndGame");
+        }
         Debug.LogWarning($"WARNING: m_MinigameClosed event has no functions - {m_MinigameClosed == null}");
         m_MinigameClosed?.Invoke(p_Status);
     }

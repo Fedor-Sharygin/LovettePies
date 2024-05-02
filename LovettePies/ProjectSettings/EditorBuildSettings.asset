@@ -17,5 +17,8 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/_Scenes/BarbershopLevel/BarberShopMiniGames/HaircutMinigame.unity
     guid: a2a02f57bfcb335499fa40296a982c80
+  - enabled: 1
+    path: Assets/_Scenes/PoliceStationLevel/Police Station Mini Games/DocumentMiniGame.unity
+    guid: 5d23d1cb28ec9eb469ad9a5dec705f15
   m_configObjects:
     com.unity.input.settings: {fileID: 11400000, guid: 07969154d829d584ea02a7f6a32ef47f, type: 2}

@@ -40,9 +40,9 @@ public class DishWasher : MinigameHolderBase
         m_IsInteractable[0] = false;
     }
 
-    public override void MinigameClosed(bool p_Success)
+    public override void MinigameClosed(MinigameRequiredElement.MinigameStatus p_Status)
     {
-        if (p_Success)
+        if (p_Status > MinigameRequiredElement.MinigameStatus.MINIGAME_FAIL)
         {
             m_CurPlate?.Clean();
         }

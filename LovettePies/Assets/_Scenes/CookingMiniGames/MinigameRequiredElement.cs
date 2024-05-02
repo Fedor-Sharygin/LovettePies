@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -6,7 +7,21 @@ using UnityEngine.SceneManagement;
 
 public class MinigameRequiredElement : MonoBehaviour
 {
-    public delegate void MinigameClosedDelegate(bool p_Success);
+    [Serializable]
+    public enum MinigameStatus
+    {
+        MINIGAME_FAIL,
+        MINIGAME_SUCCESS_0,
+        MINIGAME_SUCCESS_1,
+        MINIGAME_SUCCESS_2,
+        MINIGAME_SUCCESS_3,
+        MINIGAME_SUCCESS_4,
+        MINIGAME_SUCCESS_5,
+
+        DEFAULT
+    }
+
+    public delegate void MinigameClosedDelegate(MinigameStatus p_Status);
     public event MinigameClosedDelegate m_MinigameClosed;
 
     public PlayerInput m_PlayerInput;
@@ -74,13 +89,13 @@ public class MinigameRequiredElement : MonoBehaviour
         SceneManager.UnloadSceneAsync(gameObject.scene);
     }
 
-    public void PlayEndgameAnimation(bool p_Success)
+    public void PlayEndgameAnimation(MinigameStatus p_Status)
     {
         Debug.LogWarning($"WARNING: {gameObject.GetInstanceID()} OBJ IS PLAYING MINIGAME END ANIMATION!");
         m_PlayerControls.BasicMinigameControls.Disable();
         m_PlayerControls.RestaurantControls.Enable();
         GetComponent<Animator>()?.SetTrigger("EndGame");
         Debug.LogWarning($"WARNING: m_MinigameClosed event has no functions - {m_MinigameClosed == null}");
-        m_MinigameClosed?.Invoke(p_Success);
+        m_MinigameClosed?.Invoke(p_Status);
     }
 }

@@ -69,13 +69,16 @@ public class DishWasherMinigame : MonoBehaviour
         if (m_BubbleTransform.localPosition.y >= m_TargetHeight - 0.001f)
         {
             this.DisableInput();
-            GetComponent<MinigameRequiredElement>()?.PlayEndgameAnimation(true);
+            GetComponent<MinigameRequiredElement>()?.PlayEndgameAnimation(MinigameRequiredElement.MinigameStatus.MINIGAME_SUCCESS_0);
         }
     }
 
     private void CloseMinigame(InputAction.CallbackContext p_CallbackContext)
     {
         this.DisableInput();
-        GetComponent<MinigameRequiredElement>()?.PlayEndgameAnimation(m_BubbleTransform.localPosition.y >= m_TargetHeight - 0.001f);
+        GetComponent<MinigameRequiredElement>()?.PlayEndgameAnimation(
+            m_BubbleTransform.localPosition.y >= m_TargetHeight - 0.001f ?
+            MinigameRequiredElement.MinigameStatus.MINIGAME_SUCCESS_0 :
+            MinigameRequiredElement.MinigameStatus.MINIGAME_FAIL);
     }
 }

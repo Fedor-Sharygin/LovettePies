@@ -61,7 +61,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 12e1af86a6846cd47bc85814841f3722, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_ObjectType: 10
+  m_ObjectType: 1
   m_MovementFlag: -1
   m_AreaType: 0
   m_StartPos: {x: 0, y: 0}

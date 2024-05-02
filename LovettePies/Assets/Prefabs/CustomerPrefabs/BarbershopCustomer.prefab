@@ -1,0 +1,227 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1001 &1947140143862167517
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 1179349400, guid: cd55feb7f310114478090f155597f642, type: 3}
+      propertyPath: m_TimerSeconds
+      value: 0.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1179349401, guid: cd55feb7f310114478090f155597f642, type: 3}
+      propertyPath: m_TimerSeconds
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 1179349401, guid: cd55feb7f310114478090f155597f642, type: 3}
+      propertyPath: m_EndActions.m_PersistentCalls.m_Calls.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 1179349401, guid: cd55feb7f310114478090f155597f642, type: 3}
+      propertyPath: m_EndActions.m_PersistentCalls.m_Calls.Array.data[1].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1179349401, guid: cd55feb7f310114478090f155597f642, type: 3}
+      propertyPath: m_EndActions.m_PersistentCalls.m_Calls.Array.data[2].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1179349401, guid: cd55feb7f310114478090f155597f642, type: 3}
+      propertyPath: m_EndActions.m_PersistentCalls.m_Calls.Array.data[1].m_Target
+      value: 
+      objectReference: {fileID: 535268477628213720}
+    - target: {fileID: 1179349401, guid: cd55feb7f310114478090f155597f642, type: 3}
+      propertyPath: m_EndActions.m_PersistentCalls.m_Calls.Array.data[2].m_Target
+      value: 
+      objectReference: {fileID: 535268477628213720}
+    - target: {fileID: 1179349401, guid: cd55feb7f310114478090f155597f642, type: 3}
+      propertyPath: m_EndActions.m_PersistentCalls.m_Calls.Array.data[1].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1179349401, guid: cd55feb7f310114478090f155597f642, type: 3}
+      propertyPath: m_EndActions.m_PersistentCalls.m_Calls.Array.data[2].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1179349401, guid: cd55feb7f310114478090f155597f642, type: 3}
+      propertyPath: m_EndActions.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
+      value: SearchForPath
+      objectReference: {fileID: 0}
+    - target: {fileID: 1179349401, guid: cd55feb7f310114478090f155597f642, type: 3}
+      propertyPath: m_EndActions.m_PersistentCalls.m_Calls.Array.data[2].m_MethodName
+      value: LeaveArea
+      objectReference: {fileID: 0}
+    - target: {fileID: 1179349401, guid: cd55feb7f310114478090f155597f642, type: 3}
+      propertyPath: m_EndActions.m_PersistentCalls.m_Calls.Array.data[1].m_TargetAssemblyTypeName
+      value: GeneralCustomerScript, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 1179349401, guid: cd55feb7f310114478090f155597f642, type: 3}
+      propertyPath: m_EndActions.m_PersistentCalls.m_Calls.Array.data[2].m_TargetAssemblyTypeName
+      value: GeneralCustomerScript, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 1179349401, guid: cd55feb7f310114478090f155597f642, type: 3}
+      propertyPath: m_EndActions.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
+    - target: {fileID: 1179349401, guid: cd55feb7f310114478090f155597f642, type: 3}
+      propertyPath: m_EndActions.m_PersistentCalls.m_Calls.Array.data[2].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
+    - target: {fileID: 2046893163887517189, guid: cd55feb7f310114478090f155597f642, type: 3}
+      propertyPath: m_InteractableTargetType
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 2046893163887517189, guid: cd55feb7f310114478090f155597f642, type: 3}
+      propertyPath: m_PatienceActions.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2046893163887517189, guid: cd55feb7f310114478090f155597f642, type: 3}
+      propertyPath: m_PatienceActions.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 2099644452}
+    - target: {fileID: 2046893163887517189, guid: cd55feb7f310114478090f155597f642, type: 3}
+      propertyPath: m_PatienceActions.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: AtSeat
+      objectReference: {fileID: 0}
+    - target: {fileID: 2046893163887517189, guid: cd55feb7f310114478090f155597f642, type: 3}
+      propertyPath: m_PatienceActions.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: BarbershopBehavior, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 4128154384564195086, guid: cd55feb7f310114478090f155597f642, type: 3}
+      propertyPath: m_Name
+      value: BarbershopCustomer
+      objectReference: {fileID: 0}
+    - target: {fileID: 4128154384564195086, guid: cd55feb7f310114478090f155597f642, type: 3}
+      propertyPath: m_TagString
+      value: BarbershopCustomer
+      objectReference: {fileID: 0}
+    - target: {fileID: 4128154384564195087, guid: cd55feb7f310114478090f155597f642, type: 3}
+      propertyPath: m_RootOrder
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4128154384564195087, guid: cd55feb7f310114478090f155597f642, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -4.1119976
+      objectReference: {fileID: 0}
+    - target: {fileID: 4128154384564195087, guid: cd55feb7f310114478090f155597f642, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.67
+      objectReference: {fileID: 0}
+    - target: {fileID: 4128154384564195087, guid: cd55feb7f310114478090f155597f642, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 6.2340364
+      objectReference: {fileID: 0}
+    - target: {fileID: 4128154384564195087, guid: cd55feb7f310114478090f155597f642, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4128154384564195087, guid: cd55feb7f310114478090f155597f642, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4128154384564195087, guid: cd55feb7f310114478090f155597f642, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4128154384564195087, guid: cd55feb7f310114478090f155597f642, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4128154384564195087, guid: cd55feb7f310114478090f155597f642, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4128154384564195087, guid: cd55feb7f310114478090f155597f642, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4128154384564195087, guid: cd55feb7f310114478090f155597f642, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7605453843455599487, guid: cd55feb7f310114478090f155597f642, type: 3}
+      propertyPath: m_ObjectType
+      value: 3
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: cd55feb7f310114478090f155597f642, type: 3}
+--- !u!114 &535268477628213720 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2046893163887517189, guid: cd55feb7f310114478090f155597f642, type: 3}
+  m_PrefabInstance: {fileID: 1947140143862167517}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2472343354489518291}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 89e57da53638bce41b088786ffca412d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1947140142817199684 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1179349401, guid: cd55feb7f310114478090f155597f642, type: 3}
+  m_PrefabInstance: {fileID: 1947140143862167517}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2472343354489518291}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4c725f8b961a24e49b87a0ce4d7dab36, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!1 &2472343354489518291 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4128154384564195086, guid: cd55feb7f310114478090f155597f642, type: 3}
+  m_PrefabInstance: {fileID: 1947140143862167517}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &2099644452
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2472343354489518291}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c4f482b171c1a66428c70793975ef25d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_PatienceTimer: {fileID: 1947140142817199684}
+  m_HaircutReceivedActions:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 535268477628213720}
+        m_TargetAssemblyTypeName: GeneralCustomerScript, Assembly-CSharp
+        m_MethodName: FindPath
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 535268477628213720}
+        m_TargetAssemblyTypeName: GeneralCustomerScript, Assembly-CSharp
+        m_MethodName: SearchForPath
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 535268477628213720}
+        m_TargetAssemblyTypeName: GeneralCustomerScript, Assembly-CSharp
+        m_MethodName: LeaveArea
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  m_CustomerIngredient: {fileID: 0}

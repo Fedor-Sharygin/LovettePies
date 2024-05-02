@@ -134,6 +134,7 @@ GameObject:
   - component: {fileID: 429309410}
   - component: {fileID: 429309411}
   - component: {fileID: 429309412}
+  - component: {fileID: 429309413}
   m_Layer: 0
   m_Name: MinigameHolder
   m_TagString: MinigameHolder
@@ -193,6 +194,72 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_PlayerInput: {fileID: 0}
+--- !u!114 &429309413
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 429309409}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 62899f850307741f2a39c98a8b639597, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Actions: {fileID: -944628639613478452, guid: 8a7ea7c5118b5084f9dfcc3cdf93457f, type: 3}
+  m_NotificationBehavior: 2
+  m_UIInputModule: {fileID: 0}
+  m_DeviceLostEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_DeviceRegainedEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_ControlsChangedEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_ActionEvents:
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 29ededec-b4c7-4d88-8af7-cd9722b637a7
+    m_ActionName: Restaurant Controls/AreaNavigation[/Keyboard/w,/Keyboard/s,/Keyboard/a,/Keyboard/d,/Keyboard/upArrow,/Keyboard/downArrow,/Keyboard/leftArrow,/Keyboard/rightArrow]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 26fe1650-8105-46e0-ba0b-aadc461f8eae
+    m_ActionName: Restaurant Controls/MainAction[/Keyboard/space,/Keyboard/e,/Keyboard/enter]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: f2cdbfa0-646b-4ed6-a36c-fdbc2c360a72
+    m_ActionName: Restaurant Controls/Pause[/Keyboard/escape,/Keyboard/p]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 31e8575e-0b42-4915-9008-0e6b7e60bc10
+    m_ActionName: Barbershop Controls/New action
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: c0be6aef-17b3-4fb2-b8c8-1c8d8ef12a57
+    m_ActionName: Conversation Controls/New action
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: ce7a56f2-d876-4963-966b-032465e49996
+    m_ActionName: Basic Minigame Controls/Basic Press[/Keyboard/space,/Keyboard/e]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 9d57f9ca-0374-43cd-8e75-c6ed7d72493f
+    m_ActionName: Basic Minigame Controls/Controller Movement Left
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 6020b188-d222-47f2-8bca-1459e3bde38a
+    m_ActionName: Basic Minigame Controls/Controller Movement Right
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 330f69da-3ec4-497b-912e-5a5fe6c60d9e
+    m_ActionName: Basic Minigame Controls/Quit Minigame[/Keyboard/escape]
+  m_NeverAutoSwitchControlSchemes: 0
+  m_DefaultControlScheme: 
+  m_DefaultActionMap: Restaurant Controls
+  m_SplitScreenIndex: -1
+  m_Camera: {fileID: 0}
 --- !u!1 &868057722
 GameObject:
   m_ObjectHideFlags: 0
@@ -355,8 +422,8 @@ Canvas:
   m_GameObject: {fileID: 1050815742}
   m_Enabled: 1
   serializedVersion: 3
-  m_RenderMode: 0
-  m_Camera: {fileID: 0}
+  m_RenderMode: 1
+  m_Camera: {fileID: 1212921185}
   m_PlaneDistance: 100
   m_PixelPerfect: 0
   m_ReceivesEvents: 1

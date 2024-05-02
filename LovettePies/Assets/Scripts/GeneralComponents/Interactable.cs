@@ -34,6 +34,8 @@ public class Interactable : MonoBehaviour
 
         #region Barber Shop Enums
 
+        BARBERSHOP_SEAT,
+
         BARBERSHOP_END,
         #endregion
 
@@ -77,6 +79,10 @@ public class Interactable : MonoBehaviour
     private void Start()
     {
         PlaceOnArea();
+    }
+    private void OnDestroy()
+    {
+        CellElement.AreaArray[m_AreaType].RemoveObjectFromMatrix(m_CellPos.y, m_CellPos.x);
     }
 
     private void MoveObjectToCell()

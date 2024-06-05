@@ -9,6 +9,7 @@ TagManager:
   - RestaurantTable
   - MinigameHolder
   - BarbershopCustomer
+  - PoliceGroup
   layers:
   - Default
   - TransparentFX

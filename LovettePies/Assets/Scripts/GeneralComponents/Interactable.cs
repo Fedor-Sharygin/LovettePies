@@ -40,6 +40,14 @@ public class Interactable : MonoBehaviour
         #endregion
 
 
+        #region Police Station Enums
+
+        POLICE_DOCUMENT,
+        POLICE_JAIL,
+
+        POLICE_END,
+        #endregion
+
         DEFAULT
     }
     [Tooltip("Object Type describes what type of interaction it has")]

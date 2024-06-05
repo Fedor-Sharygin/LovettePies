@@ -12,7 +12,7 @@ public class GeneralCustomerScript : MonoBehaviour
         m_CellPos = GetComponent<CellElement>();
         m_CustomerInteractable = GetComponent<Interactable>();
         m_StartingSquare = (m_CellPos.m_CurCellPos, m_CellPos.AreaIdx);
-        StartCoroutine("FindPath");
+        //StartCoroutine("FindPath");
     }
 
     [SerializeField]
@@ -20,7 +20,7 @@ public class GeneralCustomerScript : MonoBehaviour
     [SerializeField]
     private Timer m_PatienceTimer;
 
-    private bool m_SearchingForPath = true;
+    private bool m_SearchingForPath = false;
     public void SearchForPath()
     {
         m_SearchingForPath = true;
@@ -41,9 +41,9 @@ public class GeneralCustomerScript : MonoBehaviour
 
     private List<(Vector2Int, int)> m_CurPath;
     private int m_PathIdx = 0;
-    public Interactable.EnumInteractableType m_InteractableTargetType;
+    public Interactable.EnumInteractableType[] m_InteractableTargetTypesOrder;
+    private int m_TargetIdx = 0;
     private (Vector2Int, int) m_StartingSquare;
-    private bool m_GoBack = false;
     public void FindPath()
     {
         while (CellElement.AreaArray.Length == 0) ;
@@ -53,7 +53,7 @@ public class GeneralCustomerScript : MonoBehaviour
             return;
         }
 
-        if (m_GoBack)
+        if (m_TargetIdx >= m_InteractableTargetTypesOrder.Length)
         {
             do
             {
@@ -71,7 +71,7 @@ public class GeneralCustomerScript : MonoBehaviour
             return;
         }
 
-        var TargetPlacement = CellElement.FindInteractableByType(m_InteractableTargetType, this.tag, m_CellPos.m_MovementFlag);
+        var TargetPlacement = CellElement.FindInteractableByType(m_InteractableTargetTypesOrder[m_TargetIdx], this.tag, m_CellPos.m_MovementFlag);
 
         if (TargetPlacement.Item1 == -1)
         {
@@ -104,7 +104,7 @@ public class GeneralCustomerScript : MonoBehaviour
 
         if (m_PathIdx >= m_CurPath.Count - 1)
         {
-            if (!m_GoBack)
+            if (m_TargetIdx < m_InteractableTargetTypesOrder.Length)
             {
                 SitInArea();
             }
@@ -158,7 +158,7 @@ public class GeneralCustomerScript : MonoBehaviour
         m_CurrentInteractableSeat = CellElement.AreaArray[m_CellPos.AreaIdx].GetInteractable(PosAIdx.Item1);
         m_CurrentInteractableSeat.Interact(this, m_InteractionDirection);
         m_PatienceTimer.Play();
-        m_GoBack = true;
+        m_TargetIdx++;
 
         m_PatienceActions?.Invoke();
     }

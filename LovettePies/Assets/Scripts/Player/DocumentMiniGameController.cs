@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class DocumentMinigameController : MonoBehaviour
+public class DocumentMiniGameController : MonoBehaviour
 {
     private PlayerControls m_PlayerControls;
     private void Awake()

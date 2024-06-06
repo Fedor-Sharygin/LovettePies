@@ -47,6 +47,7 @@ public class BarberSeat : MinigameHolderBase
                     }
 
                     m_SeatSocket.PeekObj().GetComponent<BarbershopBehavior>().HaircutBegins();
+                    m_CurrentActivated = true;
                     SceneManager.LoadSceneAsync(m_BarberMinigame, LoadSceneMode.Additive);
                 }
                 break;

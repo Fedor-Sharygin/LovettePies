@@ -157,7 +157,7 @@ public class GeneralCustomerScript : MonoBehaviour
         m_InteractionDirection = GlobalNamespace.GeneralFunctions.GetDirection(m_CellPos.m_CurCellPos, new Vector2Int(PosAIdx.Item1.y, PosAIdx.Item1.x));
         m_CurrentInteractableSeat = CellElement.AreaArray[m_CellPos.AreaIdx].GetInteractable(PosAIdx.Item1);
         m_CurrentInteractableSeat.Interact(this, m_InteractionDirection);
-        m_PatienceTimer.Play();
+        m_PatienceTimer?.Play();
         m_TargetIdx++;
 
         m_PatienceActions?.Invoke();

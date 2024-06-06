@@ -42,6 +42,7 @@ public class PoliceStationTable : MinigameHolderBase
         {
             case "Player":
                 {
+                    m_CurrentActivated = true;
                     SceneManager.LoadSceneAsync(m_PoliceTableMinigame, LoadSceneMode.Additive);
                 }
                 break;

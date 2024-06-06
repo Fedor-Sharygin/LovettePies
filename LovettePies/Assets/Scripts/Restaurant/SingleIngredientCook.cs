@@ -49,6 +49,7 @@ public class SingleIngredientCook : MinigameHolderBase
             m_CookingName = Ingred.m_IngredientDescription.m_MinigameName;
             m_OriginalSocket = PlayerPlate.m_IngredientSockets[m_IngredIdx];
             m_LocalSocket.Stack(m_OriginalSocket.RemoveObj());
+            m_CurrentActivated = true;
             SceneManager.LoadSceneAsync(m_CookingName, LoadSceneMode.Additive);
             Debug.LogWarning("WARNING: LOCKING MINIGAME HOLDER!");
             m_IsInteractable[0] = false;

@@ -36,6 +36,7 @@ public class DishWasher : MinigameHolderBase
         }
 
         m_LocalSocket.Stack(m_OriginSocket.RemoveObj());
+        m_CurrentActivated = true;
         SceneManager.LoadSceneAsync(m_DishWasherMinigame, LoadSceneMode.Additive);
         m_IsInteractable[0] = false;
     }

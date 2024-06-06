@@ -21,13 +21,15 @@ public abstract class MinigameHolderBase : Interactable
         SceneManager.sceneLoaded -= MinigameLoaded;
     }
 
+    protected bool m_CurrentActivated = false;
     protected virtual void MinigameLoaded(Scene p_MinigameScene, LoadSceneMode _p_LoadSceneMode)
     {
-        if (p_MinigameScene.name == "OneAreaNavigationTest")
+        if (!m_CurrentActivated || p_MinigameScene.name == "OneAreaNavigationTest")
         {
             return;
         }
 
+        m_CurrentActivated = false;
         //p_MinigameScene.GetRootGameObjects();
         Debug.LogWarning($"WARNING: {p_MinigameScene.name} LOADED AND TRIGGERED FUNCTION!");
         foreach (var MGHolder in GameObject.FindGameObjectsWithTag("MinigameHolder"))

@@ -142,7 +142,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_DestroyObjects: 0
-  m_ObjectSpeed: 0.02
+  m_ObjectSpeed: 5
 --- !u!1 &5656629059162780798
 GameObject:
   m_ObjectHideFlags: 0
@@ -188,7 +188,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_DestroyObjects: 1
-  m_ObjectSpeed: 0.02
+  m_ObjectSpeed: 5
 --- !u!1001 &5226932293576603006
 PrefabInstance:
   m_ObjectHideFlags: 0

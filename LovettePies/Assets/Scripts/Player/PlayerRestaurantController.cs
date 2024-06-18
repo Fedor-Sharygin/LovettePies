@@ -1,3 +1,8 @@
+#if UNITY_EDITOR
+#define DEBUG_CONTROLS
+#endif
+
+
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -11,8 +16,8 @@ public class PlayerRestaurantController : MonoBehaviour
     private Vector2Int m_OriginalPosition;
 
     private CellElement m_CellElement;
-    public PlayerInput m_PlayerInput;
-    public PlayerControls m_PlayerRestaurantControls;
+    public PlayerInput m_PlayerInput { get; private set; }
+    public PlayerControls m_PlayerRestaurantControls { get; private set; }
     private void Awake()
     {
         m_PlayerRestaurantControls = new PlayerControls();
@@ -24,6 +29,7 @@ public class PlayerRestaurantController : MonoBehaviour
         }
         m_PlayerRestaurantControls.Enable();
         m_PlayerRestaurantControls.BasicMinigameControls.Disable();
+        m_PlayerRestaurantControls.UIControls.Disable();
         m_PlayerRestaurantControls.RestaurantControls.Enable();
 
         m_PlayerInput = GetComponent<PlayerInput>();
@@ -57,8 +63,14 @@ public class PlayerRestaurantController : MonoBehaviour
         m_CellElement.MoveTo(m_OriginalPosition);
     }
 
+    #region Input Setup
     private InputAction m_AreaNavigation;
     private InputAction m_Interact;
+    private InputAction m_Pause;
+    #if DEBUG_CONTROLS
+    private InputAction m_IncreaseIngredients;
+    private InputAction m_DecreaseIngredients;
+    #endif
     private void OnEnable()
     {
         //m_PlayerRestaurantControls.Enable();
@@ -71,7 +83,29 @@ public class PlayerRestaurantController : MonoBehaviour
         m_Interact = m_PlayerRestaurantControls.RestaurantControls.MainAction;
         m_Interact.Enable();
         m_Interact.started += Interact;
+
+        m_Pause = m_PlayerRestaurantControls.RestaurantControls.Pause;
+        m_Pause.Enable();
+        m_Pause.started += Pause_Started;
+        
+        #if DEBUG_CONTROLS
+        m_IncreaseIngredients = m_PlayerRestaurantControls.DebugControls.AddIngredients;
+        m_IncreaseIngredients.Enable();
+        m_IncreaseIngredients.started += IncreaseAllIngredientCount;
+
+        m_DecreaseIngredients = m_PlayerRestaurantControls.DebugControls.SubtractIngredients;
+        m_DecreaseIngredients.Enable();
+        m_DecreaseIngredients.started += DecreaseAllIngredientCount;
+        #endif
     }
+
+    [SerializeField]
+    private GameObject m_GameMenu;
+    private void Pause_Started(InputAction.CallbackContext obj)
+    {
+        m_GameMenu.SetActive(true);
+    }
+
     private void OnDisable()
     {
         m_AreaNavigation.started  -= NavigateArea;
@@ -80,13 +114,24 @@ public class PlayerRestaurantController : MonoBehaviour
 
         m_Interact.started -= Interact;
         m_Interact.Disable();
+        
+
+        #if DEBUG_CONTROLS
+        m_IncreaseIngredients.started -= IncreaseAllIngredientCount;
+        m_IncreaseIngredients.Disable();
+
+        m_DecreaseIngredients.started -= DecreaseAllIngredientCount;
+        m_DecreaseIngredients.Disable();
+        #endif
     }
+    #endregion
 
     private void Update()
     {
         MoveWhileHeld();
     }
 
+    #region Movement
     private Vector2Int GetMoveDirection()
     {
         Vector2 MoveDirection = m_AreaNavigation.ReadValue<Vector2>();
@@ -135,8 +180,9 @@ public class PlayerRestaurantController : MonoBehaviour
             m_ControlsHeld = false;
         }
     }
+    #endregion
 
-
+    #region Interaction
     public ObjectSocket m_DishPos;
     public void Interact(InputAction.CallbackContext p_CallbackContext)
     {
@@ -194,4 +240,27 @@ public class PlayerRestaurantController : MonoBehaviour
             }
         }
     }
+    #endregion
+
+    #region Debug Control
+    #if DEBUG_CONTROLS
+
+    private void IncreaseAllIngredientCount(InputAction.CallbackContext p_CallbackContext)
+    {
+        foreach (var IngHold in FindObjectsOfType<IngridientHolder>())
+        {
+            IngHold.IncreaseIngredientCount();
+        }
+    }
+
+    private void DecreaseAllIngredientCount(InputAction.CallbackContext p_CallbackContext)
+    {
+        foreach (var IngHold in FindObjectsOfType<IngridientHolder>())
+        {
+            IngHold.DecreaseIngredientCount();
+        }
+    }
+    
+    #endif
+    #endregion
 }

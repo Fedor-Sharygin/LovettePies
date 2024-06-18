@@ -387,7 +387,7 @@ MonoBehaviour:
   m_PositionOverhaul: 0
   m_MovementFlag: 4
   m_DistEpsilon: 0.08
-  m_MovementSpeed: 0.08
+  m_MovementSpeed: 5
 --- !u!114 &3502323755049007889
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -127,7 +127,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d17d75986bec2f6498146b123eb807b2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_PlateSpeed: 0.02
+  m_DestroyObjects: 0
+  m_ObjectSpeed: 5
 --- !u!1 &6126390789921155991
 GameObject:
   m_ObjectHideFlags: 0
@@ -175,9 +176,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ea33296ef968be5468695a0477774a64, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_PositionOverhaul: 0
   m_MovementFlag: 0
   m_DistEpsilon: 0.2
-  m_MovementSpeed: 0.024
+  m_MovementSpeed: 5
 --- !u!114 &1576901215591666283
 MonoBehaviour:
   m_ObjectHideFlags: 0

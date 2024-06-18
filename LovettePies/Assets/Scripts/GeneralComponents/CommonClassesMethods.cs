@@ -296,3 +296,12 @@ namespace GlobalNamespace
         }
     }
 }
+
+
+public static class ListExtensions
+{
+    public static List<T> DeepCopy<T>(this List<T> p_ListToClone) where T : ICloneable
+    {
+        return p_ListToClone.ConvertAll(item => (T)item.Clone());
+    }
+}

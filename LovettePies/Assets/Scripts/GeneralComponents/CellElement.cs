@@ -220,7 +220,7 @@ public class CellElement : MonoBehaviour
     [SerializeField]
     private float m_DistEpsilon = .2f;
     [SerializeField]
-    private float m_MovementSpeed = .024f;
+    private float m_MovementSpeed = .15f;
     private void GetToTargetPos()
     {
         if (AtTargetPos())
@@ -229,7 +229,7 @@ public class CellElement : MonoBehaviour
         }
 
         float DistToTarget = Vector3.Distance(m_TargetPos, transform.position);
-        float t = DistToTarget > m_DistEpsilon ? m_MovementSpeed : 1;
+        float t = DistToTarget > m_DistEpsilon ? m_MovementSpeed * Mathf.Min(Time.deltaTime, .016f) : 1;
         transform.position = Vector3.Lerp(transform.position, m_TargetPos, t);
     }
     public bool AtTargetPos()

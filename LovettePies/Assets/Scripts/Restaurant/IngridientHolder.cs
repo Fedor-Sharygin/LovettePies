@@ -1,3 +1,8 @@
+#if UNITY_EDITOR
+#define DEBUG_FUNCTIONS
+#endif
+
+
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -14,11 +19,15 @@ public class IngridientHolder : Interactable
     private int m_CurIngridientCount;
     [SerializeField]
     private SpriteRenderer m_IngredientSprite;
+    [SerializeField]
+    private TMPro.TextMeshProUGUI m_CountText;
     private void Start()
     {
         PlaceOnArea();
-        m_CurIngridientCount = m_MaxIngridientCount;
+        //m_CurIngridientCount = m_MaxIngridientCount;
+        m_CurIngridientCount = IngredientStorage.Manager.GetIngredientCount(m_IngredientDescription);
         m_IngredientSprite.sprite = m_IngredientDescription?.m_IngredientSprite;
+        m_CountText.text = m_CurIngridientCount.ToString();
     }
 
 
@@ -41,6 +50,15 @@ public class IngridientHolder : Interactable
             return;
         }
 
+        if (m_CurIngridientCount <= 0)
+        {
+            return;
+        }
+
+        m_CurIngridientCount--;
+        m_CountText.text = m_CurIngridientCount.ToString();
+        IngredientStorage.Manager.UpdateIngredientCount(m_IngredientDescription, -1);
+
         var IngredientInstance = GameObject.Instantiate(m_IngredientPrefab, m_IngredientSpawnPos.Socket);
         IngredientInstance.transform.localPosition = Vector3.zero;
         IngredientInstance.transform.localRotation = Quaternion.identity;
@@ -50,6 +68,28 @@ public class IngridientHolder : Interactable
         PlayerPlate.AddIngredient(IngredientInstance);
         //PlayerPlate.m_IngredientSockets[IngredientIdx].Stack(m_IngredientSpawnPos.RemoveObj());
     }
+
+    
+
+    #region Debug Functionality
+    #if DEBUG_FUNCTIONS
+    
+    public void IncreaseIngredientCount()
+    {
+        m_CurIngridientCount++;
+        m_CountText.text = m_CurIngridientCount.ToString();
+        IngredientStorage.Manager.UpdateIngredientCount(m_IngredientDescription);
+    }
+
+    public void DecreaseIngredientCount()
+    {
+        m_CurIngridientCount--;
+        m_CountText.text = m_CurIngridientCount.ToString();
+        IngredientStorage.Manager.UpdateIngredientCount(m_IngredientDescription, -1);
+    }
+    
+    #endif
+    #endregion
 }
 
 

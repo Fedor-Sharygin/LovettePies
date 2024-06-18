@@ -24,8 +24,8 @@ public class MinigameRequiredElement : MonoBehaviour
     public delegate void MinigameClosedDelegate(MinigameStatus p_Status);
     public event MinigameClosedDelegate m_MinigameClosed;
 
-    public PlayerInput m_PlayerInput;
-    public PlayerControls m_PlayerControls;
+    public PlayerInput m_PlayerInput { get; private set; }
+    public PlayerControls m_PlayerControls { get; private set; }
     private void Awake()
     {
         Debug.LogWarning($"WARNING: {gameObject.GetInstanceID()} OBJ IS LOADING MINIGAME!!!!");
@@ -43,6 +43,7 @@ public class MinigameRequiredElement : MonoBehaviour
         }
         m_PlayerControls.Enable();
         m_PlayerControls.BasicMinigameControls.Enable();
+        m_PlayerControls.UIControls.Disable();
         m_PlayerControls.RestaurantControls.Disable();
 
         m_PlayerInput = PlayerController?.m_PlayerInput;

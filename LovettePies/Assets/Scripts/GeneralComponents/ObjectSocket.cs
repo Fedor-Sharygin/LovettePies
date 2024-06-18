@@ -31,7 +31,7 @@ public class ObjectSocket : MonoBehaviour
     public bool m_DestroyObjects;
 
     [SerializeField]
-    private float m_ObjectSpeed = 0.02f;
+    private float m_ObjectSpeed = 5f;
     private void Update()
     {
         if (AvailableForStack)
@@ -49,10 +49,12 @@ public class ObjectSocket : MonoBehaviour
                 }
                 continue;
             }
-            transform.GetChild(i).localPosition = Vector3.Lerp(transform.GetChild(i).localPosition, Vector3.zero, m_ObjectSpeed);
+            transform.GetChild(i).localPosition = Vector3.Lerp(transform.GetChild(i).localPosition, Vector3.zero,
+                m_ObjectSpeed * Mathf.Min(Time.deltaTime, .016f));
             if (m_DestroyObjects)
             {
-                transform.GetChild(i).localScale = Vector3.Lerp(transform.GetChild(i).localScale, Vector3.zero, m_ObjectSpeed);
+                transform.GetChild(i).localScale = Vector3.Lerp(transform.GetChild(i).localScale, Vector3.zero,
+                    m_ObjectSpeed * Mathf.Min(Time.deltaTime, .016f));
             }
         }
     }
@@ -69,6 +71,11 @@ public class ObjectSocket : MonoBehaviour
     }
     public void ForceStack(Transform p_StackObj)
     {
+        if (p_StackObj == null)
+        {
+            return;
+        }
+
         p_StackObj.SetParent(Socket);
     }
 

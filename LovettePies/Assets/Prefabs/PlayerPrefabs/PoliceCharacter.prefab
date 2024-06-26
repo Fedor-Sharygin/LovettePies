@@ -202,7 +202,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3239564346657144788, guid: 11de0c79a0551d747b1187b0440e6e16, type: 3}
       propertyPath: m_Name
-      value: RestuarantPlayer Variant
+      value: PoliceCharacter
       objectReference: {fileID: 0}
     - target: {fileID: 3239564346657144788, guid: 11de0c79a0551d747b1187b0440e6e16, type: 3}
       propertyPath: m_TagString
@@ -252,41 +252,161 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 4202272998073113823, guid: 11de0c79a0551d747b1187b0440e6e16, type: 3}
-      propertyPath: m_ActionEvents.Array.size
-      value: 9
+    - target: {fileID: 3239564346657144792, guid: 11de0c79a0551d747b1187b0440e6e16, type: 3}
+      propertyPath: m_MovementSpeed
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 4202272998073113823, guid: 11de0c79a0551d747b1187b0440e6e16, type: 3}
-      propertyPath: m_ActionEvents.Array.data[5].m_ActionId
+      propertyPath: m_DefaultActionMap
+      value: Basic Game Controls
+      objectReference: {fileID: 0}
+    - target: {fileID: 4202272998073113823, guid: 11de0c79a0551d747b1187b0440e6e16, type: 3}
+      propertyPath: m_ActionEvents.Array.size
+      value: 21
+      objectReference: {fileID: 0}
+    - target: {fileID: 4202272998073113823, guid: 11de0c79a0551d747b1187b0440e6e16, type: 3}
+      propertyPath: m_ActionEvents.Array.data[3].m_ActionId
       value: ce7a56f2-d876-4963-966b-032465e49996
       objectReference: {fileID: 0}
     - target: {fileID: 4202272998073113823, guid: 11de0c79a0551d747b1187b0440e6e16, type: 3}
-      propertyPath: m_ActionEvents.Array.data[6].m_ActionId
+      propertyPath: m_ActionEvents.Array.data[4].m_ActionId
       value: 9d57f9ca-0374-43cd-8e75-c6ed7d72493f
       objectReference: {fileID: 0}
     - target: {fileID: 4202272998073113823, guid: 11de0c79a0551d747b1187b0440e6e16, type: 3}
-      propertyPath: m_ActionEvents.Array.data[7].m_ActionId
+      propertyPath: m_ActionEvents.Array.data[5].m_ActionId
       value: 6020b188-d222-47f2-8bca-1459e3bde38a
       objectReference: {fileID: 0}
     - target: {fileID: 4202272998073113823, guid: 11de0c79a0551d747b1187b0440e6e16, type: 3}
-      propertyPath: m_ActionEvents.Array.data[8].m_ActionId
+      propertyPath: m_ActionEvents.Array.data[6].m_ActionId
       value: 330f69da-3ec4-497b-912e-5a5fe6c60d9e
       objectReference: {fileID: 0}
     - target: {fileID: 4202272998073113823, guid: 11de0c79a0551d747b1187b0440e6e16, type: 3}
-      propertyPath: m_ActionEvents.Array.data[5].m_ActionName
+      propertyPath: m_ActionEvents.Array.data[7].m_ActionId
+      value: 86df978d-3995-4c41-9699-207b6c2c9073
+      objectReference: {fileID: 0}
+    - target: {fileID: 4202272998073113823, guid: 11de0c79a0551d747b1187b0440e6e16, type: 3}
+      propertyPath: m_ActionEvents.Array.data[8].m_ActionId
+      value: f0433bc3-aa37-463d-99f4-1aab0064e6f6
+      objectReference: {fileID: 0}
+    - target: {fileID: 4202272998073113823, guid: 11de0c79a0551d747b1187b0440e6e16, type: 3}
+      propertyPath: m_ActionEvents.Array.data[9].m_ActionId
+      value: 7dae2e81-6b0c-46b6-860c-59cb5d97a2fb
+      objectReference: {fileID: 0}
+    - target: {fileID: 4202272998073113823, guid: 11de0c79a0551d747b1187b0440e6e16, type: 3}
+      propertyPath: m_ActionEvents.Array.data[10].m_ActionId
+      value: d0ad6bde-0dd3-47ac-850e-8cc03b702336
+      objectReference: {fileID: 0}
+    - target: {fileID: 4202272998073113823, guid: 11de0c79a0551d747b1187b0440e6e16, type: 3}
+      propertyPath: m_ActionEvents.Array.data[11].m_ActionId
+      value: 56d6ba8d-addf-4e5d-93ad-9a10cbd72a61
+      objectReference: {fileID: 0}
+    - target: {fileID: 4202272998073113823, guid: 11de0c79a0551d747b1187b0440e6e16, type: 3}
+      propertyPath: m_ActionEvents.Array.data[12].m_ActionId
+      value: bccba6ab-c29c-45bd-a2e1-0013739399aa
+      objectReference: {fileID: 0}
+    - target: {fileID: 4202272998073113823, guid: 11de0c79a0551d747b1187b0440e6e16, type: 3}
+      propertyPath: m_ActionEvents.Array.data[13].m_ActionId
+      value: 9eeb0958-e5fb-4463-b8c4-c0389ab7f21d
+      objectReference: {fileID: 0}
+    - target: {fileID: 4202272998073113823, guid: 11de0c79a0551d747b1187b0440e6e16, type: 3}
+      propertyPath: m_ActionEvents.Array.data[14].m_ActionId
+      value: e949ab68-37a4-4182-89cb-adc4e563d620
+      objectReference: {fileID: 0}
+    - target: {fileID: 4202272998073113823, guid: 11de0c79a0551d747b1187b0440e6e16, type: 3}
+      propertyPath: m_ActionEvents.Array.data[15].m_ActionId
+      value: e9aadfbb-7f2a-4b79-aa32-5604c6f519c7
+      objectReference: {fileID: 0}
+    - target: {fileID: 4202272998073113823, guid: 11de0c79a0551d747b1187b0440e6e16, type: 3}
+      propertyPath: m_ActionEvents.Array.data[16].m_ActionId
+      value: 4488f45c-8264-40b1-92ee-d5f7fb38ba32
+      objectReference: {fileID: 0}
+    - target: {fileID: 4202272998073113823, guid: 11de0c79a0551d747b1187b0440e6e16, type: 3}
+      propertyPath: m_ActionEvents.Array.data[17].m_ActionId
+      value: 8c7ac8a1-a083-49fe-9991-c98647fa7b6c
+      objectReference: {fileID: 0}
+    - target: {fileID: 4202272998073113823, guid: 11de0c79a0551d747b1187b0440e6e16, type: 3}
+      propertyPath: m_ActionEvents.Array.data[18].m_ActionId
+      value: 42397238-0a9a-4188-a01c-52b2c4b4b852
+      objectReference: {fileID: 0}
+    - target: {fileID: 4202272998073113823, guid: 11de0c79a0551d747b1187b0440e6e16, type: 3}
+      propertyPath: m_ActionEvents.Array.data[19].m_ActionId
+      value: fe0f7a0f-e08d-4b45-bd6f-f80cdf932558
+      objectReference: {fileID: 0}
+    - target: {fileID: 4202272998073113823, guid: 11de0c79a0551d747b1187b0440e6e16, type: 3}
+      propertyPath: m_ActionEvents.Array.data[20].m_ActionId
+      value: bb8f9ade-de26-4223-9de5-0588c059ca49
+      objectReference: {fileID: 0}
+    - target: {fileID: 4202272998073113823, guid: 11de0c79a0551d747b1187b0440e6e16, type: 3}
+      propertyPath: m_ActionEvents.Array.data[3].m_ActionName
       value: Basic Minigame Controls/Basic Press[/Keyboard/space,/Keyboard/e]
       objectReference: {fileID: 0}
     - target: {fileID: 4202272998073113823, guid: 11de0c79a0551d747b1187b0440e6e16, type: 3}
-      propertyPath: m_ActionEvents.Array.data[6].m_ActionName
+      propertyPath: m_ActionEvents.Array.data[4].m_ActionName
       value: Basic Minigame Controls/Controller Movement Left
       objectReference: {fileID: 0}
     - target: {fileID: 4202272998073113823, guid: 11de0c79a0551d747b1187b0440e6e16, type: 3}
-      propertyPath: m_ActionEvents.Array.data[7].m_ActionName
+      propertyPath: m_ActionEvents.Array.data[5].m_ActionName
       value: Basic Minigame Controls/Controller Movement Right
       objectReference: {fileID: 0}
     - target: {fileID: 4202272998073113823, guid: 11de0c79a0551d747b1187b0440e6e16, type: 3}
-      propertyPath: m_ActionEvents.Array.data[8].m_ActionName
+      propertyPath: m_ActionEvents.Array.data[6].m_ActionName
       value: Basic Minigame Controls/Quit Minigame[/Keyboard/escape]
+      objectReference: {fileID: 0}
+    - target: {fileID: 4202272998073113823, guid: 11de0c79a0551d747b1187b0440e6e16, type: 3}
+      propertyPath: m_ActionEvents.Array.data[7].m_ActionName
+      value: Basic Minigame Controls/Mouse Press[/Mouse/leftButton]
+      objectReference: {fileID: 0}
+    - target: {fileID: 4202272998073113823, guid: 11de0c79a0551d747b1187b0440e6e16, type: 3}
+      propertyPath: m_ActionEvents.Array.data[8].m_ActionName
+      value: Basic Minigame Controls/Alternate Press[/Keyboard/f]
+      objectReference: {fileID: 0}
+    - target: {fileID: 4202272998073113823, guid: 11de0c79a0551d747b1187b0440e6e16, type: 3}
+      propertyPath: m_ActionEvents.Array.data[9].m_ActionName
+      value: Debug Controls/Add Ingredients[/Keyboard/numpadPlus]
+      objectReference: {fileID: 0}
+    - target: {fileID: 4202272998073113823, guid: 11de0c79a0551d747b1187b0440e6e16, type: 3}
+      propertyPath: m_ActionEvents.Array.data[10].m_ActionName
+      value: Debug Controls/Subtract Ingredients[/Keyboard/numpadMinus]
+      objectReference: {fileID: 0}
+    - target: {fileID: 4202272998073113823, guid: 11de0c79a0551d747b1187b0440e6e16, type: 3}
+      propertyPath: m_ActionEvents.Array.data[11].m_ActionName
+      value: UI Controls/Resume[/Keyboard/escape,/Keyboard/p]
+      objectReference: {fileID: 0}
+    - target: {fileID: 4202272998073113823, guid: 11de0c79a0551d747b1187b0440e6e16, type: 3}
+      propertyPath: m_ActionEvents.Array.data[12].m_ActionName
+      value: UI Controls/MenuNavigation[/Keyboard/w,/Keyboard/upArrow,/Keyboard/s,/Keyboard/downArrow,/Keyboard/a,/Keyboard/leftArrow,/Keyboard/d,/Keyboard/rightArrow]
+      objectReference: {fileID: 0}
+    - target: {fileID: 4202272998073113823, guid: 11de0c79a0551d747b1187b0440e6e16, type: 3}
+      propertyPath: m_ActionEvents.Array.data[13].m_ActionName
+      value: UI Controls/Confirm[/Keyboard/space,/Keyboard/enter]
+      objectReference: {fileID: 0}
+    - target: {fileID: 4202272998073113823, guid: 11de0c79a0551d747b1187b0440e6e16, type: 3}
+      propertyPath: m_ActionEvents.Array.data[14].m_ActionName
+      value: UI Controls/Backout[/Keyboard/backspace]
+      objectReference: {fileID: 0}
+    - target: {fileID: 4202272998073113823, guid: 11de0c79a0551d747b1187b0440e6e16, type: 3}
+      propertyPath: m_ActionEvents.Array.data[15].m_ActionName
+      value: Upgrade Controls/Upgrade Navigation[/Keyboard/q,/Keyboard/e]
+      objectReference: {fileID: 0}
+    - target: {fileID: 4202272998073113823, guid: 11de0c79a0551d747b1187b0440e6e16, type: 3}
+      propertyPath: m_ActionEvents.Array.data[16].m_ActionName
+      value: Upgrade Controls/Place Element[/Keyboard/space]
+      objectReference: {fileID: 0}
+    - target: {fileID: 4202272998073113823, guid: 11de0c79a0551d747b1187b0440e6e16, type: 3}
+      propertyPath: m_ActionEvents.Array.data[17].m_ActionName
+      value: Upgrade Controls/EndUpgrade[/Keyboard/escape]
+      objectReference: {fileID: 0}
+    - target: {fileID: 4202272998073113823, guid: 11de0c79a0551d747b1187b0440e6e16, type: 3}
+      propertyPath: m_ActionEvents.Array.data[18].m_ActionName
+      value: Upgrade Controls/AreaNavigation[/Keyboard/w,/Keyboard/s,/Keyboard/a,/Keyboard/d,/Keyboard/upArrow,/Keyboard/downArrow,/Keyboard/leftArrow,/Keyboard/rightArrow]
+      objectReference: {fileID: 0}
+    - target: {fileID: 4202272998073113823, guid: 11de0c79a0551d747b1187b0440e6e16, type: 3}
+      propertyPath: m_ActionEvents.Array.data[19].m_ActionName
+      value: Cutscene Controls/Next Line[/Keyboard/space]
+      objectReference: {fileID: 0}
+    - target: {fileID: 4202272998073113823, guid: 11de0c79a0551d747b1187b0440e6e16, type: 3}
+      propertyPath: m_ActionEvents.Array.data[20].m_ActionName
+      value: Cutscene Controls/Skip Dialog[/Keyboard/tab,/Keyboard/escape]
       objectReference: {fileID: 0}
     - target: {fileID: 6244444951964591058, guid: 11de0c79a0551d747b1187b0440e6e16, type: 3}
       propertyPath: m_IsActive

@@ -12,6 +12,10 @@ public class HaircutMinigameController : MonoBehaviour
 
         //ReqElem.m_PlayerInput.SwitchCurrentActionMap("Basic Minigame Controls");
         m_PlayerControls = ReqElem.m_PlayerControls;
+        m_Haircut_MouseLB = m_PlayerControls.BasicMinigameControls.MousePress;
+        m_Haircut_Button = m_PlayerControls.BasicMinigameControls.BasicPress;
+        m_Lever_Button = m_PlayerControls.BasicMinigameControls.AlternatePress;
+        m_CloseMinigame = m_PlayerControls.BasicMinigameControls.QuitMinigame;
 
         //m_DoughEnterDelegate.OnTriggerEntered += DoughTouched;
     }
@@ -26,16 +30,13 @@ public class HaircutMinigameController : MonoBehaviour
         Debug.LogWarning($"WARING: {GetInstanceID()} IS ENABLING INPUT!!!!");
 
 
-        m_Haircut_MouseLB = m_PlayerControls.BasicMinigameControls.MousePress;
         m_Haircut_MouseLB.Enable();
         m_Haircut_MouseLB.started += HaircutAction_MouseStart;
         m_Haircut_MouseLB.canceled += HaircutAction_MouseEnd;
 
-        m_Haircut_Button = m_PlayerControls.BasicMinigameControls.BasicPress;
         m_Haircut_Button.Enable();
         m_Haircut_Button.performed += HaircutAction_Button;
 
-        m_Lever_Button = m_PlayerControls.BasicMinigameControls.AlternatePress;
         m_Lever_Button.Enable();
         m_Lever_Button.performed += LeverAction_Button;
 
@@ -50,7 +51,6 @@ public class HaircutMinigameController : MonoBehaviour
         //m_Hand_RightStick.canceled += ControlHands_Controller_RightStick;
 
 
-        m_CloseMinigame = m_PlayerControls.BasicMinigameControls.QuitMinigame;
         m_CloseMinigame.Enable();
         m_CloseMinigame.performed += CloseMinigame;
     }

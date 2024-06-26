@@ -24,7 +24,7 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
     ""name"": ""PlayerControls"",
     ""maps"": [
         {
-            ""name"": ""Restaurant Controls"",
+            ""name"": ""Basic Game Controls"",
             ""id"": ""b249361f-37e2-4326-b925-ff7c334e7aa6"",
             ""actions"": [
                 {
@@ -317,62 +317,6 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""groups"": """",
                     ""action"": ""Pause"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                }
-            ]
-        },
-        {
-            ""name"": ""Barbershop Controls"",
-            ""id"": ""afcbf1be-c7e7-4dbd-bf9c-28e3782ec883"",
-            ""actions"": [
-                {
-                    ""name"": ""New action"",
-                    ""type"": ""Button"",
-                    ""id"": ""31e8575e-0b42-4915-9008-0e6b7e60bc10"",
-                    ""expectedControlType"": ""Button"",
-                    ""processors"": """",
-                    ""interactions"": """",
-                    ""initialStateCheck"": false
-                }
-            ],
-            ""bindings"": [
-                {
-                    ""name"": """",
-                    ""id"": ""a69fe0e9-7131-437e-944b-f0a3e5e3ffea"",
-                    ""path"": """",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""New action"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                }
-            ]
-        },
-        {
-            ""name"": ""Conversation Controls"",
-            ""id"": ""bfcd958b-2d5f-4303-8e01-41eb8c324a2e"",
-            ""actions"": [
-                {
-                    ""name"": ""New action"",
-                    ""type"": ""Button"",
-                    ""id"": ""c0be6aef-17b3-4fb2-b8c8-1c8d8ef12a57"",
-                    ""expectedControlType"": ""Button"",
-                    ""processors"": """",
-                    ""interactions"": """",
-                    ""initialStateCheck"": false
-                }
-            ],
-            ""bindings"": [
-                {
-                    ""name"": """",
-                    ""id"": ""80bab939-4d1f-460b-9d21-09b37140232d"",
-                    ""path"": """",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""New action"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -971,21 +915,437 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
                     ""isPartOfComposite"": false
                 }
             ]
+        },
+        {
+            ""name"": ""Upgrade Controls"",
+            ""id"": ""2b51d8b1-5c83-42c8-a149-6560bbaad0ef"",
+            ""actions"": [
+                {
+                    ""name"": ""Upgrade Navigation"",
+                    ""type"": ""Value"",
+                    ""id"": ""e9aadfbb-7f2a-4b79-aa32-5604c6f519c7"",
+                    ""expectedControlType"": ""Axis"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": true
+                },
+                {
+                    ""name"": ""Place Element"",
+                    ""type"": ""Button"",
+                    ""id"": ""4488f45c-8264-40b1-92ee-d5f7fb38ba32"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""EndUpgrade"",
+                    ""type"": ""Button"",
+                    ""id"": ""8c7ac8a1-a083-49fe-9991-c98647fa7b6c"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""AreaNavigation"",
+                    ""type"": ""Value"",
+                    ""id"": ""42397238-0a9a-4188-a01c-52b2c4b4b852"",
+                    ""expectedControlType"": ""Vector2"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": true
+                }
+            ],
+            ""bindings"": [
+                {
+                    ""name"": ""KeyBoard"",
+                    ""id"": ""eaad6a6a-14b5-49cd-96ed-06bfeae2e4c6"",
+                    ""path"": ""1DAxis"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Upgrade Navigation"",
+                    ""isComposite"": true,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""negative"",
+                    ""id"": ""5afc297e-d4cd-45d1-a5fa-e4b961456833"",
+                    ""path"": ""<Keyboard>/q"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Upgrade Navigation"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""positive"",
+                    ""id"": ""0d50a3db-b467-4410-8aa7-b3515fa0cb46"",
+                    ""path"": ""<Keyboard>/e"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Upgrade Navigation"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""Gamepad"",
+                    ""id"": ""03f6ca07-2c13-4dbc-ab40-9d359df19d68"",
+                    ""path"": ""1DAxis"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Upgrade Navigation"",
+                    ""isComposite"": true,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""negative"",
+                    ""id"": ""c6de71c9-a75b-4731-8d04-ede84375bce2"",
+                    ""path"": ""<Gamepad>/leftShoulder"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Upgrade Navigation"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""positive"",
+                    ""id"": ""50ffb88c-0d0c-4f03-9f81-8378288a7e10"",
+                    ""path"": ""<Gamepad>/rightShoulder"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Upgrade Navigation"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""c77dc9b7-f2e2-4c58-896c-803e6d88e5d3"",
+                    ""path"": ""<Keyboard>/space"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Place Element"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""16518d90-cdfe-4c1f-93a4-40dc837eda26"",
+                    ""path"": ""<Gamepad>/buttonSouth"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Place Element"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""b2441f02-0607-4ce7-97ba-382495b0e00a"",
+                    ""path"": ""<Keyboard>/escape"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""EndUpgrade"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""d150b25b-9e80-4bf5-b963-5d4f92db40ce"",
+                    ""path"": ""<Gamepad>/start"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""EndUpgrade"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""WASD Controls"",
+                    ""id"": ""63075111-a673-4f2d-ad7c-37bdc58d19cd"",
+                    ""path"": ""2DVector"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""AreaNavigation"",
+                    ""isComposite"": true,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""up"",
+                    ""id"": ""29e13325-64cb-4db9-a5bf-14b0a8f3c2ac"",
+                    ""path"": ""<Keyboard>/w"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""AreaNavigation"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""down"",
+                    ""id"": ""b9986037-02e8-4f44-82dc-b61e0c6e569c"",
+                    ""path"": ""<Keyboard>/s"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""AreaNavigation"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""left"",
+                    ""id"": ""9187d74b-71ea-4cf0-8918-1511414948a3"",
+                    ""path"": ""<Keyboard>/a"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""AreaNavigation"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""right"",
+                    ""id"": ""ae276000-b13e-4ee6-9553-c6f87db4d4da"",
+                    ""path"": ""<Keyboard>/d"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""AreaNavigation"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""Arrow Controls"",
+                    ""id"": ""aff3fb42-69d0-4069-823a-df377986724f"",
+                    ""path"": ""2DVector"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""AreaNavigation"",
+                    ""isComposite"": true,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""up"",
+                    ""id"": ""d9f6e618-528a-4a91-a855-49ca0ae2f0b3"",
+                    ""path"": ""<Keyboard>/upArrow"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""AreaNavigation"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""down"",
+                    ""id"": ""9fd17620-aed8-4276-bc2f-aaadef9d425d"",
+                    ""path"": ""<Keyboard>/downArrow"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""AreaNavigation"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""left"",
+                    ""id"": ""e84bea10-f868-47bb-ba46-dd5bf473148d"",
+                    ""path"": ""<Keyboard>/leftArrow"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""AreaNavigation"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""right"",
+                    ""id"": ""3601f0da-980a-40ef-ba43-db563e4e0d82"",
+                    ""path"": ""<Keyboard>/rightArrow"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""AreaNavigation"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""b46d802c-6801-4a3e-bb01-7c9674cffa2f"",
+                    ""path"": ""<Gamepad>/leftStick"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""AreaNavigation"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""D-Pad [Gamepad]"",
+                    ""id"": ""02086e60-368b-4d2b-b234-efeeecc68c30"",
+                    ""path"": ""2DVector"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""AreaNavigation"",
+                    ""isComposite"": true,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""up"",
+                    ""id"": ""2582f549-e597-4690-bd95-8ba3d353bab7"",
+                    ""path"": ""<Gamepad>/dpad/up"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""AreaNavigation"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""down"",
+                    ""id"": ""fceaa377-206e-48a6-a206-bebf6d8945d3"",
+                    ""path"": ""<Gamepad>/dpad/down"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""AreaNavigation"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""left"",
+                    ""id"": ""264775f4-af15-4c04-9e5d-ab2f4853de78"",
+                    ""path"": ""<Gamepad>/dpad/left"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""AreaNavigation"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""right"",
+                    ""id"": ""e867260c-fc40-4a3f-acbc-86bf97243d69"",
+                    ""path"": ""<Gamepad>/dpad/right"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""AreaNavigation"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                }
+            ]
+        },
+        {
+            ""name"": ""Cutscene Controls"",
+            ""id"": ""de912615-e81c-46cd-89c7-da990ca56bff"",
+            ""actions"": [
+                {
+                    ""name"": ""Next Line"",
+                    ""type"": ""Button"",
+                    ""id"": ""fe0f7a0f-e08d-4b45-bd6f-f80cdf932558"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Skip Dialog"",
+                    ""type"": ""Button"",
+                    ""id"": ""bb8f9ade-de26-4223-9de5-0588c059ca49"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                }
+            ],
+            ""bindings"": [
+                {
+                    ""name"": """",
+                    ""id"": ""f487f6cc-1677-4095-90c5-e0276e1becdd"",
+                    ""path"": ""<Keyboard>/space"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Next Line"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""fee4124b-6dab-471d-ab44-46acccffcdf8"",
+                    ""path"": ""<Gamepad>/buttonSouth"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Next Line"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""63bb23ef-899d-497d-8843-926b1e7cf994"",
+                    ""path"": ""<Keyboard>/tab"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Skip Dialog"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""a7450d7d-73a9-4e21-9779-2a5927ad0fd6"",
+                    ""path"": ""<Keyboard>/escape"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Skip Dialog"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""946dd9eb-3c77-4071-8461-b30f8c6c67e9"",
+                    ""path"": ""<Gamepad>/buttonEast"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Skip Dialog"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""40dccc2c-4a47-406f-ad3a-1552038b369f"",
+                    ""path"": ""<Gamepad>/start"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Skip Dialog"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                }
+            ]
         }
     ],
     ""controlSchemes"": []
 }");
-        // Restaurant Controls
-        m_RestaurantControls = asset.FindActionMap("Restaurant Controls", throwIfNotFound: true);
-        m_RestaurantControls_AreaNavigation = m_RestaurantControls.FindAction("AreaNavigation", throwIfNotFound: true);
-        m_RestaurantControls_MainAction = m_RestaurantControls.FindAction("MainAction", throwIfNotFound: true);
-        m_RestaurantControls_Pause = m_RestaurantControls.FindAction("Pause", throwIfNotFound: true);
-        // Barbershop Controls
-        m_BarbershopControls = asset.FindActionMap("Barbershop Controls", throwIfNotFound: true);
-        m_BarbershopControls_Newaction = m_BarbershopControls.FindAction("New action", throwIfNotFound: true);
-        // Conversation Controls
-        m_ConversationControls = asset.FindActionMap("Conversation Controls", throwIfNotFound: true);
-        m_ConversationControls_Newaction = m_ConversationControls.FindAction("New action", throwIfNotFound: true);
+        // Basic Game Controls
+        m_BasicGameControls = asset.FindActionMap("Basic Game Controls", throwIfNotFound: true);
+        m_BasicGameControls_AreaNavigation = m_BasicGameControls.FindAction("AreaNavigation", throwIfNotFound: true);
+        m_BasicGameControls_MainAction = m_BasicGameControls.FindAction("MainAction", throwIfNotFound: true);
+        m_BasicGameControls_Pause = m_BasicGameControls.FindAction("Pause", throwIfNotFound: true);
         // Basic Minigame Controls
         m_BasicMinigameControls = asset.FindActionMap("Basic Minigame Controls", throwIfNotFound: true);
         m_BasicMinigameControls_MousePress = m_BasicMinigameControls.FindAction("Mouse Press", throwIfNotFound: true);
@@ -1004,6 +1364,16 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
         m_UIControls_MenuNavigation = m_UIControls.FindAction("MenuNavigation", throwIfNotFound: true);
         m_UIControls_Confirm = m_UIControls.FindAction("Confirm", throwIfNotFound: true);
         m_UIControls_Backout = m_UIControls.FindAction("Backout", throwIfNotFound: true);
+        // Upgrade Controls
+        m_UpgradeControls = asset.FindActionMap("Upgrade Controls", throwIfNotFound: true);
+        m_UpgradeControls_UpgradeNavigation = m_UpgradeControls.FindAction("Upgrade Navigation", throwIfNotFound: true);
+        m_UpgradeControls_PlaceElement = m_UpgradeControls.FindAction("Place Element", throwIfNotFound: true);
+        m_UpgradeControls_EndUpgrade = m_UpgradeControls.FindAction("EndUpgrade", throwIfNotFound: true);
+        m_UpgradeControls_AreaNavigation = m_UpgradeControls.FindAction("AreaNavigation", throwIfNotFound: true);
+        // Cutscene Controls
+        m_CutsceneControls = asset.FindActionMap("Cutscene Controls", throwIfNotFound: true);
+        m_CutsceneControls_NextLine = m_CutsceneControls.FindAction("Next Line", throwIfNotFound: true);
+        m_CutsceneControls_SkipDialog = m_CutsceneControls.FindAction("Skip Dialog", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -1062,28 +1432,28 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
         return asset.FindBinding(bindingMask, out action);
     }
 
-    // Restaurant Controls
-    private readonly InputActionMap m_RestaurantControls;
-    private List<IRestaurantControlsActions> m_RestaurantControlsActionsCallbackInterfaces = new List<IRestaurantControlsActions>();
-    private readonly InputAction m_RestaurantControls_AreaNavigation;
-    private readonly InputAction m_RestaurantControls_MainAction;
-    private readonly InputAction m_RestaurantControls_Pause;
-    public struct RestaurantControlsActions
+    // Basic Game Controls
+    private readonly InputActionMap m_BasicGameControls;
+    private List<IBasicGameControlsActions> m_BasicGameControlsActionsCallbackInterfaces = new List<IBasicGameControlsActions>();
+    private readonly InputAction m_BasicGameControls_AreaNavigation;
+    private readonly InputAction m_BasicGameControls_MainAction;
+    private readonly InputAction m_BasicGameControls_Pause;
+    public struct BasicGameControlsActions
     {
         private @PlayerControls m_Wrapper;
-        public RestaurantControlsActions(@PlayerControls wrapper) { m_Wrapper = wrapper; }
-        public InputAction @AreaNavigation => m_Wrapper.m_RestaurantControls_AreaNavigation;
-        public InputAction @MainAction => m_Wrapper.m_RestaurantControls_MainAction;
-        public InputAction @Pause => m_Wrapper.m_RestaurantControls_Pause;
-        public InputActionMap Get() { return m_Wrapper.m_RestaurantControls; }
+        public BasicGameControlsActions(@PlayerControls wrapper) { m_Wrapper = wrapper; }
+        public InputAction @AreaNavigation => m_Wrapper.m_BasicGameControls_AreaNavigation;
+        public InputAction @MainAction => m_Wrapper.m_BasicGameControls_MainAction;
+        public InputAction @Pause => m_Wrapper.m_BasicGameControls_Pause;
+        public InputActionMap Get() { return m_Wrapper.m_BasicGameControls; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
         public bool enabled => Get().enabled;
-        public static implicit operator InputActionMap(RestaurantControlsActions set) { return set.Get(); }
-        public void AddCallbacks(IRestaurantControlsActions instance)
+        public static implicit operator InputActionMap(BasicGameControlsActions set) { return set.Get(); }
+        public void AddCallbacks(IBasicGameControlsActions instance)
         {
-            if (instance == null || m_Wrapper.m_RestaurantControlsActionsCallbackInterfaces.Contains(instance)) return;
-            m_Wrapper.m_RestaurantControlsActionsCallbackInterfaces.Add(instance);
+            if (instance == null || m_Wrapper.m_BasicGameControlsActionsCallbackInterfaces.Contains(instance)) return;
+            m_Wrapper.m_BasicGameControlsActionsCallbackInterfaces.Add(instance);
             @AreaNavigation.started += instance.OnAreaNavigation;
             @AreaNavigation.performed += instance.OnAreaNavigation;
             @AreaNavigation.canceled += instance.OnAreaNavigation;
@@ -1095,7 +1465,7 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
             @Pause.canceled += instance.OnPause;
         }
 
-        private void UnregisterCallbacks(IRestaurantControlsActions instance)
+        private void UnregisterCallbacks(IBasicGameControlsActions instance)
         {
             @AreaNavigation.started -= instance.OnAreaNavigation;
             @AreaNavigation.performed -= instance.OnAreaNavigation;
@@ -1108,113 +1478,21 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
             @Pause.canceled -= instance.OnPause;
         }
 
-        public void RemoveCallbacks(IRestaurantControlsActions instance)
+        public void RemoveCallbacks(IBasicGameControlsActions instance)
         {
-            if (m_Wrapper.m_RestaurantControlsActionsCallbackInterfaces.Remove(instance))
+            if (m_Wrapper.m_BasicGameControlsActionsCallbackInterfaces.Remove(instance))
                 UnregisterCallbacks(instance);
         }
 
-        public void SetCallbacks(IRestaurantControlsActions instance)
+        public void SetCallbacks(IBasicGameControlsActions instance)
         {
-            foreach (var item in m_Wrapper.m_RestaurantControlsActionsCallbackInterfaces)
+            foreach (var item in m_Wrapper.m_BasicGameControlsActionsCallbackInterfaces)
                 UnregisterCallbacks(item);
-            m_Wrapper.m_RestaurantControlsActionsCallbackInterfaces.Clear();
+            m_Wrapper.m_BasicGameControlsActionsCallbackInterfaces.Clear();
             AddCallbacks(instance);
         }
     }
-    public RestaurantControlsActions @RestaurantControls => new RestaurantControlsActions(this);
-
-    // Barbershop Controls
-    private readonly InputActionMap m_BarbershopControls;
-    private List<IBarbershopControlsActions> m_BarbershopControlsActionsCallbackInterfaces = new List<IBarbershopControlsActions>();
-    private readonly InputAction m_BarbershopControls_Newaction;
-    public struct BarbershopControlsActions
-    {
-        private @PlayerControls m_Wrapper;
-        public BarbershopControlsActions(@PlayerControls wrapper) { m_Wrapper = wrapper; }
-        public InputAction @Newaction => m_Wrapper.m_BarbershopControls_Newaction;
-        public InputActionMap Get() { return m_Wrapper.m_BarbershopControls; }
-        public void Enable() { Get().Enable(); }
-        public void Disable() { Get().Disable(); }
-        public bool enabled => Get().enabled;
-        public static implicit operator InputActionMap(BarbershopControlsActions set) { return set.Get(); }
-        public void AddCallbacks(IBarbershopControlsActions instance)
-        {
-            if (instance == null || m_Wrapper.m_BarbershopControlsActionsCallbackInterfaces.Contains(instance)) return;
-            m_Wrapper.m_BarbershopControlsActionsCallbackInterfaces.Add(instance);
-            @Newaction.started += instance.OnNewaction;
-            @Newaction.performed += instance.OnNewaction;
-            @Newaction.canceled += instance.OnNewaction;
-        }
-
-        private void UnregisterCallbacks(IBarbershopControlsActions instance)
-        {
-            @Newaction.started -= instance.OnNewaction;
-            @Newaction.performed -= instance.OnNewaction;
-            @Newaction.canceled -= instance.OnNewaction;
-        }
-
-        public void RemoveCallbacks(IBarbershopControlsActions instance)
-        {
-            if (m_Wrapper.m_BarbershopControlsActionsCallbackInterfaces.Remove(instance))
-                UnregisterCallbacks(instance);
-        }
-
-        public void SetCallbacks(IBarbershopControlsActions instance)
-        {
-            foreach (var item in m_Wrapper.m_BarbershopControlsActionsCallbackInterfaces)
-                UnregisterCallbacks(item);
-            m_Wrapper.m_BarbershopControlsActionsCallbackInterfaces.Clear();
-            AddCallbacks(instance);
-        }
-    }
-    public BarbershopControlsActions @BarbershopControls => new BarbershopControlsActions(this);
-
-    // Conversation Controls
-    private readonly InputActionMap m_ConversationControls;
-    private List<IConversationControlsActions> m_ConversationControlsActionsCallbackInterfaces = new List<IConversationControlsActions>();
-    private readonly InputAction m_ConversationControls_Newaction;
-    public struct ConversationControlsActions
-    {
-        private @PlayerControls m_Wrapper;
-        public ConversationControlsActions(@PlayerControls wrapper) { m_Wrapper = wrapper; }
-        public InputAction @Newaction => m_Wrapper.m_ConversationControls_Newaction;
-        public InputActionMap Get() { return m_Wrapper.m_ConversationControls; }
-        public void Enable() { Get().Enable(); }
-        public void Disable() { Get().Disable(); }
-        public bool enabled => Get().enabled;
-        public static implicit operator InputActionMap(ConversationControlsActions set) { return set.Get(); }
-        public void AddCallbacks(IConversationControlsActions instance)
-        {
-            if (instance == null || m_Wrapper.m_ConversationControlsActionsCallbackInterfaces.Contains(instance)) return;
-            m_Wrapper.m_ConversationControlsActionsCallbackInterfaces.Add(instance);
-            @Newaction.started += instance.OnNewaction;
-            @Newaction.performed += instance.OnNewaction;
-            @Newaction.canceled += instance.OnNewaction;
-        }
-
-        private void UnregisterCallbacks(IConversationControlsActions instance)
-        {
-            @Newaction.started -= instance.OnNewaction;
-            @Newaction.performed -= instance.OnNewaction;
-            @Newaction.canceled -= instance.OnNewaction;
-        }
-
-        public void RemoveCallbacks(IConversationControlsActions instance)
-        {
-            if (m_Wrapper.m_ConversationControlsActionsCallbackInterfaces.Remove(instance))
-                UnregisterCallbacks(instance);
-        }
-
-        public void SetCallbacks(IConversationControlsActions instance)
-        {
-            foreach (var item in m_Wrapper.m_ConversationControlsActionsCallbackInterfaces)
-                UnregisterCallbacks(item);
-            m_Wrapper.m_ConversationControlsActionsCallbackInterfaces.Clear();
-            AddCallbacks(instance);
-        }
-    }
-    public ConversationControlsActions @ConversationControls => new ConversationControlsActions(this);
+    public BasicGameControlsActions @BasicGameControls => new BasicGameControlsActions(this);
 
     // Basic Minigame Controls
     private readonly InputActionMap m_BasicMinigameControls;
@@ -1425,19 +1703,135 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
         }
     }
     public UIControlsActions @UIControls => new UIControlsActions(this);
-    public interface IRestaurantControlsActions
+
+    // Upgrade Controls
+    private readonly InputActionMap m_UpgradeControls;
+    private List<IUpgradeControlsActions> m_UpgradeControlsActionsCallbackInterfaces = new List<IUpgradeControlsActions>();
+    private readonly InputAction m_UpgradeControls_UpgradeNavigation;
+    private readonly InputAction m_UpgradeControls_PlaceElement;
+    private readonly InputAction m_UpgradeControls_EndUpgrade;
+    private readonly InputAction m_UpgradeControls_AreaNavigation;
+    public struct UpgradeControlsActions
+    {
+        private @PlayerControls m_Wrapper;
+        public UpgradeControlsActions(@PlayerControls wrapper) { m_Wrapper = wrapper; }
+        public InputAction @UpgradeNavigation => m_Wrapper.m_UpgradeControls_UpgradeNavigation;
+        public InputAction @PlaceElement => m_Wrapper.m_UpgradeControls_PlaceElement;
+        public InputAction @EndUpgrade => m_Wrapper.m_UpgradeControls_EndUpgrade;
+        public InputAction @AreaNavigation => m_Wrapper.m_UpgradeControls_AreaNavigation;
+        public InputActionMap Get() { return m_Wrapper.m_UpgradeControls; }
+        public void Enable() { Get().Enable(); }
+        public void Disable() { Get().Disable(); }
+        public bool enabled => Get().enabled;
+        public static implicit operator InputActionMap(UpgradeControlsActions set) { return set.Get(); }
+        public void AddCallbacks(IUpgradeControlsActions instance)
+        {
+            if (instance == null || m_Wrapper.m_UpgradeControlsActionsCallbackInterfaces.Contains(instance)) return;
+            m_Wrapper.m_UpgradeControlsActionsCallbackInterfaces.Add(instance);
+            @UpgradeNavigation.started += instance.OnUpgradeNavigation;
+            @UpgradeNavigation.performed += instance.OnUpgradeNavigation;
+            @UpgradeNavigation.canceled += instance.OnUpgradeNavigation;
+            @PlaceElement.started += instance.OnPlaceElement;
+            @PlaceElement.performed += instance.OnPlaceElement;
+            @PlaceElement.canceled += instance.OnPlaceElement;
+            @EndUpgrade.started += instance.OnEndUpgrade;
+            @EndUpgrade.performed += instance.OnEndUpgrade;
+            @EndUpgrade.canceled += instance.OnEndUpgrade;
+            @AreaNavigation.started += instance.OnAreaNavigation;
+            @AreaNavigation.performed += instance.OnAreaNavigation;
+            @AreaNavigation.canceled += instance.OnAreaNavigation;
+        }
+
+        private void UnregisterCallbacks(IUpgradeControlsActions instance)
+        {
+            @UpgradeNavigation.started -= instance.OnUpgradeNavigation;
+            @UpgradeNavigation.performed -= instance.OnUpgradeNavigation;
+            @UpgradeNavigation.canceled -= instance.OnUpgradeNavigation;
+            @PlaceElement.started -= instance.OnPlaceElement;
+            @PlaceElement.performed -= instance.OnPlaceElement;
+            @PlaceElement.canceled -= instance.OnPlaceElement;
+            @EndUpgrade.started -= instance.OnEndUpgrade;
+            @EndUpgrade.performed -= instance.OnEndUpgrade;
+            @EndUpgrade.canceled -= instance.OnEndUpgrade;
+            @AreaNavigation.started -= instance.OnAreaNavigation;
+            @AreaNavigation.performed -= instance.OnAreaNavigation;
+            @AreaNavigation.canceled -= instance.OnAreaNavigation;
+        }
+
+        public void RemoveCallbacks(IUpgradeControlsActions instance)
+        {
+            if (m_Wrapper.m_UpgradeControlsActionsCallbackInterfaces.Remove(instance))
+                UnregisterCallbacks(instance);
+        }
+
+        public void SetCallbacks(IUpgradeControlsActions instance)
+        {
+            foreach (var item in m_Wrapper.m_UpgradeControlsActionsCallbackInterfaces)
+                UnregisterCallbacks(item);
+            m_Wrapper.m_UpgradeControlsActionsCallbackInterfaces.Clear();
+            AddCallbacks(instance);
+        }
+    }
+    public UpgradeControlsActions @UpgradeControls => new UpgradeControlsActions(this);
+
+    // Cutscene Controls
+    private readonly InputActionMap m_CutsceneControls;
+    private List<ICutsceneControlsActions> m_CutsceneControlsActionsCallbackInterfaces = new List<ICutsceneControlsActions>();
+    private readonly InputAction m_CutsceneControls_NextLine;
+    private readonly InputAction m_CutsceneControls_SkipDialog;
+    public struct CutsceneControlsActions
+    {
+        private @PlayerControls m_Wrapper;
+        public CutsceneControlsActions(@PlayerControls wrapper) { m_Wrapper = wrapper; }
+        public InputAction @NextLine => m_Wrapper.m_CutsceneControls_NextLine;
+        public InputAction @SkipDialog => m_Wrapper.m_CutsceneControls_SkipDialog;
+        public InputActionMap Get() { return m_Wrapper.m_CutsceneControls; }
+        public void Enable() { Get().Enable(); }
+        public void Disable() { Get().Disable(); }
+        public bool enabled => Get().enabled;
+        public static implicit operator InputActionMap(CutsceneControlsActions set) { return set.Get(); }
+        public void AddCallbacks(ICutsceneControlsActions instance)
+        {
+            if (instance == null || m_Wrapper.m_CutsceneControlsActionsCallbackInterfaces.Contains(instance)) return;
+            m_Wrapper.m_CutsceneControlsActionsCallbackInterfaces.Add(instance);
+            @NextLine.started += instance.OnNextLine;
+            @NextLine.performed += instance.OnNextLine;
+            @NextLine.canceled += instance.OnNextLine;
+            @SkipDialog.started += instance.OnSkipDialog;
+            @SkipDialog.performed += instance.OnSkipDialog;
+            @SkipDialog.canceled += instance.OnSkipDialog;
+        }
+
+        private void UnregisterCallbacks(ICutsceneControlsActions instance)
+        {
+            @NextLine.started -= instance.OnNextLine;
+            @NextLine.performed -= instance.OnNextLine;
+            @NextLine.canceled -= instance.OnNextLine;
+            @SkipDialog.started -= instance.OnSkipDialog;
+            @SkipDialog.performed -= instance.OnSkipDialog;
+            @SkipDialog.canceled -= instance.OnSkipDialog;
+        }
+
+        public void RemoveCallbacks(ICutsceneControlsActions instance)
+        {
+            if (m_Wrapper.m_CutsceneControlsActionsCallbackInterfaces.Remove(instance))
+                UnregisterCallbacks(instance);
+        }
+
+        public void SetCallbacks(ICutsceneControlsActions instance)
+        {
+            foreach (var item in m_Wrapper.m_CutsceneControlsActionsCallbackInterfaces)
+                UnregisterCallbacks(item);
+            m_Wrapper.m_CutsceneControlsActionsCallbackInterfaces.Clear();
+            AddCallbacks(instance);
+        }
+    }
+    public CutsceneControlsActions @CutsceneControls => new CutsceneControlsActions(this);
+    public interface IBasicGameControlsActions
     {
         void OnAreaNavigation(InputAction.CallbackContext context);
         void OnMainAction(InputAction.CallbackContext context);
         void OnPause(InputAction.CallbackContext context);
-    }
-    public interface IBarbershopControlsActions
-    {
-        void OnNewaction(InputAction.CallbackContext context);
-    }
-    public interface IConversationControlsActions
-    {
-        void OnNewaction(InputAction.CallbackContext context);
     }
     public interface IBasicMinigameControlsActions
     {
@@ -1459,5 +1853,17 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
         void OnMenuNavigation(InputAction.CallbackContext context);
         void OnConfirm(InputAction.CallbackContext context);
         void OnBackout(InputAction.CallbackContext context);
+    }
+    public interface IUpgradeControlsActions
+    {
+        void OnUpgradeNavigation(InputAction.CallbackContext context);
+        void OnPlaceElement(InputAction.CallbackContext context);
+        void OnEndUpgrade(InputAction.CallbackContext context);
+        void OnAreaNavigation(InputAction.CallbackContext context);
+    }
+    public interface ICutsceneControlsActions
+    {
+        void OnNextLine(InputAction.CallbackContext context);
+        void OnSkipDialog(InputAction.CallbackContext context);
     }
 }

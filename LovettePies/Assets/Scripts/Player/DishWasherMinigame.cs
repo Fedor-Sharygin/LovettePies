@@ -18,6 +18,8 @@ public class DishWasherMinigame : MonoBehaviour
 
         //ReqElem.m_PlayerInput.SwitchCurrentActionMap("Basic Minigame Controls");
         m_PlayerControls = ReqElem.m_PlayerControls;
+        m_WashDish = m_PlayerControls.BasicMinigameControls.BasicPress;
+        m_CloseMinigame = m_PlayerControls.BasicMinigameControls.QuitMinigame;
 
         //m_DoughEnterDelegate.OnTriggerEntered += DoughTouched;
     }
@@ -26,7 +28,6 @@ public class DishWasherMinigame : MonoBehaviour
     private InputAction m_CloseMinigame;
     private void OnEnable()
     {
-        m_WashDish = m_PlayerControls.BasicMinigameControls.BasicPress;
         m_WashDish.Enable();
         m_WashDish.performed += WashDish;
 
@@ -41,7 +42,6 @@ public class DishWasherMinigame : MonoBehaviour
         //m_Hand_RightStick.canceled += ControlHands_Controller_RightStick;
 
 
-        m_CloseMinigame = m_PlayerControls.BasicMinigameControls.QuitMinigame;
         m_CloseMinigame.Enable();
         m_CloseMinigame.performed += CloseMinigame;
     }

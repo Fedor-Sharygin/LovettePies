@@ -13,7 +13,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4135413993347071462, guid: e6be1d8dc7040d3438023e7e2dec0f84, type: 3}
       propertyPath: m_MovementSpeed
-      value: 0.08
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 4135413993347071466, guid: e6be1d8dc7040d3438023e7e2dec0f84, type: 3}
       propertyPath: m_Name
@@ -159,7 +159,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_MovementTimer: {fileID: 1179349400}
   m_PatienceTimer: {fileID: 1179349401}
-  m_InteractableTargetType: 4
+  m_InteractableTargetTypesOrder: 
   m_PatienceActions:
     m_PersistentCalls:
       m_Calls:

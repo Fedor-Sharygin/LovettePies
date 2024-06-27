@@ -30,7 +30,7 @@ public class PlayerRestaurantController : MonoBehaviour
         m_PlayerRestaurantControls.Enable();
         m_PlayerRestaurantControls.BasicMinigameControls.Disable();
         m_PlayerRestaurantControls.UIControls.Disable();
-        m_PlayerRestaurantControls.RestaurantControls.Enable();
+        m_PlayerRestaurantControls.BasicGameControls.Enable();
 
         m_PlayerInput = GetComponent<PlayerInput>();
         if (m_PlayerInput == null)
@@ -75,16 +75,16 @@ public class PlayerRestaurantController : MonoBehaviour
     {
         //m_PlayerRestaurantControls.Enable();
         
-        m_AreaNavigation = m_PlayerRestaurantControls.RestaurantControls.AreaNavigation;
+        m_AreaNavigation = m_PlayerRestaurantControls.BasicGameControls.AreaNavigation;
         m_AreaNavigation.Enable();
         m_AreaNavigation.started  += NavigateArea;
         m_AreaNavigation.canceled += NavigateArea;
 
-        m_Interact = m_PlayerRestaurantControls.RestaurantControls.MainAction;
+        m_Interact = m_PlayerRestaurantControls.BasicGameControls.MainAction;
         m_Interact.Enable();
         m_Interact.started += Interact;
 
-        m_Pause = m_PlayerRestaurantControls.RestaurantControls.Pause;
+        m_Pause = m_PlayerRestaurantControls.BasicGameControls.Pause;
         m_Pause.Enable();
         m_Pause.started += Pause_Started;
         

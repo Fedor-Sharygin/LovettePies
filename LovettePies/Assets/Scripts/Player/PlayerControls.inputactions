@@ -2,7 +2,7 @@
     "name": "PlayerControls",
     "maps": [
         {
-            "name": "Restaurant Controls",
+            "name": "Basic Game Controls",
             "id": "b249361f-37e2-4326-b925-ff7c334e7aa6",
             "actions": [
                 {
@@ -295,62 +295,6 @@
                     "processors": "",
                     "groups": "",
                     "action": "Pause",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                }
-            ]
-        },
-        {
-            "name": "Barbershop Controls",
-            "id": "afcbf1be-c7e7-4dbd-bf9c-28e3782ec883",
-            "actions": [
-                {
-                    "name": "New action",
-                    "type": "Button",
-                    "id": "31e8575e-0b42-4915-9008-0e6b7e60bc10",
-                    "expectedControlType": "Button",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
-                }
-            ],
-            "bindings": [
-                {
-                    "name": "",
-                    "id": "a69fe0e9-7131-437e-944b-f0a3e5e3ffea",
-                    "path": "",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "New action",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                }
-            ]
-        },
-        {
-            "name": "Conversation Controls",
-            "id": "bfcd958b-2d5f-4303-8e01-41eb8c324a2e",
-            "actions": [
-                {
-                    "name": "New action",
-                    "type": "Button",
-                    "id": "c0be6aef-17b3-4fb2-b8c8-1c8d8ef12a57",
-                    "expectedControlType": "Button",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
-                }
-            ],
-            "bindings": [
-                {
-                    "name": "",
-                    "id": "80bab939-4d1f-460b-9d21-09b37140232d",
-                    "path": "",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "New action",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

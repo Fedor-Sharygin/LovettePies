@@ -24,7 +24,7 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
     ""name"": ""PlayerControls"",
     ""maps"": [
         {
-            ""name"": ""Restaurant Controls"",
+            ""name"": ""Basic Game Controls"",
             ""id"": ""b249361f-37e2-4326-b925-ff7c334e7aa6"",
             ""actions"": [
                 {
@@ -317,62 +317,6 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""groups"": """",
                     ""action"": ""Pause"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                }
-            ]
-        },
-        {
-            ""name"": ""Barbershop Controls"",
-            ""id"": ""afcbf1be-c7e7-4dbd-bf9c-28e3782ec883"",
-            ""actions"": [
-                {
-                    ""name"": ""New action"",
-                    ""type"": ""Button"",
-                    ""id"": ""31e8575e-0b42-4915-9008-0e6b7e60bc10"",
-                    ""expectedControlType"": ""Button"",
-                    ""processors"": """",
-                    ""interactions"": """",
-                    ""initialStateCheck"": false
-                }
-            ],
-            ""bindings"": [
-                {
-                    ""name"": """",
-                    ""id"": ""a69fe0e9-7131-437e-944b-f0a3e5e3ffea"",
-                    ""path"": """",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""New action"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                }
-            ]
-        },
-        {
-            ""name"": ""Conversation Controls"",
-            ""id"": ""bfcd958b-2d5f-4303-8e01-41eb8c324a2e"",
-            ""actions"": [
-                {
-                    ""name"": ""New action"",
-                    ""type"": ""Button"",
-                    ""id"": ""c0be6aef-17b3-4fb2-b8c8-1c8d8ef12a57"",
-                    ""expectedControlType"": ""Button"",
-                    ""processors"": """",
-                    ""interactions"": """",
-                    ""initialStateCheck"": false
-                }
-            ],
-            ""bindings"": [
-                {
-                    ""name"": """",
-                    ""id"": ""80bab939-4d1f-460b-9d21-09b37140232d"",
-                    ""path"": """",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""New action"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -975,17 +919,11 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
     ],
     ""controlSchemes"": []
 }");
-        // Restaurant Controls
-        m_RestaurantControls = asset.FindActionMap("Restaurant Controls", throwIfNotFound: true);
-        m_RestaurantControls_AreaNavigation = m_RestaurantControls.FindAction("AreaNavigation", throwIfNotFound: true);
-        m_RestaurantControls_MainAction = m_RestaurantControls.FindAction("MainAction", throwIfNotFound: true);
-        m_RestaurantControls_Pause = m_RestaurantControls.FindAction("Pause", throwIfNotFound: true);
-        // Barbershop Controls
-        m_BarbershopControls = asset.FindActionMap("Barbershop Controls", throwIfNotFound: true);
-        m_BarbershopControls_Newaction = m_BarbershopControls.FindAction("New action", throwIfNotFound: true);
-        // Conversation Controls
-        m_ConversationControls = asset.FindActionMap("Conversation Controls", throwIfNotFound: true);
-        m_ConversationControls_Newaction = m_ConversationControls.FindAction("New action", throwIfNotFound: true);
+        // Basic Game Controls
+        m_BasicGameControls = asset.FindActionMap("Basic Game Controls", throwIfNotFound: true);
+        m_BasicGameControls_AreaNavigation = m_BasicGameControls.FindAction("AreaNavigation", throwIfNotFound: true);
+        m_BasicGameControls_MainAction = m_BasicGameControls.FindAction("MainAction", throwIfNotFound: true);
+        m_BasicGameControls_Pause = m_BasicGameControls.FindAction("Pause", throwIfNotFound: true);
         // Basic Minigame Controls
         m_BasicMinigameControls = asset.FindActionMap("Basic Minigame Controls", throwIfNotFound: true);
         m_BasicMinigameControls_MousePress = m_BasicMinigameControls.FindAction("Mouse Press", throwIfNotFound: true);
@@ -1062,28 +1000,28 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
         return asset.FindBinding(bindingMask, out action);
     }
 
-    // Restaurant Controls
-    private readonly InputActionMap m_RestaurantControls;
-    private List<IRestaurantControlsActions> m_RestaurantControlsActionsCallbackInterfaces = new List<IRestaurantControlsActions>();
-    private readonly InputAction m_RestaurantControls_AreaNavigation;
-    private readonly InputAction m_RestaurantControls_MainAction;
-    private readonly InputAction m_RestaurantControls_Pause;
-    public struct RestaurantControlsActions
+    // Basic Game Controls
+    private readonly InputActionMap m_BasicGameControls;
+    private List<IBasicGameControlsActions> m_BasicGameControlsActionsCallbackInterfaces = new List<IBasicGameControlsActions>();
+    private readonly InputAction m_BasicGameControls_AreaNavigation;
+    private readonly InputAction m_BasicGameControls_MainAction;
+    private readonly InputAction m_BasicGameControls_Pause;
+    public struct BasicGameControlsActions
     {
         private @PlayerControls m_Wrapper;
-        public RestaurantControlsActions(@PlayerControls wrapper) { m_Wrapper = wrapper; }
-        public InputAction @AreaNavigation => m_Wrapper.m_RestaurantControls_AreaNavigation;
-        public InputAction @MainAction => m_Wrapper.m_RestaurantControls_MainAction;
-        public InputAction @Pause => m_Wrapper.m_RestaurantControls_Pause;
-        public InputActionMap Get() { return m_Wrapper.m_RestaurantControls; }
+        public BasicGameControlsActions(@PlayerControls wrapper) { m_Wrapper = wrapper; }
+        public InputAction @AreaNavigation => m_Wrapper.m_BasicGameControls_AreaNavigation;
+        public InputAction @MainAction => m_Wrapper.m_BasicGameControls_MainAction;
+        public InputAction @Pause => m_Wrapper.m_BasicGameControls_Pause;
+        public InputActionMap Get() { return m_Wrapper.m_BasicGameControls; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
         public bool enabled => Get().enabled;
-        public static implicit operator InputActionMap(RestaurantControlsActions set) { return set.Get(); }
-        public void AddCallbacks(IRestaurantControlsActions instance)
+        public static implicit operator InputActionMap(BasicGameControlsActions set) { return set.Get(); }
+        public void AddCallbacks(IBasicGameControlsActions instance)
         {
-            if (instance == null || m_Wrapper.m_RestaurantControlsActionsCallbackInterfaces.Contains(instance)) return;
-            m_Wrapper.m_RestaurantControlsActionsCallbackInterfaces.Add(instance);
+            if (instance == null || m_Wrapper.m_BasicGameControlsActionsCallbackInterfaces.Contains(instance)) return;
+            m_Wrapper.m_BasicGameControlsActionsCallbackInterfaces.Add(instance);
             @AreaNavigation.started += instance.OnAreaNavigation;
             @AreaNavigation.performed += instance.OnAreaNavigation;
             @AreaNavigation.canceled += instance.OnAreaNavigation;
@@ -1095,7 +1033,7 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
             @Pause.canceled += instance.OnPause;
         }
 
-        private void UnregisterCallbacks(IRestaurantControlsActions instance)
+        private void UnregisterCallbacks(IBasicGameControlsActions instance)
         {
             @AreaNavigation.started -= instance.OnAreaNavigation;
             @AreaNavigation.performed -= instance.OnAreaNavigation;
@@ -1108,113 +1046,21 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
             @Pause.canceled -= instance.OnPause;
         }
 
-        public void RemoveCallbacks(IRestaurantControlsActions instance)
+        public void RemoveCallbacks(IBasicGameControlsActions instance)
         {
-            if (m_Wrapper.m_RestaurantControlsActionsCallbackInterfaces.Remove(instance))
+            if (m_Wrapper.m_BasicGameControlsActionsCallbackInterfaces.Remove(instance))
                 UnregisterCallbacks(instance);
         }
 
-        public void SetCallbacks(IRestaurantControlsActions instance)
+        public void SetCallbacks(IBasicGameControlsActions instance)
         {
-            foreach (var item in m_Wrapper.m_RestaurantControlsActionsCallbackInterfaces)
+            foreach (var item in m_Wrapper.m_BasicGameControlsActionsCallbackInterfaces)
                 UnregisterCallbacks(item);
-            m_Wrapper.m_RestaurantControlsActionsCallbackInterfaces.Clear();
+            m_Wrapper.m_BasicGameControlsActionsCallbackInterfaces.Clear();
             AddCallbacks(instance);
         }
     }
-    public RestaurantControlsActions @RestaurantControls => new RestaurantControlsActions(this);
-
-    // Barbershop Controls
-    private readonly InputActionMap m_BarbershopControls;
-    private List<IBarbershopControlsActions> m_BarbershopControlsActionsCallbackInterfaces = new List<IBarbershopControlsActions>();
-    private readonly InputAction m_BarbershopControls_Newaction;
-    public struct BarbershopControlsActions
-    {
-        private @PlayerControls m_Wrapper;
-        public BarbershopControlsActions(@PlayerControls wrapper) { m_Wrapper = wrapper; }
-        public InputAction @Newaction => m_Wrapper.m_BarbershopControls_Newaction;
-        public InputActionMap Get() { return m_Wrapper.m_BarbershopControls; }
-        public void Enable() { Get().Enable(); }
-        public void Disable() { Get().Disable(); }
-        public bool enabled => Get().enabled;
-        public static implicit operator InputActionMap(BarbershopControlsActions set) { return set.Get(); }
-        public void AddCallbacks(IBarbershopControlsActions instance)
-        {
-            if (instance == null || m_Wrapper.m_BarbershopControlsActionsCallbackInterfaces.Contains(instance)) return;
-            m_Wrapper.m_BarbershopControlsActionsCallbackInterfaces.Add(instance);
-            @Newaction.started += instance.OnNewaction;
-            @Newaction.performed += instance.OnNewaction;
-            @Newaction.canceled += instance.OnNewaction;
-        }
-
-        private void UnregisterCallbacks(IBarbershopControlsActions instance)
-        {
-            @Newaction.started -= instance.OnNewaction;
-            @Newaction.performed -= instance.OnNewaction;
-            @Newaction.canceled -= instance.OnNewaction;
-        }
-
-        public void RemoveCallbacks(IBarbershopControlsActions instance)
-        {
-            if (m_Wrapper.m_BarbershopControlsActionsCallbackInterfaces.Remove(instance))
-                UnregisterCallbacks(instance);
-        }
-
-        public void SetCallbacks(IBarbershopControlsActions instance)
-        {
-            foreach (var item in m_Wrapper.m_BarbershopControlsActionsCallbackInterfaces)
-                UnregisterCallbacks(item);
-            m_Wrapper.m_BarbershopControlsActionsCallbackInterfaces.Clear();
-            AddCallbacks(instance);
-        }
-    }
-    public BarbershopControlsActions @BarbershopControls => new BarbershopControlsActions(this);
-
-    // Conversation Controls
-    private readonly InputActionMap m_ConversationControls;
-    private List<IConversationControlsActions> m_ConversationControlsActionsCallbackInterfaces = new List<IConversationControlsActions>();
-    private readonly InputAction m_ConversationControls_Newaction;
-    public struct ConversationControlsActions
-    {
-        private @PlayerControls m_Wrapper;
-        public ConversationControlsActions(@PlayerControls wrapper) { m_Wrapper = wrapper; }
-        public InputAction @Newaction => m_Wrapper.m_ConversationControls_Newaction;
-        public InputActionMap Get() { return m_Wrapper.m_ConversationControls; }
-        public void Enable() { Get().Enable(); }
-        public void Disable() { Get().Disable(); }
-        public bool enabled => Get().enabled;
-        public static implicit operator InputActionMap(ConversationControlsActions set) { return set.Get(); }
-        public void AddCallbacks(IConversationControlsActions instance)
-        {
-            if (instance == null || m_Wrapper.m_ConversationControlsActionsCallbackInterfaces.Contains(instance)) return;
-            m_Wrapper.m_ConversationControlsActionsCallbackInterfaces.Add(instance);
-            @Newaction.started += instance.OnNewaction;
-            @Newaction.performed += instance.OnNewaction;
-            @Newaction.canceled += instance.OnNewaction;
-        }
-
-        private void UnregisterCallbacks(IConversationControlsActions instance)
-        {
-            @Newaction.started -= instance.OnNewaction;
-            @Newaction.performed -= instance.OnNewaction;
-            @Newaction.canceled -= instance.OnNewaction;
-        }
-
-        public void RemoveCallbacks(IConversationControlsActions instance)
-        {
-            if (m_Wrapper.m_ConversationControlsActionsCallbackInterfaces.Remove(instance))
-                UnregisterCallbacks(instance);
-        }
-
-        public void SetCallbacks(IConversationControlsActions instance)
-        {
-            foreach (var item in m_Wrapper.m_ConversationControlsActionsCallbackInterfaces)
-                UnregisterCallbacks(item);
-            m_Wrapper.m_ConversationControlsActionsCallbackInterfaces.Clear();
-            AddCallbacks(instance);
-        }
-    }
-    public ConversationControlsActions @ConversationControls => new ConversationControlsActions(this);
+    public BasicGameControlsActions @BasicGameControls => new BasicGameControlsActions(this);
 
     // Basic Minigame Controls
     private readonly InputActionMap m_BasicMinigameControls;
@@ -1425,19 +1271,11 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
         }
     }
     public UIControlsActions @UIControls => new UIControlsActions(this);
-    public interface IRestaurantControlsActions
+    public interface IBasicGameControlsActions
     {
         void OnAreaNavigation(InputAction.CallbackContext context);
         void OnMainAction(InputAction.CallbackContext context);
         void OnPause(InputAction.CallbackContext context);
-    }
-    public interface IBarbershopControlsActions
-    {
-        void OnNewaction(InputAction.CallbackContext context);
-    }
-    public interface IConversationControlsActions
-    {
-        void OnNewaction(InputAction.CallbackContext context);
     }
     public interface IBasicMinigameControlsActions
     {

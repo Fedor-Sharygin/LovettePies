@@ -35,7 +35,7 @@ public class GameMenu : MonoBehaviour
         m_PlayerControls.Enable();
         m_PlayerControls.BasicMinigameControls.Disable();
         m_PlayerControls.UIControls.Enable();
-        m_PlayerControls.RestaurantControls.Disable();
+        m_PlayerControls.BasicGameControls.Disable();
 
         m_ResumeAction.Enable();
         m_ResumeAction.started += ResumeAction_Started;
@@ -54,7 +54,7 @@ public class GameMenu : MonoBehaviour
         m_PlayerControls.Enable();
         m_PlayerControls.BasicMinigameControls.Disable();
         m_PlayerControls.UIControls.Disable();
-        m_PlayerControls.RestaurantControls.Enable();
+        m_PlayerControls.BasicGameControls.Enable();
 
         m_ResumeAction.started -= ResumeAction_Started;
         m_ResumeAction.Disable();

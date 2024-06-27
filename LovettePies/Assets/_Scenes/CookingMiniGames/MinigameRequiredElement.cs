@@ -44,7 +44,7 @@ public class MinigameRequiredElement : MonoBehaviour
         m_PlayerControls.Enable();
         m_PlayerControls.BasicMinigameControls.Enable();
         m_PlayerControls.UIControls.Disable();
-        m_PlayerControls.RestaurantControls.Disable();
+        m_PlayerControls.BasicGameControls.Disable();
 
         m_PlayerInput = PlayerController?.m_PlayerInput;
         if (m_PlayerInput == null)
@@ -84,7 +84,7 @@ public class MinigameRequiredElement : MonoBehaviour
 
         //m_PlayerInput.SwitchCurrentActionMap("Restaurant Controls");
         //m_PlayerControls.BasicMinigameControls.Disable();
-        //m_PlayerControls.RestaurantControls.Enable();
+        //m_PlayerControls.BasicGameControls.Enable();
         Debug.LogWarning("WARNING: UNLOADING MINIGAME!");
         this.enabled = false;
         SceneManager.UnloadSceneAsync(gameObject.scene);
@@ -102,7 +102,7 @@ public class MinigameRequiredElement : MonoBehaviour
     {
         Debug.LogWarning($"WARNING: {gameObject.GetInstanceID()} OBJ IS PLAYING MINIGAME END ANIMATION!");
         m_PlayerControls.BasicMinigameControls.Disable();
-        m_PlayerControls.RestaurantControls.Enable();
+        m_PlayerControls.BasicGameControls.Enable();
         if (m_EndingAnimations == null || m_EndingAnimations.Length <= 0)
         {
             GetComponent<Animator>()?.SetTrigger("EndGame");

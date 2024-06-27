@@ -45,7 +45,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_DestroyObjects: 0
-  m_ObjectSpeed: 0.02
+  m_ObjectSpeed: 5
 --- !u!1001 &3220592814476092050
 PrefabInstance:
   m_ObjectHideFlags: 0

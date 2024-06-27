@@ -45,7 +45,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_DestroyObjects: 0
-  m_ObjectSpeed: 0.02
+  m_ObjectSpeed: 5
 --- !u!1 &4524622781982483336
 GameObject:
   m_ObjectHideFlags: 0
@@ -93,9 +93,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ea33296ef968be5468695a0477774a64, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_PositionOverhaul: 0
   m_MovementFlag: 0
   m_DistEpsilon: 0.2
-  m_MovementSpeed: 0.024
+  m_MovementSpeed: 5
 --- !u!114 &1965873847910575469
 MonoBehaviour:
   m_ObjectHideFlags: 0

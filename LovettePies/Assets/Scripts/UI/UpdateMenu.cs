@@ -4,15 +4,10 @@ using UnityEngine;
 
 public class UpdateMenu : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    private PlayerControls m_UpgradeControls;
+    private void Awake()
     {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
+        GeneralGameBehavior.SwitchState(GeneralGameBehavior.GameState.UPDGRADE_STATE);
+        m_UpgradeControls = GeneralGameBehavior.Controls;
     }
 }

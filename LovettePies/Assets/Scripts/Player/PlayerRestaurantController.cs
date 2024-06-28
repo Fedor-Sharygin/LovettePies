@@ -20,17 +20,8 @@ public class PlayerRestaurantController : MonoBehaviour
     public PlayerControls m_PlayerRestaurantControls { get; private set; }
     private void Awake()
     {
-        m_PlayerRestaurantControls = new PlayerControls();
-        if (m_PlayerRestaurantControls == null)
-        {
-            Debug.LogError($"{name}: Could not load Player Restaurant Controls. Quitting the game!");
-            Application.Quit();
-            return;
-        }
-        m_PlayerRestaurantControls.Enable();
-        m_PlayerRestaurantControls.BasicMinigameControls.Disable();
-        m_PlayerRestaurantControls.UIControls.Disable();
-        m_PlayerRestaurantControls.BasicGameControls.Enable();
+        GeneralGameBehavior.SwitchState(GeneralGameBehavior.GameState.DEFAULT_GAME_STATE);
+        m_PlayerRestaurantControls = GeneralGameBehavior.Controls;
 
         m_PlayerInput = GetComponent<PlayerInput>();
         if (m_PlayerInput == null)

@@ -25,11 +25,11 @@ public class DocumentMiniGameController : MonoBehaviour
 
         m_Confirm_Button = m_PlayerControls.BasicMinigameControls.BasicPress;
         m_Confirm_Button.Enable();
-        m_Confirm_Button.performed += ConfirmCrime_Button; ;
+        m_Confirm_Button.performed += ConfirmCrime_Button;
 
         m_Decline_Button = m_PlayerControls.BasicMinigameControls.AlternatePress;
         m_Decline_Button.Enable();
-        m_Decline_Button.performed += DeclineCrime_Button; ;
+        m_Decline_Button.performed += DeclineCrime_Button;
 
         m_CloseMinigame = m_PlayerControls.BasicMinigameControls.QuitMinigame;
         m_CloseMinigame.Enable();

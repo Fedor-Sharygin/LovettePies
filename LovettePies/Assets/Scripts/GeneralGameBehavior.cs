@@ -63,22 +63,26 @@ public class GeneralGameBehavior
                     m_FullPlayerControls.BasicMinigameControls.Disable();
                     m_FullPlayerControls.UIControls.Enable();
                     m_FullPlayerControls.BasicGameControls.Disable();
+                    m_FullPlayerControls.UpgradeControls.Disable();
+                    m_FullPlayerControls.CutsceneControls.Disable();
                 }
                 break;
             case GameState.UPDGRADE_STATE:
                 {
-                    //Possible create a new control scheme if required
                     m_FullPlayerControls.BasicMinigameControls.Disable();
                     m_FullPlayerControls.UIControls.Disable();
-                    m_FullPlayerControls.BasicGameControls.Enable();
+                    m_FullPlayerControls.BasicGameControls.Disable();
+                    m_FullPlayerControls.UpgradeControls.Enable();
+                    m_FullPlayerControls.CutsceneControls.Disable();
                 }
                 break;
             case GameState.CUTSCENE_STATE:
                 {
-                    //Possible create a new control scheme if required
                     m_FullPlayerControls.BasicMinigameControls.Disable();
-                    m_FullPlayerControls.UIControls.Enable();
+                    m_FullPlayerControls.UIControls.Disable();
                     m_FullPlayerControls.BasicGameControls.Disable();
+                    m_FullPlayerControls.UpgradeControls.Disable();
+                    m_FullPlayerControls.CutsceneControls.Enable();
                 }
                 break;
             case GameState.DEFAULT_GAME_STATE:
@@ -86,6 +90,8 @@ public class GeneralGameBehavior
                     m_FullPlayerControls.BasicMinigameControls.Disable();
                     m_FullPlayerControls.UIControls.Disable();
                     m_FullPlayerControls.BasicGameControls.Enable();
+                    m_FullPlayerControls.UpgradeControls.Disable();
+                    m_FullPlayerControls.CutsceneControls.Disable();
                 }
                 break;
             case GameState.MINI_GAME_STATE:
@@ -93,6 +99,8 @@ public class GeneralGameBehavior
                     m_FullPlayerControls.BasicMinigameControls.Enable();
                     m_FullPlayerControls.UIControls.Disable();
                     m_FullPlayerControls.BasicGameControls.Disable();
+                    m_FullPlayerControls.UpgradeControls.Disable();
+                    m_FullPlayerControls.CutsceneControls.Disable();
                 }
                 break;
 

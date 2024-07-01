@@ -592,9 +592,9 @@ MonoBehaviour:
   m_XRTrackingOrigin: {fileID: 0}
   m_ActionsAsset: {fileID: -944628639613478452, guid: 8a7ea7c5118b5084f9dfcc3cdf93457f, type: 3}
   m_PointAction: {fileID: 0}
-  m_MoveAction: {fileID: 3360252648816853083, guid: 8a7ea7c5118b5084f9dfcc3cdf93457f, type: 3}
-  m_SubmitAction: {fileID: 6331238233445386927, guid: 8a7ea7c5118b5084f9dfcc3cdf93457f, type: 3}
-  m_CancelAction: {fileID: -7918290264742697828, guid: 8a7ea7c5118b5084f9dfcc3cdf93457f, type: 3}
+  m_MoveAction: {fileID: 0}
+  m_SubmitAction: {fileID: 0}
+  m_CancelAction: {fileID: 0}
   m_LeftClickAction: {fileID: 0}
   m_MiddleClickAction: {fileID: 0}
   m_RightClickAction: {fileID: 0}

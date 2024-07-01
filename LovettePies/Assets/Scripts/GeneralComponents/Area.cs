@@ -299,6 +299,17 @@ public class Area : MonoBehaviour
     public int m_ColumnCount = -1;
     public int m_LeftRowConnection = -100;
     public int m_RightRowConnection = -100;
+
+
+    #region Extra Functions
+
+    public void RemoveElement(CellElement p_Cell)
+    {
+        //THIS FUNCTION WILL BE USED TO REMOVE AN ELEMENT FROM THE GIVEN CELL
+        //POSSIBLE REFUND
+    }
+    
+    #endregion
 }
 
 

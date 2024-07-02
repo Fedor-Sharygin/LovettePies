@@ -29,24 +29,27 @@ public class MinigameRequiredElement : MonoBehaviour
     private void Awake()
     {
         Debug.LogWarning($"WARNING: {gameObject.GetInstanceID()} OBJ IS LOADING MINIGAME!!!!");
-        var PlayerController = FindObjectOfType<PlayerRestaurantController>();
-        m_PlayerControls = PlayerController?.m_PlayerRestaurantControls;
-        if (m_PlayerControls == null)
-        {
-            m_PlayerControls = new PlayerControls();
-        }
-        if (m_PlayerControls == null)
-        {
-            Debug.LogError($"{name}: Could not load Player Controls. Quitting the game!");
-            Application.Quit();
-            return;
-        }
-        m_PlayerControls.Enable();
-        m_PlayerControls.BasicMinigameControls.Enable();
-        m_PlayerControls.UIControls.Disable();
-        m_PlayerControls.RestaurantControls.Disable();
+        //var PlayerController = FindObjectOfType<PlayerRestaurantController>();
+        //m_PlayerControls = PlayerController?.m_PlayerRestaurantControls;
+        //if (m_PlayerControls == null)
+        //{
+        //    m_PlayerControls = new PlayerControls();
+        //}
+        //if (m_PlayerControls == null)
+        //{
+        //    Debug.LogError($"{name}: Could not load Player Controls. Quitting the game!");
+        //    Application.Quit();
+        //    return;
+        //}
+        //m_PlayerControls.Enable();
+        //m_PlayerControls.BasicMinigameControls.Enable();
+        //m_PlayerControls.UIControls.Disable();
+        //m_PlayerControls.BasicGameControls.Disable();
 
-        m_PlayerInput = PlayerController?.m_PlayerInput;
+        GeneralGameBehavior.SwitchState(GeneralGameBehavior.GameState.MINI_GAME_STATE);
+        m_PlayerControls = GeneralGameBehavior.Controls;
+
+        m_PlayerInput = FindObjectOfType<PlayerRestaurantController>()?.m_PlayerInput;
         if (m_PlayerInput == null)
         {
             m_PlayerInput = GetComponent<PlayerInput>();
@@ -84,7 +87,7 @@ public class MinigameRequiredElement : MonoBehaviour
 
         //m_PlayerInput.SwitchCurrentActionMap("Restaurant Controls");
         //m_PlayerControls.BasicMinigameControls.Disable();
-        //m_PlayerControls.RestaurantControls.Enable();
+        //m_PlayerControls.BasicGameControls.Enable();
         Debug.LogWarning("WARNING: UNLOADING MINIGAME!");
         this.enabled = false;
         SceneManager.UnloadSceneAsync(gameObject.scene);
@@ -101,8 +104,9 @@ public class MinigameRequiredElement : MonoBehaviour
     public void PlayEndgameAnimation(MinigameStatus p_Status)
     {
         Debug.LogWarning($"WARNING: {gameObject.GetInstanceID()} OBJ IS PLAYING MINIGAME END ANIMATION!");
-        m_PlayerControls.BasicMinigameControls.Disable();
-        m_PlayerControls.RestaurantControls.Enable();
+        //m_PlayerControls.BasicMinigameControls.Disable();
+        //m_PlayerControls.BasicGameControls.Enable();
+        GeneralGameBehavior.SwitchState(GeneralGameBehavior.GameState.DEFAULT_GAME_STATE);
         if (m_EndingAnimations == null || m_EndingAnimations.Length <= 0)
         {
             GetComponent<Animator>()?.SetTrigger("EndGame");

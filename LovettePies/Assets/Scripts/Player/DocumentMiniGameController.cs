@@ -12,6 +12,9 @@ public class DocumentMiniGameController : MonoBehaviour
 
         //ReqElem.m_PlayerInput.SwitchCurrentActionMap("Basic Minigame Controls");
         m_PlayerControls = ReqElem.m_PlayerControls;
+        m_Confirm_Button = m_PlayerControls.BasicMinigameControls.BasicPress;
+        m_Decline_Button = m_PlayerControls.BasicMinigameControls.AlternatePress;
+        m_CloseMinigame = m_PlayerControls.BasicMinigameControls.QuitMinigame;
 
         //m_DoughEnterDelegate.OnTriggerEntered += DoughTouched;
     }
@@ -23,15 +26,12 @@ public class DocumentMiniGameController : MonoBehaviour
     {
         Debug.LogWarning($"WARING: {GetInstanceID()} IS ENABLING INPUT!!!!");
 
-        m_Confirm_Button = m_PlayerControls.BasicMinigameControls.BasicPress;
         m_Confirm_Button.Enable();
-        m_Confirm_Button.performed += ConfirmCrime_Button; ;
+        m_Confirm_Button.performed += ConfirmCrime_Button;
 
-        m_Decline_Button = m_PlayerControls.BasicMinigameControls.AlternatePress;
         m_Decline_Button.Enable();
-        m_Decline_Button.performed += DeclineCrime_Button; ;
+        m_Decline_Button.performed += DeclineCrime_Button;
 
-        m_CloseMinigame = m_PlayerControls.BasicMinigameControls.QuitMinigame;
         m_CloseMinigame.Enable();
         m_CloseMinigame.performed += CloseMinigame;
     }

@@ -11,18 +11,20 @@ public class GameMenu : MonoBehaviour
     private InputAction m_ResumeAction;
     private void Awake()
     {
-        var PlayerController = FindObjectOfType<PlayerRestaurantController>();
-        m_PlayerControls = PlayerController?.m_PlayerRestaurantControls;
-        if (m_PlayerControls == null)
-        {
-            m_PlayerControls = new PlayerControls();
-        }
-        if (m_PlayerControls == null)
-        {
-            Debug.LogError($"{name}: Could not load Player Controls. Quitting the game!");
-            Application.Quit();
-            return;
-        }
+        //var PlayerController = FindObjectOfType<PlayerRestaurantController>();
+        //m_PlayerControls = PlayerController?.m_PlayerRestaurantControls;
+        //if (m_PlayerControls == null)
+        //{
+        //    m_PlayerControls = new PlayerControls();
+        //}
+        //if (m_PlayerControls == null)
+        //{
+        //    Debug.LogError($"{name}: Could not load Player Controls. Quitting the game!");
+        //    Application.Quit();
+        //    return;
+        //}
+        GeneralGameBehavior.SwitchState(GeneralGameBehavior.GameState.MENU_STATE);
+        m_PlayerControls = GeneralGameBehavior.Controls;
 
 
         m_ResumeAction = m_PlayerControls.UIControls.Resume;
@@ -32,10 +34,10 @@ public class GameMenu : MonoBehaviour
     private float m_CurSavedFixedDeltaTime;
     private void PauseGame()
     {
-        m_PlayerControls.Enable();
-        m_PlayerControls.BasicMinigameControls.Disable();
-        m_PlayerControls.UIControls.Enable();
-        m_PlayerControls.RestaurantControls.Disable();
+        //m_PlayerControls.Enable();
+        //m_PlayerControls.BasicMinigameControls.Disable();
+        //m_PlayerControls.UIControls.Enable();
+        //m_PlayerControls.BasicGameControls.Disable();
 
         m_ResumeAction.Enable();
         m_ResumeAction.started += ResumeAction_Started;
@@ -51,10 +53,11 @@ public class GameMenu : MonoBehaviour
     {
         //BIG ASSUMPTION THAT WE CAN ONLY OPEN THIS MENU
         //WHEN USER IS NOT PLAYING A MINIGAME
-        m_PlayerControls.Enable();
-        m_PlayerControls.BasicMinigameControls.Disable();
-        m_PlayerControls.UIControls.Disable();
-        m_PlayerControls.RestaurantControls.Enable();
+        //m_PlayerControls.Enable();
+        //m_PlayerControls.BasicMinigameControls.Disable();
+        //m_PlayerControls.UIControls.Disable();
+        //m_PlayerControls.BasicGameControls.Enable();
+        GeneralGameBehavior.SwitchState(GeneralGameBehavior.GameState.DEFAULT_GAME_STATE);
 
         m_ResumeAction.started -= ResumeAction_Started;
         m_ResumeAction.Disable();

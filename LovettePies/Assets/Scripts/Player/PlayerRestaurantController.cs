@@ -20,17 +20,17 @@ public class PlayerRestaurantController : MonoBehaviour
     public PlayerControls m_PlayerRestaurantControls { get; private set; }
     private void Awake()
     {
-        m_PlayerRestaurantControls = new PlayerControls();
-        if (m_PlayerRestaurantControls == null)
-        {
-            Debug.LogError($"{name}: Could not load Player Restaurant Controls. Quitting the game!");
-            Application.Quit();
-            return;
-        }
-        m_PlayerRestaurantControls.Enable();
-        m_PlayerRestaurantControls.BasicMinigameControls.Disable();
-        m_PlayerRestaurantControls.UIControls.Disable();
-        m_PlayerRestaurantControls.RestaurantControls.Enable();
+        GeneralGameBehavior.Initialize();
+        GeneralGameBehavior.SwitchState(GeneralGameBehavior.GameState.DEFAULT_GAME_STATE);
+        
+        m_PlayerRestaurantControls = GeneralGameBehavior.Controls;
+        m_AreaNavigation = m_PlayerRestaurantControls.BasicGameControls.AreaNavigation;
+        m_Interact = m_PlayerRestaurantControls.BasicGameControls.MainAction;
+        m_Pause = m_PlayerRestaurantControls.BasicGameControls.Pause;
+        #if DEBUG_CONTROLS
+        m_IncreaseIngredients = m_PlayerRestaurantControls.DebugControls.AddIngredients;
+        m_DecreaseIngredients = m_PlayerRestaurantControls.DebugControls.SubtractIngredients;
+        #endif
 
         m_PlayerInput = GetComponent<PlayerInput>();
         if (m_PlayerInput == null)
@@ -71,33 +71,33 @@ public class PlayerRestaurantController : MonoBehaviour
     private InputAction m_IncreaseIngredients;
     private InputAction m_DecreaseIngredients;
     #endif
-    private void OnEnable()
+    private void EnableInput()
     {
         //m_PlayerRestaurantControls.Enable();
         
-        m_AreaNavigation = m_PlayerRestaurantControls.RestaurantControls.AreaNavigation;
         m_AreaNavigation.Enable();
         m_AreaNavigation.started  += NavigateArea;
         m_AreaNavigation.canceled += NavigateArea;
 
-        m_Interact = m_PlayerRestaurantControls.RestaurantControls.MainAction;
         m_Interact.Enable();
         m_Interact.started += Interact;
 
-        m_Pause = m_PlayerRestaurantControls.RestaurantControls.Pause;
         m_Pause.Enable();
         m_Pause.started += Pause_Started;
         
         #if DEBUG_CONTROLS
-        m_IncreaseIngredients = m_PlayerRestaurantControls.DebugControls.AddIngredients;
         m_IncreaseIngredients.Enable();
         m_IncreaseIngredients.started += IncreaseAllIngredientCount;
 
-        m_DecreaseIngredients = m_PlayerRestaurantControls.DebugControls.SubtractIngredients;
         m_DecreaseIngredients.Enable();
         m_DecreaseIngredients.started += DecreaseAllIngredientCount;
         #endif
     }
+    private void OnEnable()
+    {
+        EnableInput();
+    }
+
 
     [SerializeField]
     private GameObject m_GameMenu;

@@ -220,7 +220,7 @@ public class CellElement : MonoBehaviour
     [SerializeField]
     private float m_DistEpsilon = .2f;
     [SerializeField]
-    private float m_MovementSpeed = .15f;
+    private float m_MovementSpeed = 5f;
     private void GetToTargetPos()
     {
         if (AtTargetPos())

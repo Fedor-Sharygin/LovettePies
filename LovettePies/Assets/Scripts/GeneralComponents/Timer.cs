@@ -12,6 +12,19 @@ using UnityEditor;
 public class Timer : MonoBehaviour
 {
     [SerializeField]
+    private TMPro.TextMeshProUGUI m_TimerDisplay;
+    public enum DisplayMode
+    {
+        FLOAT_DISPLAY,
+        INT_DISPLAY,
+
+        DEFAULT
+    }
+    [SerializeField]
+    private DisplayMode m_TimerDisplayMode = DisplayMode.DEFAULT;
+
+    [Space(10)]
+    [SerializeField]
     private float m_TimerSeconds = 20f;
     public float m_CurTimeLeft { private set; get; }
 
@@ -21,9 +34,26 @@ public class Timer : MonoBehaviour
     [SerializeField]
     private bool m_StartOnAwake = true;
 
+    [Space(10)]
+    [SerializeField]
+    private bool m_RandomTimer = false;
+    [SerializeField]
+    private float m_MinTimer = .5f;
+    [SerializeField]
+    private float m_MaxTimer = 20f;
+
     public UnityEvent m_EndActions;
 
     private bool m_Paused = false;
+
+    private float m_TimerModifier = 1f;
+    public float TimerModifier
+    {
+        set
+        {
+            m_TimerModifier = value;
+        }
+    }
 
     private void Awake()
     {
@@ -51,12 +81,35 @@ public class Timer : MonoBehaviour
         {
             StartCoroutine("ExecuteOnEnd");
         }
+
+        if (m_TimerDisplay == null)
+        {
+            return;
+        }
+        switch (m_TimerDisplayMode)
+        {
+            case DisplayMode.INT_DISPLAY:
+                {
+                    m_TimerDisplay.text = Mathf.Max(0, Mathf.FloorToInt(m_CurTimeLeft)).ToString();
+                }
+                break;
+            case DisplayMode.FLOAT_DISPLAY:
+                {
+                    m_TimerDisplay.text = Mathf.Max(0, m_CurTimeLeft).ToString();
+                }
+                break;
+        }
     }
 
     public void ResetTimer()
     {
         m_TimerEnded = false;
         m_CurTimeLeft = m_TimerSeconds;
+        if (m_RandomTimer)
+        {
+            m_CurTimeLeft = UnityEngine.Random.Range(m_MinTimer, m_MaxTimer);
+        }
+        m_CurTimeLeft *= m_TimerModifier;
     }
 
     public void ExecuteOnEnd()
@@ -92,10 +145,7 @@ public class Timer : MonoBehaviour
         UnPause();
     }
 
-    public bool IsPlaying()
-    {
-        return !m_Paused && !m_TimerEnded;
-    }
+    public bool IsPlaying() => !m_Paused && !m_TimerEnded;
 }
 
 

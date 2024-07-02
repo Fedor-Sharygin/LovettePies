@@ -8,6 +8,7 @@ public class MainMenu : MonoBehaviour
     private void Awake()
     {
         SaveLoadSystem.Manager.OnGameStart();
+        GeneralGameBehavior.Initialize();
     }
 
     public void QuitGame()

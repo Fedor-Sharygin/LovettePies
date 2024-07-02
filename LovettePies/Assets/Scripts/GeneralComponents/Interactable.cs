@@ -1,4 +1,3 @@
-using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -10,7 +9,7 @@ using UnityEditor;
 
 public class Interactable : MonoBehaviour
 {
-    [Serializable]
+    [System.Serializable]
     public enum EnumInteractableType
     {
         KITCHEN_CONNECTION,
@@ -27,6 +26,8 @@ public class Interactable : MonoBehaviour
         RESTAURANT_OVEN,
         RESTAURANT_PLATE_HOLDER,
         RESTAURANT_SINK,
+        RESTAURANT_INGREDIENT_HOLDER,
+        RESTAURANT_GARBAGE,
 
         RESTAURANT_END,
         #endregion
@@ -63,10 +64,10 @@ public class Interactable : MonoBehaviour
 
 
     [HideInInspector]
-    public GlobalNamespace.EnumMovementFlag m_MovementFlag = 0x0;
+    public GlobalNamespace.EnumMovementFlag m_BlockFlag = 0x0;
     public bool Blocks(GlobalNamespace.EnumMovementFlag p_MovementFlag)
     {
-        return (m_MovementFlag & p_MovementFlag) != 0x0;
+        return (m_BlockFlag & p_MovementFlag) != 0x0;
     }
 
     [Space(15)]
@@ -90,16 +91,16 @@ public class Interactable : MonoBehaviour
     }
     private void OnDestroy()
     {
-        CellElement.AreaArray[m_AreaType].RemoveObjectFromMatrix(m_CellPos.y, m_CellPos.x);
+        Area.CurArea.RemoveObjectFromMatrix(m_CellPos.y, m_CellPos.x);
     }
 
     private void MoveObjectToCell()
     {
-        while (CellElement.AreaArray.Length == 0) ;
+        //while (Area.CurArea == null) ;
 
         //m_CellElem = GetComponent<CellElement>();
         m_CellPos = m_StartPos;
-        m_CellElem.AreaIdx = m_AreaType;
+        //m_CellElem.AreaIdx = m_AreaType;
         //m_PrevCellPos = GlobalNamespace.ObjectExtension.Clone(m_CellPos);
         m_PrevCellPos.x = m_CellPos.x;
         m_PrevCellPos.y = m_CellPos.y;
@@ -110,8 +111,8 @@ public class Interactable : MonoBehaviour
     public void MoveToPosition()
     {
         m_CellElem.MoveTo(new Vector2Int(m_CellPos.y, m_CellPos.x));
-        CellElement.AreaArray[m_AreaType].RemoveObjectFromMatrix(m_PrevCellPos.y, m_PrevCellPos.x);
-        CellElement.AreaArray[m_AreaType].AddObjectToMatrix(this, m_CellPos.y, m_CellPos.x);
+        Area.CurArea.RemoveObjectFromMatrix(m_PrevCellPos.y, m_PrevCellPos.x);
+        Area.CurArea.AddObjectToMatrix(this, m_CellPos.y, m_CellPos.x);
 
         m_PrevCellPos.x = m_CellPos.x;
         m_PrevCellPos.y = m_CellPos.y;
@@ -191,6 +192,8 @@ public class Interactable : MonoBehaviour
             m_IsInteractable[i] = !m_IsInteractable[i];
         }
     }
+
+    public bool m_NewElement;
 }
 
 #region Custom Interactable Editor
@@ -220,7 +223,7 @@ class InteractableEditor : Editor
 
         Undo.RecordObject(TargetObject, "Interactable Object");
 
-        TargetObject.m_MovementFlag = (GlobalNamespace.EnumMovementFlag)EditorGUILayout.EnumFlagsField("Movement Mask", TargetObject.m_MovementFlag);
+        TargetObject.m_BlockFlag = (GlobalNamespace.EnumMovementFlag)EditorGUILayout.EnumFlagsField("Blocking Mask", TargetObject.m_BlockFlag);
 
         EditorGUILayout.Space(5);
         DrawDefaultInspector();

@@ -21,6 +21,7 @@ public class IngridientHolder : Interactable
     private SpriteRenderer m_IngredientSprite;
     [SerializeField]
     private TMPro.TextMeshProUGUI m_CountText;
+    private PlayerRestaurantController m_PlayerController;
     private void Start()
     {
         PlaceOnArea();
@@ -28,11 +29,12 @@ public class IngridientHolder : Interactable
         m_CurIngridientCount = IngredientStorage.Manager.GetIngredientCount(m_IngredientDescription);
         m_IngredientSprite.sprite = m_IngredientDescription?.m_IngredientSprite;
         m_CountText.text = m_CurIngridientCount.ToString();
+
+        m_PlayerController = FindObjectOfType<PlayerRestaurantController>();
     }
 
 
-    [SerializeField]
-    private IngredientDescriptor m_IngredientDescription;
+    public IngredientDescriptor m_IngredientDescription;
     [SerializeField]
     private GameObject m_IngredientPrefab;
 
@@ -67,6 +69,10 @@ public class IngridientHolder : Interactable
 
         PlayerPlate.AddIngredient(IngredientInstance);
         //PlayerPlate.m_IngredientSockets[IngredientIdx].Stack(m_IngredientSpawnPos.RemoveObj());
+    }
+    public void SpawnIngridient()
+    {
+        SpawnIngridient(m_PlayerController);
     }
 
     

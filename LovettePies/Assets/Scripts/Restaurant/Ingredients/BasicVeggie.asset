@@ -12,5 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a871f4bc0834b41409ed2806fa19723a, type: 3}
   m_Name: BasicVeggie
   m_EditorClassIdentifier: 
+  m_IngredientType: 2
   m_IngredientName: Veggie
   m_IngredientSprite: {fileID: 21300000, guid: c252c7ce6f7a94745a75631f6c633c70, type: 3}
+  m_MinigameName: 

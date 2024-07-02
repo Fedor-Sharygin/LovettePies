@@ -177,7 +177,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_DestroyObjects: 0
-  m_ObjectSpeed: 0.02
+  m_ObjectSpeed: 5
 --- !u!1 &4275267735324827752
 GameObject:
   m_ObjectHideFlags: 0
@@ -329,7 +329,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_DestroyObjects: 0
-  m_ObjectSpeed: 0.02
+  m_ObjectSpeed: 5
 --- !u!1 &5596173355560442355
 GameObject:
   m_ObjectHideFlags: 0
@@ -384,10 +384,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ea33296ef968be5468695a0477774a64, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_PositionOverhaul: 0
   m_MovementFlag: 4
   m_DistEpsilon: 0.08
   m_MovementSpeed: 5
+  m_PositionOverhaul: 0
+  m_MeshTransform: {fileID: 0}
 --- !u!114 &3502323755049007889
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -400,9 +401,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4c725f8b961a24e49b87a0ce4d7dab36, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_TimerDisplay: {fileID: 0}
+  m_TimerDisplayMode: 2
   m_TimerSeconds: 0.2
   m_ResetOnEnd: 1
   m_StartOnAwake: 0
+  m_RandomTimer: 0
+  m_MinTimer: 0.5
+  m_MaxTimer: 20
   m_EndActions:
     m_PersistentCalls:
       m_Calls:
@@ -430,9 +436,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4c725f8b961a24e49b87a0ce4d7dab36, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_TimerDisplay: {fileID: 0}
+  m_TimerDisplayMode: 2
   m_TimerSeconds: 60
   m_ResetOnEnd: 0
   m_StartOnAwake: 0
+  m_RandomTimer: 0
+  m_MinTimer: 0.5
+  m_MaxTimer: 20
   m_EndActions:
     m_PersistentCalls:
       m_Calls:
@@ -588,9 +599,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4c725f8b961a24e49b87a0ce4d7dab36, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_TimerDisplay: {fileID: 0}
+  m_TimerDisplayMode: 2
   m_TimerSeconds: 20
   m_ResetOnEnd: 0
   m_StartOnAwake: 0
+  m_RandomTimer: 0
+  m_MinTimer: 0.5
+  m_MaxTimer: 20
   m_EndActions:
     m_PersistentCalls:
       m_Calls:
@@ -711,7 +727,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_DestroyObjects: 0
-  m_ObjectSpeed: 0.02
+  m_ObjectSpeed: 5
 --- !u!1 &8993343150444627364
 GameObject:
   m_ObjectHideFlags: 0
@@ -757,4 +773,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_DestroyObjects: 0
-  m_ObjectSpeed: 0.02
+  m_ObjectSpeed: 5

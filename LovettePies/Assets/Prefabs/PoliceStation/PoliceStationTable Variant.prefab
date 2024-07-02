@@ -54,8 +54,8 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 5249390329694073677, guid: d62dac419eb891146aa60c2de25dbb6d, type: 3}
-      propertyPath: m_MovementSpeed
-      value: 5
+      propertyPath: m_MovementFlag
+      value: 29
       objectReference: {fileID: 0}
     - target: {fileID: 6082456611910271830, guid: d62dac419eb891146aa60c2de25dbb6d, type: 3}
       propertyPath: m_RootOrder
@@ -125,8 +125,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eb937c5d47794a242a7f05006c41dbcf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_ObjectType: 12
-  m_MovementFlag: 0
+  m_ObjectType: 14
+  m_BlockFlag: 0
   m_AreaType: 0
   m_StartPos: {x: 0, y: 0}
   m_CellElem: {fileID: 7235117088791908831}
@@ -139,6 +139,7 @@ MonoBehaviour:
   m_InteracteeTags:
   - Player
   - PoliceGroup
+  m_NewElement: 0
   m_LocalSocket: {fileID: 7454829970534639167}
   m_PoliceTableMinigame: DocumentMiniGame
 --- !u!114 &7235117088791908831 stripped

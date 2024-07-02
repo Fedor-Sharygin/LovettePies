@@ -512,7 +512,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &168776457
 Transform:
   m_ObjectHideFlags: 0
@@ -881,7 +881,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b5ab9980faf7df44fb498f8949fbee94, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_UpgradeDescription: {fileID: 0}
+  m_UpgradeDescription: {fileID: 11400000, guid: f0ce46069ecc0484c9862a0fec829b35, type: 2}
 --- !u!1 &243757725
 GameObject:
   m_ObjectHideFlags: 0
@@ -1433,6 +1433,7 @@ MonoBehaviour:
   m_CellElem: {fileID: 795785460}
   m_StartPos: {x: 26, y: 0}
   m_UIHandler: {fileID: 344680060}
+  m_UpgradeHolder: {fileID: 878940153}
   m_JoystickEffectThreshold: 0.3
 --- !u!1 &705502439
 GameObject:
@@ -1688,10 +1689,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ea33296ef968be5468695a0477774a64, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_PositionOverhaul: 0
+  m_ModelHiddenByDefault: 0
   m_MovementFlag: 2
   m_DistEpsilon: 0.2
   m_MovementSpeed: 5
+  m_PositionOverhaul: 0
+  m_MeshTransform: {fileID: 0}
 --- !u!1001 &826267981
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1950,7 +1953,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1065099047
 Transform:
   m_ObjectHideFlags: 0
@@ -2356,9 +2359,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4c725f8b961a24e49b87a0ce4d7dab36, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_TimerDisplay: {fileID: 0}
+  m_TimerDisplayMode: 2
   m_TimerSeconds: 20
   m_ResetOnEnd: 1
   m_StartOnAwake: 1
+  m_RandomTimer: 0
+  m_MinTimer: 0.5
+  m_MaxTimer: 20
   m_EndActions:
     m_PersistentCalls:
       m_Calls:
@@ -2908,6 +2916,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1330119033454589957, guid: 71d30ae04a52b5244a6a2833f1060706, type: 3}
+      propertyPath: m_AreaName
+      value: Barber
+      objectReference: {fileID: 0}
     - target: {fileID: 6947024883936397921, guid: 71d30ae04a52b5244a6a2833f1060706, type: 3}
       propertyPath: m_Name
       value: GameManager
@@ -3768,7 +3780,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3726952247602278151, guid: c48c913d5cf5b674a81eab464ea87eb1, type: 3}
       propertyPath: m_MovementFlag
-      value: -1
+      value: 2147483645
       objectReference: {fileID: 0}
     - target: {fileID: 4035385798148266943, guid: c48c913d5cf5b674a81eab464ea87eb1, type: 3}
       propertyPath: m_Name
@@ -3783,6 +3795,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 454742289405102688, guid: d37057b3c76b16247936f062e2bc4f83, type: 3}
+      propertyPath: m_GameMenu
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 6736382765382667770, guid: d37057b3c76b16247936f062e2bc4f83, type: 3}
       propertyPath: m_RootOrder
       value: 2

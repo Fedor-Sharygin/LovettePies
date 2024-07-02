@@ -1,8 +1,3 @@
-#if UNITY_EDITOR
-#define DEBUG_CONTROLS
-#endif
-
-
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -27,10 +22,6 @@ public class PlayerRestaurantController : MonoBehaviour
         m_AreaNavigation = m_PlayerRestaurantControls.BasicGameControls.AreaNavigation;
         m_Interact = m_PlayerRestaurantControls.BasicGameControls.MainAction;
         m_Pause = m_PlayerRestaurantControls.BasicGameControls.Pause;
-        #if DEBUG_CONTROLS
-        m_IncreaseIngredients = m_PlayerRestaurantControls.DebugControls.AddIngredients;
-        m_DecreaseIngredients = m_PlayerRestaurantControls.DebugControls.SubtractIngredients;
-        #endif
 
         m_PlayerInput = GetComponent<PlayerInput>();
         if (m_PlayerInput == null)
@@ -59,7 +50,7 @@ public class PlayerRestaurantController : MonoBehaviour
             Application.Quit();
             return;
         }
-        m_CellElement.AreaIdx = m_OriginalArea;
+        //m_CellElement.AreaIdx = m_OriginalArea;
         m_CellElement.MoveTo(m_OriginalPosition);
     }
 
@@ -67,10 +58,6 @@ public class PlayerRestaurantController : MonoBehaviour
     private InputAction m_AreaNavigation;
     private InputAction m_Interact;
     private InputAction m_Pause;
-    #if DEBUG_CONTROLS
-    private InputAction m_IncreaseIngredients;
-    private InputAction m_DecreaseIngredients;
-    #endif
     private void EnableInput()
     {
         //m_PlayerRestaurantControls.Enable();
@@ -84,14 +71,6 @@ public class PlayerRestaurantController : MonoBehaviour
 
         m_Pause.Enable();
         m_Pause.started += Pause_Started;
-        
-        #if DEBUG_CONTROLS
-        m_IncreaseIngredients.Enable();
-        m_IncreaseIngredients.started += IncreaseAllIngredientCount;
-
-        m_DecreaseIngredients.Enable();
-        m_DecreaseIngredients.started += DecreaseAllIngredientCount;
-        #endif
     }
     private void OnEnable()
     {
@@ -100,10 +79,18 @@ public class PlayerRestaurantController : MonoBehaviour
 
 
     [SerializeField]
-    private GameObject m_GameMenu;
+    private GameObject m_GameMenuPrefab;
+    private GameObject m_CurGameMenu = null;
     private void Pause_Started(InputAction.CallbackContext obj)
     {
-        m_GameMenu.SetActive(true);
+        if (m_CurGameMenu == null)
+        {
+            m_CurGameMenu = GameObject.Instantiate(m_GameMenuPrefab);
+        }
+        else
+        {
+            m_CurGameMenu.SetActive(true);
+        }
     }
 
     private void DisableInput()
@@ -117,15 +104,6 @@ public class PlayerRestaurantController : MonoBehaviour
 
         m_Pause.started -= Pause_Started;
         m_Pause.Enable();
-        
-
-        #if DEBUG_CONTROLS
-        m_IncreaseIngredients.started -= IncreaseAllIngredientCount;
-        m_IncreaseIngredients.Disable();
-
-        m_DecreaseIngredients.started -= DecreaseAllIngredientCount;
-        m_DecreaseIngredients.Disable();
-        #endif
     }
 
     private void OnDisable()
@@ -252,27 +230,5 @@ public class PlayerRestaurantController : MonoBehaviour
             }
         }
     }
-    #endregion
-
-    #region Debug Control
-    #if DEBUG_CONTROLS
-
-    private void IncreaseAllIngredientCount(InputAction.CallbackContext p_CallbackContext)
-    {
-        foreach (var IngHold in FindObjectsOfType<IngridientHolder>())
-        {
-            IngHold.IncreaseIngredientCount();
-        }
-    }
-
-    private void DecreaseAllIngredientCount(InputAction.CallbackContext p_CallbackContext)
-    {
-        foreach (var IngHold in FindObjectsOfType<IngridientHolder>())
-        {
-            IngHold.DecreaseIngredientCount();
-        }
-    }
-    
-    #endif
     #endregion
 }

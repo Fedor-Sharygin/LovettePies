@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 306b211730e9db548852c936f07db844, type: 3}
+  m_Name: TestRestTableDescriptor
+  m_EditorClassIdentifier: 
+  m_UpgradeType: 1
+  m_UI_UpgradeImage: {fileID: 0}
+  m_ObjectToPlace: {fileID: 4035385798148266943, guid: c48c913d5cf5b674a81eab464ea87eb1, type: 3}
+  m_ObjectDescription:
+    PositionX: 0
+    PositionY: 0
+    ObjectType: 4
+    BlockingMask: 29
+    ModelHidden: 0
+  m_FunctionName: 

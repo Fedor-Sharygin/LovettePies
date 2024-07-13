@@ -105,7 +105,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2046893163887517189, guid: cd55feb7f310114478090f155597f642, type: 3}
       propertyPath: m_InteractableTargetTypesOrder.Array.data[0]
-      value: 12
+      value: 14
       objectReference: {fileID: 0}
     - target: {fileID: 2046893163887517189, guid: cd55feb7f310114478090f155597f642, type: 3}
       propertyPath: m_PatienceActions.m_PersistentCalls.m_Calls.Array.size

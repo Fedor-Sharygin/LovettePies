@@ -1,8 +1,41 @@
-using System.Collections;
 using System.Collections.Generic;
-using UnityEngine;
 using System.IO;
+using UnityEngine;
 using UnityEngine.SceneManagement;
+using Newtonsoft.Json;
+
+
+
+[System.Serializable]
+//AreaData contains information for each of the 3 main areas
+//including extra-placed objects, upgrades, and cosmetics
+public class AreaData
+{
+    [System.Serializable]
+    public struct AreaObject
+    {
+        public int PositionX;
+        public int PositionY;
+        public Interactable.EnumInteractableType ObjectType;
+        public GlobalNamespace.EnumMovementFlag BlockingMask;
+        public bool ModelHidden;
+        public object[] ExtraParams;    //optional parameters such as: Ingredient Type, Spawn Plates, etc.
+    }
+
+    //This class is missing the size of the area
+    //we are ASSUMING that each area has a fixed size
+    //IF we want to change it => need to add area size here
+    //(better we don't)
+
+    public string AreaName;
+
+    public AreaObject[] Objects;
+
+    public int LastUpgradeDay;  //determines what day the last Upgrade state was saved
+    public string[] Upgrades;   //contains names of upgrade function calls for the CURRENT day
+    public string[] Cosmetics;  //no idea yet. just a placeholder. can and SHOULD be changed
+}
+
 
 [System.Serializable]
 public class SaveData
@@ -29,6 +62,11 @@ public class SaveData
     public List<IngredientStorage.IngredientCount> m_Ingredients;
     //public Barber upgrades
     //public Police upgrades
+
+    public AreaData m_RestaurantArea;
+    public AreaData m_BarberArea;
+    public AreaData m_PoliceArea;   //MIGHT CHANGE BECAUSE POLICEMAN HAS A DIFFERENT GAMEPLAY LOOP
+                                    //POSSIBLY EVEN MULTIPLE OF THEM
 }
 
 [System.Serializable]
@@ -101,7 +139,7 @@ public class SaveLoadSystem
         }
 
         var JsonDesc = File.ReadAllText(GameDataPath);
-        m_GameData = JsonUtility.FromJson<GameData>(JsonDesc);
+        m_GameData = JsonConvert.DeserializeObject<GameData>(JsonDesc);
         for (int i = 0; i < m_GameData.m_SaveFiles.Length; ++i)
         {
             var FullPath = GetFullPath(m_GameData.m_SaveFiles[i] + ".json");
@@ -111,7 +149,7 @@ public class SaveLoadSystem
                 continue;
             }
             var SaveInfo = File.ReadAllText(FullPath);
-            m_Saves[i] = JsonUtility.FromJson<SaveData>(SaveInfo);
+            m_Saves[i] = JsonConvert.DeserializeObject<SaveData>(SaveInfo);
         }
     }
     public void OnGameEnd()
@@ -222,8 +260,113 @@ public class SaveLoadSystem
         m_Saves[m_CurSaveIdx].m_SaveExists = true;
         m_Saves[m_CurSaveIdx].m_Ingredients = IngredientStorage.Manager.m_Ingredients.DeepCopy();
 
+        AreaData CurData = Area.GetCurAreaDescription();
+        if ((m_Saves[m_CurSaveIdx].m_RestaurantArea != null && m_Saves[m_CurSaveIdx].m_RestaurantArea.AreaName == Area.CurAreaName)
+            || Area.CurAreaName == "Restaurant")
+        {
+            m_Saves[m_CurSaveIdx].m_RestaurantArea = CurData;
+        }
+        if ((m_Saves[m_CurSaveIdx].m_BarberArea != null && m_Saves[m_CurSaveIdx].m_BarberArea.AreaName == Area.CurAreaName)
+            || Area.CurAreaName == "Barber")
+        {
+            m_Saves[m_CurSaveIdx].m_BarberArea = CurData;
+        }
+        if ((m_Saves[m_CurSaveIdx].m_PoliceArea != null && m_Saves[m_CurSaveIdx].m_PoliceArea.AreaName == Area.CurAreaName)
+            || Area.CurAreaName == "Police")
+        {
+            m_Saves[m_CurSaveIdx].m_PoliceArea = CurData;
+        }
+
         var FullPath = GetFullPath(m_GameData.m_SaveFiles[m_CurSaveIdx] + ".json");
-        File.WriteAllText(FullPath, JsonUtility.ToJson(m_Saves[m_CurSaveIdx], true));
-        File.WriteAllText(GameDataPath, JsonUtility.ToJson(m_GameData, true));
+        File.WriteAllText(FullPath, JsonConvert.SerializeObject(m_Saves[m_CurSaveIdx], Formatting.Indented));
+        File.WriteAllText(GameDataPath, JsonConvert.SerializeObject(m_GameData, Formatting.Indented));
+    }
+
+
+    //private string m_DefaultRestaurantDataPath = "DefaultRestaurant.json";
+    private AreaData m_DefaultRestaurantData
+    {
+        get
+        {
+            var JsonDesc = File.ReadAllText(GetFullPath("DefaultRestaurant.json"));
+            if (string.IsNullOrEmpty(JsonDesc))
+            {
+                return null;
+            }
+            AreaData FullData = JsonConvert.DeserializeObject<AreaData>(JsonDesc);
+            return FullData;
+        }
+    }
+    
+    //private string m_DefaultBarbershopDataPath = "DefaultBarber.json";
+    private AreaData m_DefaultBarbershopData
+    {
+        get
+        {
+            var JsonDesc = File.ReadAllText(GetFullPath("DefaultBarber.json"));
+            if (string.IsNullOrEmpty(JsonDesc))
+            {
+                return null;
+            }
+            AreaData FullData = JsonConvert.DeserializeObject<AreaData>(JsonDesc);
+            return FullData;
+        }
+    }
+    
+    //private string m_DefaultPoliceDataPath = "DefaultPolice.json";
+    private AreaData m_DefaultPoliceData
+    {
+        get
+        {
+            var JsonDesc = File.ReadAllText(GetFullPath("DefaultPolice.json"));
+            if (string.IsNullOrEmpty(JsonDesc))
+            {
+                return null;
+            }
+            AreaData FullData = JsonConvert.DeserializeObject<AreaData>(JsonDesc);
+            return FullData;
+        }
+    }
+
+    public AreaData GetAreaDescription(string p_AreaName)
+    {
+        if (m_CurSaveIdx < 0 || m_CurSaveIdx >= m_Saves.Length)
+        {
+            return null;
+        }
+
+
+        //Check if the area exists in the current save
+        if (m_Saves[m_CurSaveIdx].m_RestaurantArea != null && m_Saves[m_CurSaveIdx].m_RestaurantArea.AreaName == p_AreaName)
+        {
+            return m_Saves[m_CurSaveIdx].m_RestaurantArea;
+        }
+        if (m_Saves[m_CurSaveIdx].m_BarberArea != null && m_Saves[m_CurSaveIdx].m_BarberArea.AreaName == p_AreaName)
+        {
+            return m_Saves[m_CurSaveIdx].m_BarberArea;
+        }
+        if (m_Saves[m_CurSaveIdx].m_PoliceArea != null && m_Saves[m_CurSaveIdx].m_PoliceArea.AreaName == p_AreaName)
+        {
+            return m_Saves[m_CurSaveIdx].m_PoliceArea;
+        }
+
+
+        //Check if the area asks for a default data
+        if (m_DefaultRestaurantData != null && (m_DefaultRestaurantData.AreaName == p_AreaName || p_AreaName == "Restaurant"))
+        {
+            return m_DefaultRestaurantData;
+        }
+        if (m_DefaultBarbershopData != null && (m_DefaultBarbershopData.AreaName == p_AreaName || p_AreaName == "Barber"))
+        {
+            return m_DefaultBarbershopData;
+        }
+        if (m_DefaultPoliceData != null && (m_DefaultPoliceData.AreaName == p_AreaName || p_AreaName == "Police"))
+        {
+            return m_DefaultPoliceData;
+        }
+
+
+        //WTF? Should not be possible
+        return null;
     }
 }

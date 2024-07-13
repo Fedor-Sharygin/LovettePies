@@ -1,7 +1,5 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using System;
 
 #if UNITY_EDITOR
 using UnityEditor;
@@ -12,8 +10,154 @@ using ObjectMatrx = GlobalNamespace.MyMatrix<Interactable>;
 
 public class Area : MonoBehaviour
 {
-    #region Complete Area Description
+    #region Static Methods
+    public static string CurAreaName { get; private set; } = string.Empty;
+    public static Area CurArea { get; private set; } = null;
 
+    public static AreaData GetCurAreaDescription()
+    {
+        return CurArea?.GetAreaDescription();
+    }
+
+
+    //THIS IS A HORRIBLE REPRESENTATION AND NEEDS TO BE CHANGED
+    //SHOULD WORK FOR NOW
+    //  \/\/\/\/\/\/\/\/\/\/\/
+    [System.Serializable]
+    public struct TypeObject
+    {
+        public Interactable.EnumInteractableType Type;
+        public GameObject Prefab;
+    }
+    public static TypeObject[] InteractablePrefabList;
+    private static bool m_IPLSetup = false;
+    [SerializeField]
+    private TypeObject[] m_LocalInteractablePrefabList;
+
+    [System.Serializable]
+    public struct TypeIngredient
+    {
+        public IngredientType Type;
+        public IngredientDescriptor IngredientDescriptor;
+    }
+    public static TypeIngredient[] IngredientDescriptorList;
+    [SerializeField]
+    private TypeIngredient[] m_LocalIngredientDescriptorList;
+    private void StupidAwake()
+    {
+        if (m_IPLSetup)
+        {
+            return;
+        }
+
+        InteractablePrefabList = new TypeObject[m_LocalInteractablePrefabList.Length];
+        IngredientDescriptorList = new TypeIngredient[m_LocalIngredientDescriptorList.Length];
+        m_LocalInteractablePrefabList.CopyTo(InteractablePrefabList, 0);
+        m_LocalIngredientDescriptorList.CopyTo(IngredientDescriptorList, 0);
+        m_IPLSetup = true;
+    }
+    public static GameObject GetPrefabByInteractableType(Interactable.EnumInteractableType p_InteractableType)
+    {
+        foreach (var TO in InteractablePrefabList)
+        {
+            if (TO.Type != p_InteractableType)
+            {
+                continue;
+            }
+            return TO.Prefab;
+        }
+        return null;
+    }
+    public static IngredientDescriptor GetIngredientByType(IngredientType p_IngredientType)
+    {
+        foreach (var TI in IngredientDescriptorList)
+        {
+            if (TI.Type != p_IngredientType)
+            {
+                continue;
+            }
+            return TI.IngredientDescriptor;
+        }
+        return null;
+    }
+
+    public static GameObject ConstructObjectFromDescription(AreaData.AreaObject p_Description, bool p_MarkedAsNew = true)
+    {
+        //THIS POSITION IS BLOCKED => CANNOT CONSTRUCT ANYTHING
+        if (Area.CurArea.Blocks(p_Description.PositionX, p_Description.PositionY, (GlobalNamespace.EnumMovementFlag)int.MaxValue))
+        {
+            return null;
+        }
+
+        var NewElem = GameObject.Instantiate(Area.GetPrefabByInteractableType(p_Description.ObjectType));
+        if (NewElem == null)
+        {
+            return null;
+        }
+
+        var CellComp = NewElem.GetComponent<CellElement>();
+        var InterComp = NewElem.GetComponent<Interactable>();
+        
+        InterComp.m_StartPos = new Vector2Int(p_Description.PositionY, p_Description.PositionX);
+        InterComp.m_BlockFlag = p_Description.BlockingMask;
+        InterComp.m_NewElement = p_MarkedAsNew;
+
+
+        //This area is for utilizing specific Extra Parameters if present
+        //  \/\/\/\/\/\/\/\/\/\/\/
+
+        if (InterComp is IngridientHolder && p_Description.ExtraParams.Length > 0)
+        {
+            int ParamVal = System.Convert.ToInt32(p_Description.ExtraParams[0]);
+            //int.TryParse((string)p_Description.ExtraParams[0], out ParamVal);
+            var ParamEnumVal = (IngredientType)ParamVal;
+
+            (InterComp as IngridientHolder).m_IngredientDescription = Area.GetIngredientByType(ParamEnumVal);
+        }
+
+        if (InterComp is PlateHolder && p_Description.ExtraParams.Length > 0)
+        {
+            (InterComp as PlateHolder).m_StartFull = (bool)p_Description.ExtraParams[0];
+        }
+
+        //  /\/\/\/\/\/\/\/\/\/\/\
+
+        CellComp.m_ModelHiddenByDefault = p_Description.ModelHidden;
+
+        return NewElem;
+    }
+
+    public static AreaData.AreaObject ConstructDescriptionFromObject(Interactable p_Object, int p_X, int p_Y)
+    {
+        var AreaObj = new AreaData.AreaObject
+        {
+            PositionX = p_X,
+            PositionY = p_Y,
+            ObjectType = p_Object.InteractableType,
+            BlockingMask = p_Object.m_BlockFlag,
+            ModelHidden = p_Object.GetComponent<CellElement>().m_ModelHiddenByDefault,
+        };
+
+        if (p_Object is IngridientHolder)
+        {
+            AreaObj.ExtraParams = new object[1];
+            AreaObj.ExtraParams[0] = (p_Object as IngridientHolder).m_IngredientDescription.m_IngredientType;
+        }
+
+        if (p_Object is PlateHolder)
+        {
+            AreaObj.ExtraParams = new object[1];
+            AreaObj.ExtraParams[0] = (p_Object as PlateHolder).m_StartFull;
+        }
+
+        return AreaObj;
+    }
+    //  /\/\/\/\/\/\/\/\/\/\/\
+
+
+    #endregion
+
+    #region Complete Area Description
     public AreaDescriptor m_AreaDescription;
     public int m_AreaIdx;
     public int Columns
@@ -67,13 +211,20 @@ public class Area : MonoBehaviour
 
     #endregion
 
-
+    public string m_AreaName;
     private ObjectMatrx m_Interactables;
     private Vector3 m_AreaStartPos = Vector3.zero;
     private Vector3 m_CellSize = Vector3.zero;
     private Vector3 m_RightDir;
     private Vector3 m_ForwardDir;
     private void Awake()
+    {
+        StupidAwake(); //THIS NEEEEEEDS TO GO AWAY!!!!
+
+        CellGridSetup();
+        ObjectsSetup();
+    }
+    private void CellGridSetup()
     {
         var SizeHolder = GetComponent<Renderer>();
         if (!SizeHolder)
@@ -94,6 +245,23 @@ public class Area : MonoBehaviour
 
         m_RightDir = transform.right;
         m_ForwardDir = -transform.forward;
+    }
+    private void ObjectsSetup()
+    {
+        Area.CurAreaName = m_AreaName;
+        Area.CurArea = this;
+
+        AreaData LoadValues = SaveLoadSystem.Manager.GetAreaDescription(Area.CurAreaName);
+
+        if (LoadValues == null)
+        {
+            return;
+        }
+
+        foreach (var Obj in LoadValues.Objects)
+        {
+            Area.ConstructObjectFromDescription(Obj, false);
+        }
     }
 
     public Vector3 GetCenterOfCell(int p_RowIdx, int p_ColIdx)
@@ -126,7 +294,7 @@ public class Area : MonoBehaviour
     }
     public void RemoveObjectFromMatrix(CellElement p_CellPos)
     {
-        m_Interactables[p_CellPos.m_CurCellPos.y, p_CellPos.m_CurCellPos.x] = null;
+        m_Interactables[p_CellPos.m_CurCellPos.x, p_CellPos.m_CurCellPos.y] = null;
     }
 
     private static int[,] NeighborIndcs = new int[,] { { -1, 0 }, { 0, 1 }, { 1, 0 }, { 0, -1 } };
@@ -248,7 +416,7 @@ public class Area : MonoBehaviour
                     CurCell.x + (i % 3 == 1 ? (i / 3 == 0 ? -1 : 1) : 0),
                     CurCell.y + (i % 3 == 2 ? (i / 3 == 0 ? -1 : 1) : 0)
                     );
-                float FWeight = (float)Math.Round(GWeight + Vector2Int.Distance(NextCell, p_EndPos), 2);
+                float FWeight = (float)System.Math.Round(GWeight + Vector2Int.Distance(NextCell, p_EndPos), 2);
                 if (NextCell.y < 0 || NextCell.y >= Rows || NextCell.x < 0 || NextCell.x >= Columns ||
                     MatrixVisits[NextCell.y, NextCell.x].Item1 <= FWeight || (MatrixVisits[NextCell.y, NextCell.x].Item2.Item1 & i) != 0 ||
                     (NextCell != p_EndPos && Blocks(NextCell.y, NextCell.x, p_MovementFlag)))
@@ -303,12 +471,88 @@ public class Area : MonoBehaviour
 
     #region Extra Functions
 
+    private AreaData GetAreaDescription()
+    {
+        AreaData CompleteAreaDescription = new AreaData();
+
+        CompleteAreaDescription.AreaName = m_AreaName;
+
+        List<AreaData.AreaObject> AreaObjects = new List<AreaData.AreaObject>();
+        for (int i = 0; i < m_Interactables.Rows; ++i)
+        {
+            for (int j = 0; j < m_Interactables.Columns; ++j)
+            {
+                if (m_Interactables[i][j] == null)
+                {
+                    continue;
+                }
+                AreaObjects.Add(ConstructDescriptionFromObject(m_Interactables[i][j], i, j));
+            }
+        }
+        CompleteAreaDescription.Objects = AreaObjects.ToArray();
+
+        return CompleteAreaDescription;
+    }
+
     public void RemoveElement(CellElement p_Cell)
     {
         //THIS FUNCTION WILL BE USED TO REMOVE AN ELEMENT FROM THE GIVEN CELL
         //POSSIBLE REFUND
+        if (!Blocks(p_Cell.m_CurCellPos, (GlobalNamespace.EnumMovementFlag)int.MaxValue))
+        {
+            return;
+        }
+
+        m_Interactables[p_Cell.m_CurCellPos.x, p_Cell.m_CurCellPos.y].GetComponent<CellElement>().HideModel();
+        RemoveObjectFromMatrix(p_Cell);
     }
-    
+    public void RemoveElement(int p_PosX, int p_PosY)
+    {
+        if (m_Interactables[p_PosX, p_PosY] == null)
+        {
+            return;
+        }
+
+        //THIS FUNCTION WILL BE USED TO REMOVE AN ELEMENT FROM THE GIVEN CELL
+        //POSSIBLE REFUND
+        if (!Blocks(p_PosX, p_PosY, (GlobalNamespace.EnumMovementFlag)int.MaxValue))
+        {
+            return;
+        }
+
+        m_Interactables[p_PosX, p_PosY].GetComponent<CellElement>().HideModel();
+        RemoveObjectFromMatrix(p_PosX, p_PosY);
+    }
+
+    public void ResetElements()
+    {
+        var AD = SaveLoadSystem.Manager.GetAreaDescription(m_AreaName);
+
+        foreach (var Elem in AD.Objects)
+        {
+            //object exists in description and not on map
+            //OR
+            //object in description and real object have different types
+            if (m_Interactables[Elem.PositionX, Elem.PositionY] == null
+                || m_Interactables[Elem.PositionX, Elem.PositionY].InteractableType != Elem.ObjectType)
+            {
+                RemoveElement(Elem.PositionX, Elem.PositionY);
+                Area.ConstructObjectFromDescription(Elem, false);
+            }
+        }
+
+        for (int i = 0; i < m_Interactables.Rows; ++i)
+        {
+            for (int j = 0; j < m_Interactables.Columns; ++j)
+            {
+                if (m_Interactables[i, j] == null || m_Interactables[i, j].m_NewElement == false)
+                {
+                    continue;
+                }
+                RemoveElement(i, j);
+            }
+        }
+    }
     #endregion
 }
 
@@ -322,10 +566,14 @@ class AreaEditor : Editor
 {
     private Area TargetArea;
     private SerializedProperty m_AreaDescriptionProperty;
+    private SerializedProperty m_LocalIPLProperty;
+    private SerializedProperty m_LocalIILProperty;
     private void OnEnable()
     {
         TargetArea = (Area)target;
         m_AreaDescriptionProperty = serializedObject.FindProperty("m_AreaDescription");
+        m_LocalIPLProperty = serializedObject.FindProperty("m_LocalInteractablePrefabList");
+        m_LocalIILProperty = serializedObject.FindProperty("m_LocalIngredientDescriptorList");
     }
 
     public override void OnInspectorGUI()
@@ -340,9 +588,13 @@ class AreaEditor : Editor
         Undo.RecordObject(TargetArea, "Complete Area Description");
 
         serializedObject.Update();
-        EditorGUILayout.PropertyField(m_AreaDescriptionProperty, new GUIContent("Area Description"));
+        EditorGUILayout.PropertyField(m_LocalIPLProperty, new GUIContent("Interactable Object Types", "List of all available interactable objects in game. Must be moved to a separate class."));
+        EditorGUILayout.PropertyField(m_LocalIILProperty, new GUIContent("Ingredient Descriptors", "List of all available ingredient descriptors in game. Must be moved to a separate class."));
+        EditorGUILayout.Space(10);
         serializedObject.ApplyModifiedProperties();
 
+        GUIContent AreaNameTooltip = new GUIContent("Area Name", "This is a unique name for each area in each level. There is only 1 Area per level");
+        TargetArea.m_AreaName = EditorGUILayout.TextField(AreaNameTooltip, TargetArea.m_AreaName);
         TargetArea.m_AreaIdx = EditorGUILayout.IntField("Area Idx", TargetArea.m_AreaIdx);
 
 
@@ -354,43 +606,6 @@ class AreaEditor : Editor
         TargetArea.m_LeftRowConnection  = EditorGUILayout.IntField("Left Row Connection", TargetArea.m_LeftRowConnection);
         TargetArea.m_RightRowConnection = EditorGUILayout.IntField("Right Row Connection", TargetArea.m_RightRowConnection);
         EditorGUILayout.EndToggleGroup();
-
-        /*
-        Rect AreaDescriptorDropBox = GUILayoutUtility.GetRect(50f, 50f);
-        GUI.Box(AreaDescriptorDropBox, "Area Description");
-
-        Event CurEvent = Event.current;
-        switch (CurEvent.type)
-        {
-            case EventType.DragUpdated:
-            case EventType.DragPerform:
-                {
-                    if (!AreaDescriptorDropBox.Contains(CurEvent.mousePosition))
-                    {
-                        break;
-                    }
-
-                    DragAndDrop.visualMode = DragAndDropVisualMode.Copy;
-                    if (CurEvent.type == EventType.DragPerform)
-                    {
-                        DragAndDrop.AcceptDrag();
-
-                        foreach (Object DraggedObject in DragAndDrop.objectReferences)
-                        {
-                            AreaDescriptor DraggedAreaDescriptor = DraggedObject as AreaDescriptor;
-                            if (DraggedAreaDescriptor == null)
-                            {
-                                continue;
-                            }
-
-                            TargetArea.m_AreaDescription = DraggedAreaDescriptor;
-                            break;
-                        }
-                    }
-                }
-                break;
-        }
-        */
     }
 }
 

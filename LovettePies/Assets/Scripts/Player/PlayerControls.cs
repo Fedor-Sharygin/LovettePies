@@ -406,6 +406,17 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
                 },
                 {
                     ""name"": """",
+                    ""id"": ""fae7221e-85ae-43fd-b730-54fb4b94c79c"",
+                    ""path"": ""<Gamepad>/leftTrigger"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Basic Press"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
                     ""id"": ""59c81f76-75d0-4ac4-8f4f-f943860fff16"",
                     ""path"": ""<Gamepad>/leftStick"",
                     ""interactions"": """",
@@ -504,6 +515,15 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Navigate Levels"",
+                    ""type"": ""Value"",
+                    ""id"": ""06762d03-2ae5-4aca-bb92-c16db934e0b5"",
+                    ""expectedControlType"": ""Axis"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": true
                 }
             ],
             ""bindings"": [
@@ -528,6 +548,39 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
                     ""action"": ""Subtract Ingredients"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""Numpad Navigation [Keyboard]"",
+                    ""id"": ""d4fca01d-85ee-4f00-a201-9288eb0a9fef"",
+                    ""path"": ""1DAxis"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Navigate Levels"",
+                    ""isComposite"": true,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""negative"",
+                    ""id"": ""7ef18f7d-9044-44b1-b874-be92f064803a"",
+                    ""path"": ""<Keyboard>/numpadDivide"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Navigate Levels"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""positive"",
+                    ""id"": ""8c36fddd-8cb9-47f3-b886-e613137f8b27"",
+                    ""path"": ""<Keyboard>/numpadMultiply"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Navigate Levels"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
                 }
             ]
         },
@@ -1358,6 +1411,7 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
         m_DebugControls = asset.FindActionMap("Debug Controls", throwIfNotFound: true);
         m_DebugControls_AddIngredients = m_DebugControls.FindAction("Add Ingredients", throwIfNotFound: true);
         m_DebugControls_SubtractIngredients = m_DebugControls.FindAction("Subtract Ingredients", throwIfNotFound: true);
+        m_DebugControls_NavigateLevels = m_DebugControls.FindAction("Navigate Levels", throwIfNotFound: true);
         // UI Controls
         m_UIControls = asset.FindActionMap("UI Controls", throwIfNotFound: true);
         m_UIControls_Resume = m_UIControls.FindAction("Resume", throwIfNotFound: true);
@@ -1585,12 +1639,14 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
     private List<IDebugControlsActions> m_DebugControlsActionsCallbackInterfaces = new List<IDebugControlsActions>();
     private readonly InputAction m_DebugControls_AddIngredients;
     private readonly InputAction m_DebugControls_SubtractIngredients;
+    private readonly InputAction m_DebugControls_NavigateLevels;
     public struct DebugControlsActions
     {
         private @PlayerControls m_Wrapper;
         public DebugControlsActions(@PlayerControls wrapper) { m_Wrapper = wrapper; }
         public InputAction @AddIngredients => m_Wrapper.m_DebugControls_AddIngredients;
         public InputAction @SubtractIngredients => m_Wrapper.m_DebugControls_SubtractIngredients;
+        public InputAction @NavigateLevels => m_Wrapper.m_DebugControls_NavigateLevels;
         public InputActionMap Get() { return m_Wrapper.m_DebugControls; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -1606,6 +1662,9 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
             @SubtractIngredients.started += instance.OnSubtractIngredients;
             @SubtractIngredients.performed += instance.OnSubtractIngredients;
             @SubtractIngredients.canceled += instance.OnSubtractIngredients;
+            @NavigateLevels.started += instance.OnNavigateLevels;
+            @NavigateLevels.performed += instance.OnNavigateLevels;
+            @NavigateLevels.canceled += instance.OnNavigateLevels;
         }
 
         private void UnregisterCallbacks(IDebugControlsActions instance)
@@ -1616,6 +1675,9 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
             @SubtractIngredients.started -= instance.OnSubtractIngredients;
             @SubtractIngredients.performed -= instance.OnSubtractIngredients;
             @SubtractIngredients.canceled -= instance.OnSubtractIngredients;
+            @NavigateLevels.started -= instance.OnNavigateLevels;
+            @NavigateLevels.performed -= instance.OnNavigateLevels;
+            @NavigateLevels.canceled -= instance.OnNavigateLevels;
         }
 
         public void RemoveCallbacks(IDebugControlsActions instance)
@@ -1846,6 +1908,7 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
     {
         void OnAddIngredients(InputAction.CallbackContext context);
         void OnSubtractIngredients(InputAction.CallbackContext context);
+        void OnNavigateLevels(InputAction.CallbackContext context);
     }
     public interface IUIControlsActions
     {

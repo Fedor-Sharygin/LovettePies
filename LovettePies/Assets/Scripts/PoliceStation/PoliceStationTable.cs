@@ -89,7 +89,7 @@ public class PoliceStationTable : MinigameHolderBase
 #region Custom PoliceStationTable Editor
 #if UNITY_EDITOR
 
-[CustomEditor(typeof(RestaurantTable))]
+[CustomEditor(typeof(PoliceStationTable))]
 [CanEditMultipleObjects]
 class PoliceStationTableEditor : MinigameHolderEditor
 {

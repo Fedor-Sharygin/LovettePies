@@ -11,7 +11,7 @@ public class GeneralCustomerScript : MonoBehaviour
     {
         m_CellPos = GetComponent<CellElement>();
         m_CustomerInteractable = GetComponent<Interactable>();
-        m_StartingSquare = (m_CellPos.m_CurCellPos, m_CellPos.AreaIdx);
+        m_StartingSquare = (m_CellPos.m_CurCellPos, /*m_CellPos.AreaIdx*/0);
         //StartCoroutine("FindPath");
     }
 
@@ -46,7 +46,7 @@ public class GeneralCustomerScript : MonoBehaviour
     private (Vector2Int, int) m_StartingSquare;
     public void FindPath()
     {
-        while (CellElement.AreaArray.Length == 0) ;
+        //while (Area.CurArea == null) ;
 
         if (m_CurPath != null && m_CurPath.Count != 0)
         {
@@ -58,8 +58,8 @@ public class GeneralCustomerScript : MonoBehaviour
             do
             {
                 CellElement.AStar(
-                    m_CellPos.AreaIdx, m_CellPos.m_CurCellPos,
-                    m_StartingSquare.Item2, m_StartingSquare.Item1,
+                    /*m_CellPos.AreaIdx*/ 0, m_CellPos.m_CurCellPos,
+                    /*m_StartingSquare.Item2*/ 0, m_StartingSquare.Item1,
                     m_CellPos.m_MovementFlag,
                     out m_CurPath);
             } while (m_CurPath == null || m_CurPath.Count == 0);
@@ -81,8 +81,8 @@ public class GeneralCustomerScript : MonoBehaviour
         do
         {
             CellElement.AStar(
-                m_CellPos.AreaIdx, m_CellPos.m_CurCellPos,
-                TargetPlacement.Item1, new Vector2Int(TargetPlacement.Item2.y, TargetPlacement.Item2.x),
+                /*m_CellPos.AreaIdx*/ 0, m_CellPos.m_CurCellPos,
+                /*TargetPlacement.Item1*/ 0, new Vector2Int(TargetPlacement.Item2.y, TargetPlacement.Item2.x),
                 m_CellPos.m_MovementFlag,
                 out m_CurPath);
         } while (m_CurPath == null || m_CurPath.Count == 0);
@@ -119,23 +119,25 @@ public class GeneralCustomerScript : MonoBehaviour
             return;
         }
 
-        if (m_CurPath[m_PathIdx - 1].Item2 != m_CurPath[m_PathIdx].Item2)
-        {
-            if (m_CurPath[m_PathIdx - 1].Item1.x == 0 &&
-                m_CurPath[m_PathIdx - 1].Item1.y == CellElement.AreaArray[m_CellPos.AreaIdx].LeftConnection)
-            {
-                m_CellPos.MoveBy(new Vector2Int(0, -1));
-                m_CustomerInteractable?.MoveToPosition();
-                return;
-            }
-            if (m_CurPath[m_PathIdx - 1].Item1.x == CellElement.AreaArray[m_CellPos.AreaIdx].Columns - 1 &&
-                m_CurPath[m_PathIdx - 1].Item1.y == CellElement.AreaArray[m_CellPos.AreaIdx].RightConnection)
-            {
-                m_CellPos.MoveBy(new Vector2Int(0, 1));
-                m_CustomerInteractable?.MoveToPosition();
-                return;
-            }
-        }
+        //THIS IS A LEFT-OVER FROM WHEN THERE WERE MULTIPLE AREAS
+        //ON A SINGLE MAP => IS NOT REQUIRED AND SHOULD BE REMOVED
+        //if (m_CurPath[m_PathIdx - 1].Item2 != m_CurPath[m_PathIdx].Item2)
+        //{
+        //    if (m_CurPath[m_PathIdx - 1].Item1.x == 0 &&
+        //        m_CurPath[m_PathIdx - 1].Item1.y == CellElement.AreaArray[m_CellPos.AreaIdx].LeftConnection)
+        //    {
+        //        m_CellPos.MoveBy(new Vector2Int(0, -1));
+        //        m_CustomerInteractable?.MoveToPosition();
+        //        return;
+        //    }
+        //    if (m_CurPath[m_PathIdx - 1].Item1.x == CellElement.AreaArray[m_CellPos.AreaIdx].Columns - 1 &&
+        //        m_CurPath[m_PathIdx - 1].Item1.y == CellElement.AreaArray[m_CellPos.AreaIdx].RightConnection)
+        //    {
+        //        m_CellPos.MoveBy(new Vector2Int(0, 1));
+        //        m_CustomerInteractable?.MoveToPosition();
+        //        return;
+        //    }
+        //}
 
         m_CellPos.MoveTo(new Vector2Int(m_CurPath[m_PathIdx].Item1.y, m_CurPath[m_PathIdx].Item1.x));
 
@@ -155,7 +157,7 @@ public class GeneralCustomerScript : MonoBehaviour
     {
         var PosAIdx = m_CurPath[m_PathIdx];
         m_InteractionDirection = GlobalNamespace.GeneralFunctions.GetDirection(m_CellPos.m_CurCellPos, new Vector2Int(PosAIdx.Item1.y, PosAIdx.Item1.x));
-        m_CurrentInteractableSeat = CellElement.AreaArray[m_CellPos.AreaIdx].GetInteractable(PosAIdx.Item1);
+        m_CurrentInteractableSeat = Area.CurArea.GetInteractable(PosAIdx.Item1);
         m_CurrentInteractableSeat.Interact(this, m_InteractionDirection);
         m_PatienceTimer?.Play();
         m_TargetIdx++;

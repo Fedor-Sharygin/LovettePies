@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Newtonsoft.Json;
 
 namespace GlobalNamespace
 {
@@ -120,7 +121,7 @@ namespace GlobalNamespace
     {
         public static T Clone<T>(T p_Object)
         {
-            return JsonUtility.FromJson<T>(JsonUtility.ToJson(p_Object));
+            return JsonConvert.DeserializeObject<T>(JsonConvert.SerializeObject(p_Object));
         }
 
         public static int GetDirection(Vector2 p_From, Vector2 p_To)
@@ -147,6 +148,7 @@ namespace GlobalNamespace
         }
     }
 
+    [System.Flags]
     public enum EnumMovementFlag
     {
         BLOCKS_MOVEMENT     = 1 << 0,

@@ -111,8 +111,39 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a7f9e93e0a271e24f87dc786800b1e22, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_LocalInteractablePrefabList:
+  - Type: 1
+    Prefab: {fileID: 125399934266691207, guid: 466411803342cc0418f38b96f5dff531, type: 3}
+  - Type: 4
+    Prefab: {fileID: 6126390789921155991, guid: ccb7cadcc44f30748bb3ad3efd67129f, type: 3}
+  - Type: 0
+    Prefab: {fileID: 6126390789921155991, guid: 4d2197afc9143c949a8c35267ac55b88, type: 3}
+  - Type: 8
+    Prefab: {fileID: 4524622781982483336, guid: acc935f052c81e94b8121c17a4a47606, type: 3}
+  - Type: 12
+    Prefab: {fileID: 4035385798148266943, guid: c48c913d5cf5b674a81eab464ea87eb1, type: 3}
+  - Type: 14
+    Prefab: {fileID: 6645203237658676307, guid: c61bd8151af042c409b1238580a41d04, type: 3}
+  - Type: 9
+    Prefab: {fileID: 6126390789921155991, guid: f40b314eaaf5fe94fad4f2611c285d84, type: 3}
+  - Type: 7
+    Prefab: {fileID: 6126390789921155991, guid: 4d2197afc9143c949a8c35267ac55b88, type: 3}
+  - Type: 10
+    Prefab: {fileID: 3877984544757960108, guid: 168df72ffcc855847877c0f933669612, type: 3}
+  - Type: 5
+    Prefab: {fileID: 6648168884731170721, guid: 139595ce27bf2644dab5a026eb131e56, type: 3}
+  m_LocalIngredientDescriptorList:
+  - Type: 0
+    IngredientDescriptor: {fileID: 11400000, guid: 958c0f7dfb83fc748b6cc8f0e942add7, type: 2}
+  - Type: 1
+    IngredientDescriptor: {fileID: 11400000, guid: 33f896b26344c7249a913c84b409045e, type: 2}
+  - Type: 2
+    IngredientDescriptor: {fileID: 11400000, guid: 4c5743f8fd3379043b41f777bd9bdce9, type: 2}
+  - Type: 3
+    IngredientDescriptor: {fileID: 11400000, guid: cd297059ce25d76438a24564ac55e854, type: 2}
   m_AreaDescription: {fileID: 0}
   m_AreaIdx: 0
+  m_AreaName: 
   m_OverrideRow: 1
   m_RowsCount: 30
   m_ColumnCount: 20

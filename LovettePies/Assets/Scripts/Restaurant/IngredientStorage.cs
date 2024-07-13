@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using Newtonsoft.Json;
 
 public class IngredientStorage
 {
@@ -48,6 +49,7 @@ public class IngredientStorage
     public List<IngredientCount> m_Ingredients { get; private set; }
     private bool m_Initialized = false;
 
+    [System.Obsolete]
     public void Initialize(string p_JsonDescription)
     {
         if (m_Initialized)
@@ -57,7 +59,7 @@ public class IngredientStorage
 
         //THIS FUNCTION MUST BE CALLED DURING LOADING ROUTINE
         //THE LOADING ROUTINE HOLDS THE JSON DESCRIPTION OF THE SAVE
-        m_Ingredients = new List<IngredientCount>(JsonUtility.FromJson<IngredientCount[]>(p_JsonDescription));
+        m_Ingredients = new List<IngredientCount>(JsonConvert.DeserializeObject<IngredientCount[]>(p_JsonDescription));
         m_Initialized = true;
     }
     public void Initialize(List<IngredientCount> p_Ingredients)

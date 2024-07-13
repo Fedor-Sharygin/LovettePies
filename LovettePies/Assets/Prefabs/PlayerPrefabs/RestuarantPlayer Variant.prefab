@@ -204,8 +204,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_OriginalArea: 0
   m_OriginalPosition: {x: 0, y: 0}
-  m_PlayerInput: {fileID: 0}
-  m_GameMenu: {fileID: 0}
+  m_GameMenuPrefab: {fileID: 561339773385305246, guid: 5c1cc652cab12bf4480c2d98752ce43a, type: 3}
   m_JoystickEffectThreshold: 0.3
   m_DishPos: {fileID: 8989799527712642573}
 --- !u!4 &3239564346657144789 stripped

@@ -15,7 +15,7 @@ public class UpdateMenu : MonoBehaviour
         SetupInput();
 
         //m_CellElem = GetComponent<CellElement>();
-        m_CellElem.AreaIdx = 0;
+        //m_CellElem.AreaIdx = 0;
         //m_CellElem.MoveTo(new Vector2Int(m_StartPos.y, m_StartPos.x));
         m_CellElem.MoveTo(m_StartPos);
 
@@ -173,13 +173,13 @@ public class UpdateMenu : MonoBehaviour
             case int n when n == transform.childCount - 3:
                 {
                     //Remove the object Button
-
+                    Area.CurArea.RemoveElement(m_CellElem);
                 }
                 return;
             case int n when n == transform.childCount - 2:
                 {
                     //Reset the current upgrades Button
-
+                    Area.CurArea.ResetElements();
                 }
                 return;
             case int n when n == transform.childCount - 1:
@@ -195,27 +195,37 @@ public class UpdateMenu : MonoBehaviour
         if ((m_Upgrades[m_CurSelectedChild].m_UpgradeType & UpgradeType.FUNCTION_CALL) != 0x0
             && !string.IsNullOrWhiteSpace(m_Upgrades[m_CurSelectedChild].m_FunctionName))
         {
+            //STORE THE FUNCTION UPGRADE CALLS IN A LIST
             m_Upgrades[m_CurSelectedChild].InvokeFunction();
         }
 
         if ((m_Upgrades[m_CurSelectedChild].m_UpgradeType & UpgradeType.OBJECT_PLACEMENT) != 0x0
             && m_Upgrades[m_CurSelectedChild].m_ObjectToPlace != null)
         {
-            var NewElem = GameObject.Instantiate(m_Upgrades[m_CurSelectedChild].m_ObjectToPlace);
-            if (NewElem == null)
-            {
-                return;
-            }
+            //Need to try and call the Area.ConstructObjectFromDescription() call
+            //instead of instantiating the object ourselves
+            var AD = m_Upgrades[m_CurSelectedChild].m_ObjectDescription;
+            AD.PositionX = m_CellElem.m_CurCellPos.x;
+            AD.PositionY = m_CellElem.m_CurCellPos.y;
+            Area.ConstructObjectFromDescription(AD);
 
-            NewElem.GetComponent<Interactable>().m_StartPos = m_CellElem.m_CurCellPos;
+            //var NewElem = GameObject.Instantiate(m_Upgrades[m_CurSelectedChild].m_ObjectToPlace);
+            //if (NewElem == null)
+            //{
+            //    return;
+            //}
+
+            //NewElem.GetComponent<Interactable>().m_StartPos = new Vector2Int(m_CellElem.m_CurCellPos.y, m_CellElem.m_CurCellPos.x);
         }
 
     }
 
 
+    [SerializeField]
+    private GameObject m_UpgradeHolder;
     private void QuitUpgrade()
     {
-        this.gameObject.SetActive(false);
+        m_UpgradeHolder?.SetActive(false);
     }
     private void QuitUpgrade_Started(InputAction.CallbackContext p_Obj)
     {

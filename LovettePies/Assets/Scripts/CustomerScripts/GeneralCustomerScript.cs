@@ -44,54 +44,68 @@ public class GeneralCustomerScript : MonoBehaviour
     public Interactable.EnumInteractableType[] m_InteractableTargetTypesOrder;
     private int m_TargetIdx = 0;
     private (Vector2Int, int) m_StartingSquare;
-    public void FindPath()
+    public IEnumerator FindPath()
     {
         //while (Area.CurArea == null) ;
 
         if (m_CurPath != null && m_CurPath.Count != 0)
         {
-            return;
+            yield break;
         }
 
         if (m_TargetIdx >= m_InteractableTargetTypesOrder.Length)
         {
-            do
+            while (true)
             {
                 CellElement.AStar(
                     /*m_CellPos.AreaIdx*/ 0, m_CellPos.m_CurCellPos,
                     /*m_StartingSquare.Item2*/ 0, m_StartingSquare.Item1,
                     m_CellPos.m_MovementFlag,
                     out m_CurPath);
-            } while (m_CurPath == null || m_CurPath.Count == 0);
 
-            m_MovementTimer.ResetTimer();
-            m_MovementTimer.Play();
-            m_PathIdx = 0;
-            m_SearchingForPath = false;
-            return;
+                if (m_CurPath == null || m_CurPath.Count == 0)
+                {
+                    m_MovementTimer.ResetTimer();
+                    m_MovementTimer.Play();
+                    m_PathIdx = 0;
+                    m_SearchingForPath = false;
+                    yield break;
+                }
+
+                yield return null;
+            }
         }
-
-        var TargetPlacement = CellElement.FindInteractableByType(m_InteractableTargetTypesOrder[m_TargetIdx], this.tag, m_CellPos.m_MovementFlag);
-
-        if (TargetPlacement.Item1 == -1)
+        else
         {
-            return;
+            var TargetPlacement = CellElement.FindInteractableByType(m_InteractableTargetTypesOrder[m_TargetIdx], this.tag, m_CellPos.m_MovementFlag);
+
+            if (TargetPlacement.Item1 == -1)
+            {
+                yield break;
+            }
+
+            while (true)
+            {
+                CellElement.AStar(
+                    /*m_CellPos.AreaIdx*/ 0, m_CellPos.m_CurCellPos,
+                    /*TargetPlacement.Item1*/ 0, new Vector2Int(TargetPlacement.Item2.y, TargetPlacement.Item2.x),
+                    m_CellPos.m_MovementFlag,
+                    out m_CurPath);
+
+                if (m_CurPath == null || m_CurPath.Count == 0)
+                {
+                    m_CurPath.Add((TargetPlacement.Item3, TargetPlacement.Item1));
+
+                    m_MovementTimer.ResetTimer();
+                    m_MovementTimer.Play();
+                    m_PathIdx = 0;
+                    m_SearchingForPath = false;
+                    yield break;
+                }
+
+                yield return null;
+            }
         }
-
-        do
-        {
-            CellElement.AStar(
-                /*m_CellPos.AreaIdx*/ 0, m_CellPos.m_CurCellPos,
-                /*TargetPlacement.Item1*/ 0, new Vector2Int(TargetPlacement.Item2.y, TargetPlacement.Item2.x),
-                m_CellPos.m_MovementFlag,
-                out m_CurPath);
-        } while (m_CurPath == null || m_CurPath.Count == 0);
-        m_CurPath.Add( (TargetPlacement.Item3, TargetPlacement.Item1) );
-
-        m_MovementTimer.ResetTimer();
-        m_MovementTimer.Play();
-        m_PathIdx = 0;
-        m_SearchingForPath = false;
     }
     public void MoveByPath()
     {

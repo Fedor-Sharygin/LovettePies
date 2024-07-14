@@ -18,7 +18,7 @@ public class PoliceGroupBehavior : MonoBehaviour
         var CrimCustScr = m_CriminalCharacter.GetComponent<GeneralCustomerScript>();
         if (CrimCustScr != null)
         {
-            CrimCustScr.FindPath();
+            //CrimCustScr.FindPath();
             CrimCustScr.SearchForPath();
             //CrimCustScr.LeaveArea();
         }

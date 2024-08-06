@@ -63,7 +63,7 @@ public class GeneralCustomerScript : MonoBehaviour
                     m_CellPos.m_MovementFlag,
                     out m_CurPath);
 
-                if (m_CurPath == null || m_CurPath.Count == 0)
+                if (m_CurPath != null && m_CurPath.Count != 0)
                 {
                     m_MovementTimer.ResetTimer();
                     m_MovementTimer.Play();
@@ -92,7 +92,7 @@ public class GeneralCustomerScript : MonoBehaviour
                     m_CellPos.m_MovementFlag,
                     out m_CurPath);
 
-                if (m_CurPath == null || m_CurPath.Count == 0)
+                if (m_CurPath != null && m_CurPath.Count != 0)
                 {
                     m_CurPath.Add((TargetPlacement.Item3, TargetPlacement.Item1));
 

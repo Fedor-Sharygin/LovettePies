@@ -34,6 +34,7 @@ public class GeneralGameBehavior
             return m_FullPlayerControls;
         }
     }
+    private static Camera m_CurCamera = null;
     public static void Initialize()
     {
         if (m_Initialized)
@@ -51,6 +52,10 @@ public class GeneralGameBehavior
         }
         m_FullPlayerControls.Enable();
 
+        m_CurCamera = Camera.main;
+
+        SceneManager.sceneLoaded += OnSceneLoaded;
+
         GeneralGameBehavior.SwitchState(GameState.MENU_STATE);
 
         
@@ -62,6 +67,29 @@ public class GeneralGameBehavior
         #endif
 
         m_Initialized = true;
+    }
+
+    private static void OnSceneLoaded(Scene p_Scene, LoadSceneMode p_SceneMode)
+    {
+        switch (p_SceneMode)
+        {
+            case LoadSceneMode.Single:
+                {
+                    m_CurCamera = GameObject.FindObjectOfType<Camera>();
+                }
+                break;
+
+            case LoadSceneMode.Additive:
+                {
+
+                }
+                break;
+
+
+            default:
+                { }
+                break;
+        }
     }
 
     private static void OnGameEnd()
@@ -126,6 +154,22 @@ public class GeneralGameBehavior
                 { }
                 break;
         }
+    }
+
+    private static Cinemachine.CinemachineVirtualCamera m_CurVirtualCamera = null;
+    public static void SwitchVirtualCamera(Cinemachine.CinemachineVirtualCamera p_NewVirtualCamera)
+    {
+        if (p_NewVirtualCamera == null)
+        {
+            return;
+        }
+
+        if (m_CurVirtualCamera != null)
+        {
+            m_CurVirtualCamera.gameObject.SetActive(false);
+        }
+        p_NewVirtualCamera.gameObject.SetActive(true);
+        m_CurVirtualCamera = p_NewVirtualCamera;
     }
 
     private static int m_DayCounter = 0;
@@ -200,6 +244,6 @@ public class GeneralGameBehavior
         SceneManager.LoadScene(NextLevelIdx);
     }
 
-#endif
+    #endif
     #endregion
 }

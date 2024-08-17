@@ -34,7 +34,14 @@ public class GeneralGameBehavior
             return m_FullPlayerControls;
         }
     }
-    private static Camera m_CurCamera = null;
+    private static Camera m_MainCamera = null;
+    public static Camera Camera
+    {
+        get
+        {
+            return m_MainCamera;
+        }
+    }
     public static void Initialize()
     {
         if (m_Initialized)
@@ -52,7 +59,8 @@ public class GeneralGameBehavior
         }
         m_FullPlayerControls.Enable();
 
-        m_CurCamera = Camera.main;
+        m_MainCamera = Camera.main;
+        GameObject.DontDestroyOnLoad(m_MainCamera.gameObject);
 
         SceneManager.sceneLoaded += OnSceneLoaded;
 
@@ -71,24 +79,13 @@ public class GeneralGameBehavior
 
     private static void OnSceneLoaded(Scene p_Scene, LoadSceneMode p_SceneMode)
     {
-        switch (p_SceneMode)
+        foreach (var Cam in GameObject.FindObjectsOfType<Camera>())
         {
-            case LoadSceneMode.Single:
-                {
-                    m_CurCamera = GameObject.FindObjectOfType<Camera>();
-                }
-                break;
-
-            case LoadSceneMode.Additive:
-                {
-
-                }
-                break;
-
-
-            default:
-                { }
-                break;
+            if (Cam == m_MainCamera)
+            {
+                continue;
+            }
+            GameObject.DestroyImmediate(Cam.gameObject);
         }
     }
 

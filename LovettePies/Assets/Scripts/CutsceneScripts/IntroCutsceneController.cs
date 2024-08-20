@@ -48,7 +48,7 @@ public class IntroCutsceneController : MonoBehaviour
 
     public void LoadGameplayLevel()
     {
-        SceneManager.LoadSceneAsync("OneAreaNavigationTest", LoadSceneMode.Additive);
+        SceneManager.LoadSceneAsync("IntroGameplay", LoadSceneMode.Additive);
     }
 
     public void UnloadCutsceneLevel()

@@ -3,9 +3,98 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class CutsceneActionController : MonoBehaviour
 {
+    [System.Serializable]
+    public struct ActorResources
+    {
+        [System.Serializable]
+        public struct ImageDescription
+        {
+            public string m_ImageName;
+            public Sprite m_ImageSprite;
+        }
+        [System.Serializable]
+        public struct AnimationDescription
+        {
+            public string m_AnimationName;
+            public Animation m_Animation;
+        }
+
+
+        public string m_Name;
+        public ImageDescription[] m_Images;
+        public AnimationDescription[] m_Animations;
+        public GameObject m_ActorObj;
+        public bool IsEmpty
+        {
+            get
+            {
+                return string.IsNullOrEmpty(m_Name) &&
+                       (m_Images == null     || m_Images.Length == 0) &&
+                       (m_Animations == null || m_Animations.Length == 0);
+            }
+        }
+
+        public Sprite GetSprite(string p_ImageName)
+        {
+            if (string.IsNullOrEmpty(p_ImageName))
+            {
+                return null;
+            }
+
+            foreach (var ID in m_Images)
+            {
+                if (ID.m_ImageName.ToLower() != p_ImageName.ToLower())
+                {
+                    continue;
+                }
+                return ID.m_ImageSprite;
+            }
+            return null;
+        }
+        public Animation GetAnimation(string p_AnimationName)
+        {
+            if (string.IsNullOrEmpty(p_AnimationName))
+            {
+                return null;
+            }
+
+            foreach (var AD in m_Animations)
+            {
+                if (AD.m_AnimationName.ToLower() != p_AnimationName.ToLower())
+                {
+                    continue;
+                }
+                return AD.m_Animation;
+            }
+            return null;
+        }
+    }
+    [SerializeField]
+    private ActorResources[] m_ActorDescriptions;
+    private ActorResources GetActor(string p_ActorName)
+    {
+        if (string.IsNullOrEmpty(p_ActorName))
+        {
+            return new ActorResources();
+        }
+
+        foreach (var AD in m_ActorDescriptions)
+        {
+            if (AD.m_Name.ToLower() != p_ActorName.ToLower())
+            {
+                continue;
+            }
+            return AD;
+        }
+        return new ActorResources();
+    }
+
+
+
     [SerializeField]
     private Animator m_CutsceneAnimator;
 
@@ -15,13 +104,25 @@ public class CutsceneActionController : MonoBehaviour
     public struct CutsceneAction
     {
         //THESE SHOULD NOT CONTAIN COMMAS
-        public string? m_ActorName;
-        public string? m_Image;
-        public string? m_Animation; //loop animation(?)
-        public string? m_ActionFunction; //StartCoroutine use(?)
+        public string m_ActorName; //IF YOU NEED AN ACTION WITHOUT ACTOR USE NAME "GENERAL"
+        public string m_Image;
+        public string m_Animation;
+        public string m_ActionFunction; //StartCoroutine use(?)
 
         //THE ONLY FIELD THAT MIGHT CONTAIN COMMAS
-        public string? m_SpeechText;
+        public string m_SpeechText;
+
+        public bool IsEmpty
+        {
+            get
+            {
+                return string.IsNullOrEmpty(m_ActorName) &&
+                       string.IsNullOrEmpty(m_Image) &&
+                       string.IsNullOrEmpty(m_Animation) &&
+                       string.IsNullOrEmpty(m_ActionFunction) &&
+                       string.IsNullOrEmpty(m_SpeechText);
+            }
+        }
     }
     private List<CutsceneAction> m_CutsceneActionList = new List<CutsceneAction>();
     private int m_ActionIdx = 0;
@@ -106,5 +207,65 @@ public class CutsceneActionController : MonoBehaviour
     public void ResumeCutscene()
     {
         m_CutsceneAnimator.speed = 1;
+    }
+
+
+    [SerializeField]
+    private TMPro.TextMeshProUGUI m_NameText;
+    [SerializeField]
+    private Image m_ImageUI;
+    [SerializeField]
+    private TMPro.TextMeshProUGUI m_SpeechText;
+    private ActorResources m_CurrentActor;
+    public void PlayNextAction()
+    {
+        if (CurrentAction.IsEmpty)
+        {
+            return;
+        }
+
+        var ActRes = GetActor(CurrentAction.m_ActorName);
+        if (!ActRes.IsEmpty)
+        {
+            m_CurrentActor = ActRes;
+        }
+
+        //FEEL FREE TO ADD MORE CASES IF SOME ACTORS NEED TO DO SOMETHING SPECIAL
+        switch(m_CurrentActor.m_Name.ToLower())
+        {
+            case "general":
+                {
+                    //HIDE ALL UI => THIS ACTION IS FOR NO ACTOR
+                }
+                break;
+
+
+            default:
+                {
+                    if (m_NameText != null)
+                    {
+                        m_NameText.text = m_CurrentActor.m_Name;
+                    }
+                    if (m_ImageUI != null && !string.IsNullOrEmpty(CurrentAction.m_Image))
+                    {
+                        m_ImageUI.sprite = m_CurrentActor.GetSprite(CurrentAction.m_Image);
+                    }
+                    if (m_SpeechText != null && !string.IsNullOrEmpty(CurrentAction.m_SpeechText))
+                    {
+                        m_SpeechText.text = CurrentAction.m_SpeechText;
+                    }
+
+                    if (!string.IsNullOrEmpty(CurrentAction.m_ActionFunction))
+                    {
+                        StartCoroutine(CurrentAction.m_ActionFunction);
+                    }
+
+                    if (!string.IsNullOrEmpty(CurrentAction.m_Animation))
+                    {
+                        m_CurrentActor.m_ActorObj.GetComponent<Animator>()?.Play(m_CurrentActor.GetAnimation(CurrentAction.m_Animation).name);
+                    }
+                }
+                break;
+        }
     }
 }
